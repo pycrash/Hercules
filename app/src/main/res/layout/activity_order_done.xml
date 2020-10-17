@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root_profile_creation"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background">
+
+
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottieAnimationView2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/done" />
+
+    <LinearLayout
+        android:id="@+id/password_linear_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/activity_vertical_margin"
+        android:background="@drawable/rectangle_dark"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:padding="@dimen/activity_horizontal_margin"
+            android:textColor="@color/red"
+            android:text="Order ID :"
+            android:textSize="@dimen/modal_text"
+            android:layout_height="wrap_content"
+            />
+        <View
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="1dp"
+            android:layout_gravity="center"/>
+        <TextView
+            android:id="@+id/order_id"
+            android:layout_width="wrap_content"
+            android:padding="@dimen/activity_horizontal_margin"
+            android:textColor="@color/green"
+            android:text="OD12543187"
+            android:textSize="@dimen/modal_text"
+            android:layout_height="wrap_content"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/address_change"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:background="@drawable/rectangle_dark"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:padding="@dimen/activity_vertical_margin"
+            android:textColor="@color/red"
+            android:focusable="true"
+            android:text="Order Status :"
+            android:textSize="@dimen/modal_text"
+            android:layout_height="wrap_content"
+            />
+        <View
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="1dp"
+            android:layout_gravity="center"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:padding="15dp"
+            android:textColor="@color/green"
+            android:text="Pending"
+            android:textSize="@dimen/modal_text"
+            android:layout_height="wrap_content"
+            />
+    </LinearLayout>
+
+
+
+
+
+            <Button
+                android:id="@+id/buttonContinue_login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/activity_vertical_margin"
+                android:enabled="true"
+                android:background="@drawable/button_style"
+                android:text="Continue"
+                android:textAllCaps="true"
+                android:textColor="@color/button_text" />
+
+</LinearLayout>

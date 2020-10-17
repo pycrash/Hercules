@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:orientation="vertical"
+    tools:context=".Home.HomeActivity">
+
+    <ImageView
+        android:id="@+id/back_login"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:src="@drawable/back_arrow"
+        app:tint="@color/text_color" />
+    <TextView
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:id="@+id/phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/page_titles"
+        android:textStyle="bold"
+        android:layout_below="@+id/back_login"
+        android:textColor="@color/text_color"
+        android:text="Your Cart"/>
+    <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/animation_cart"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/phone"
+        android:layout_above="@+id/ashu"
+        android:orientation="vertical">
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/cart_animation"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/no_items" />
+        <TextView
+            android:layout_margin="@dimen/activity_horizontal_margin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/modal_text"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:layout_below="@+id/back_login"
+            android:textColor="@color/text_color"
+            android:text="No Items here"/>
+    </LinearLayout>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_below="@id/phone"
+        android:layout_above="@+id/ashu"
+        android:id="@+id/cart_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <LinearLayout
+        android:background="@color/cardviewColor"
+        android:id="@+id/ashu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            >
+            <TextView
+                android:layout_marginTop="@dimen/standard_margin"
+                android:id="@+id/total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/price"
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/standard_margin"
+                android:layout_marginStart="@dimen/standard_margin"
+                android:layout_marginEnd="@dimen/standard_margin"
+                android:textSize="@dimen/page_titles"
+                android:textColor="@color/red"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/price"
+                android:id="@+id/newTotal"
+                android:layout_gravity="center"
+                android:textStyle="bold"
+                android:textColor="@color/colorAccent"
+                android:textSize="@dimen/page_titles"
+                android:layout_margin="@dimen/standard_margin"/>
+
+
+        </LinearLayout>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/place_order"
+            android:layout_margin="@dimen/activity_vertical_margin"
+            app:cardBackgroundColor="@color/colorPrimaryDark"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+            <TextView
+                android:textAlignment="center"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Place Order"
+                android:textSize="@dimen/page_titles"
+                android:textStyle="bold"
+                android:textColor="@android:color/white"/>
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root_login"
+    android:fitsSystemWindows="true"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SplashScreen.SplashScreen"
+    android:background="@color/background">
+
+    <ImageView
+        android:id="@+id/back_login"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:src="@drawable/back_arrow"
+        app:tint="@color/text_color" />
+
+
+    <TextView
+        android:id="@+id/info_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/page_titles"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+        android:textStyle="bold"
+        android:layout_below="@+id/back_login"
+        android:textColor="@color/text_color"
+        android:text="Confirmation"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/info_login">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+ >
+
+
+            <TextView
+                android:id="@+id/address_text_view"
+                android:layout_width="match_parent"
+                android:layout_below="@+id/info_login"
+                android:padding="@dimen/activity_vertical_margin"
+                android:background="@drawable/rectangle_dark"
+                android:layout_margin="@dimen/activity_vertical_margin"
+                android:textColorHint="#ffffff"
+                android:textColor="@color/text_color"
+                android:text="012B Ashiana Gulmohar Park, Bhiwadi, Rajasthan, Gulmohar"
+                android:textSize="@dimen/modal_text"
+                android:layout_height="wrap_content"
+                 />
+
+
+
+
+
+        <LinearLayout
+            android:id="@+id/password_linear_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/address_text_view"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:background="@drawable/rectangle_dark"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:padding="@dimen/activity_vertical_margin"
+                android:textColor="@color/green"
+                android:text="Total :"
+                android:textSize="@dimen/modal_text"
+                android:layout_height="wrap_content"
+                />
+            <View
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:layout_height="1dp"/>
+            <TextView
+                android:id="@+id/total"
+                android:layout_width="wrap_content"
+                android:padding="@dimen/activity_vertical_margin"
+                android:textColorHint="#ffffff"
+                android:textColor="@color/red"
+                android:text="Rs. 0"
+                android:textAlignment="center"
+                android:textSize="@dimen/modal_text"
+                android:layout_gravity="center"
+                android:layout_height="wrap_content"
+                />
+        </LinearLayout>
+    <LinearLayout
+        android:id="@+id/discount_layout"
+        android:layout_width="match_parent"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/password_linear_layout"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+        android:background="@drawable/rectangle_dark"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:padding="@dimen/activity_vertical_margin"
+            android:textColor="@color/green"
+            android:text="Discount :"
+            android:textSize="@dimen/modal_text"
+            android:layout_height="wrap_content"
+            />
+        <View
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:layout_height="1dp"/>
+        <TextView
+            android:id="@+id/discount"
+            android:layout_width="wrap_content"
+            android:padding="@dimen/activity_vertical_margin"
+            android:textColorHint="#ffffff"
+            android:textColor="@color/red"
+            android:text="Rs. 0"
+            android:textAlignment="center"
+            android:textSize="@dimen/modal_text"
+            android:layout_gravity="center"
+            android:layout_height="wrap_content"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/new_amount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/discount_layout"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+        android:background="@drawable/rectangle_dark"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:padding="@dimen/activity_vertical_margin"
+            android:textColor="@color/green"
+            android:text="New Total :"
+            android:textSize="@dimen/modal_text"
+            android:layout_height="wrap_content"
+            />
+        <View
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:layout_height="1dp"/>
+        <TextView
+            android:id="@+id/new_total"
+            android:layout_width="wrap_content"
+            android:padding="@dimen/activity_vertical_margin"
+            android:textColorHint="#ffffff"
+            android:textColor="@color/red"
+            android:text="Rs. 0"
+            android:textAlignment="center"
+            android:textSize="@dimen/modal_text"
+            android:layout_gravity="center"
+            android:layout_height="wrap_content"
+            />
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/buttonContinue_login"
+        android:layout_below="@+id/new_amount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="@dimen/activity_vertical_margin"
+        android:enabled="true"
+        android:background="@drawable/button_style"
+        android:text="Place Order"
+        android:textAllCaps="true"
+        android:textColor="@color/button_text" />
+</LinearLayout>
+</ScrollView>
+</RelativeLayout>

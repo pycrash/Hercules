@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:orientation="vertical"
+    tools:context=".Home.HomeActivity">
+
+    <ImageView
+        android:id="@+id/back"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:src="@drawable/back_arrow"
+        app:tint="@color/text_color" />
+
+    <TextView
+        android:id="@+id/info_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/page_titles"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+        android:textStyle="bold"
+        android:layout_below="@+id/back"
+        android:textColor="@color/text_color"
+        android:text="Terms and Conditions"/>
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/standard_margin"
+        android:layout_below="@+id/info_login"
+        android:layout_above="@+id/done"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+        app:cardBackgroundColor="@color/cardviewColor"
+        app:cardCornerRadius="@dimen/standard_margin"
+        app:cardElevation="@dimen/cardview_default_elevation">
+
+        <androidx.core.widget.NestedScrollView
+            android:scrollbars="none"
+            android:layout_width="match_parent"
+            android:layout_below="@+id/phone"
+            android:layout_above="@+id/ashu"
+            android:layout_height="wrap_content">
+
+
+
+
+            <TextView
+                android:layout_margin="@dimen/standard_margin"
+                android:textAlignment="viewStart"
+                android:id="@+id/privacy_policy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/standard_margin"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/secondary_text"
+                />
+
+
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_alignParentBottom="true"
+        android:id="@+id/done"
+        android:padding="@dimen/activity_vertical_margin"
+        app:cardBackgroundColor="@color/colorPrimaryDark"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:textAlignment="center"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Done"
+            android:textSize="@dimen/page_titles"
+            android:textStyle="bold"
+            android:padding="@dimen/standard_margin"
+            android:textColor="@android:color/white"/>
+    </androidx.cardview.widget.CardView>
+
+
+
+</RelativeLayout>
