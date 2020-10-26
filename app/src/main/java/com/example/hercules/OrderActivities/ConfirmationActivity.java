@@ -73,10 +73,10 @@ public class ConfirmationActivity extends AppCompatActivity {
         });
 
         Hawk.init(getApplicationContext()).build();
-        address.setText("Name: " + Hawk.get("name") + "\n\n" +
+        address.setText("Company Name: " + Hawk.get("name") + "\n\n" +
+                "Mailing Name: " + Hawk.get("mailingName") +"\n\n" +
                 "Phone: "+Hawk.get("phone") + "\n\n" +
                 "Email: "+Hawk.get("email") + "\n\n" +
-                "Mailing Name: " + Hawk.get("mailingName") +"\n\n" +
                 "Address: " + Hawk.get("address") +"\n\n" +
                 "Pincode: " + Hawk.get("pincode") +"\n\n" +
                 "State: " + Hawk.get("state") +"\n\n" +
@@ -103,7 +103,7 @@ public class ConfirmationActivity extends AppCompatActivity {
 
 
                 String currentDate = DateFormat.getDateInstance(DateFormat.FULL).format(calendar.getTime());
-                String orderID = "OD"+date+Hawk.get("name").toString().trim();
+                String orderID = "OD"+date+Hawk.get("mailingName").toString().trim().replaceAll(" ", "");
 
                 Requests requests = new Requests(
                         orderID,
@@ -127,10 +127,10 @@ public class ConfirmationActivity extends AppCompatActivity {
                 request = database.getReference("Requests").child("New Orders");
                 request.child(orderID).setValue(requests);
 
-                request = database.getReference(Hawk.get("name")).child("Orders");
+                request = database.getReference(Hawk.get("mailingName").toString().replaceAll(" ", "")).child("Orders");
                 request.child(orderID).setValue(requests);
 
-                request = database.getReference(Hawk.get("name")).child("New Orders");
+                request = database.getReference(Hawk.get("mailingName").toString().replaceAll(" ", "")).child("New Orders");
                 request.child(orderID).setValue(requests);
 
                 Toast.makeText(getApplicationContext(), "Order Placed", Toast.LENGTH_SHORT).show();

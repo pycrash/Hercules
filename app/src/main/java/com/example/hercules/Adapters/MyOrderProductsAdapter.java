@@ -25,7 +25,7 @@ import java.util.List;
 
 public class MyOrderProductsAdapter extends RecyclerView.Adapter<MyOrderProductsAdapter.CartViewHolder> {
 
-    private List<Order> listData = new ArrayList<>();
+    private List<Order> listData;
     private Context context;
 
     class CartViewHolder extends RecyclerView.ViewHolder {

@@ -96,7 +96,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         call.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + "9971800270"));
+                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + "9999531838"));
                 startActivity(intent);
             }
         });
@@ -291,19 +291,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         header_phone.setText(phone);
     }
 
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        cart.setCount((int) new Database(getApplicationContext()).count()); // Set the count value to show on badge
 
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        cart.setCount((int) new Database(getApplicationContext()).count()); // Set the count value to show on badge
-
-    }
 
     @Override
     protected void onStart() {

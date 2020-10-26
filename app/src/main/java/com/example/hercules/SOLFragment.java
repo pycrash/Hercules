@@ -131,7 +131,7 @@ public class SOLFragment extends Fragment {
 
     private void loadOrders() {
         Hawk.init(Objects.requireNonNull(getContext())).build();
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference(Hawk.get("name")).child("SOL");
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference(Hawk.get("mailingName").toString().replaceAll(" ", "")).child("SOL");
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

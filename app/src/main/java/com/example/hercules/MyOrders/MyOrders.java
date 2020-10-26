@@ -81,7 +81,7 @@ ProgressBar progressBar;
 
     private void loadOrders() {
 
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference(Hawk.get("name")).child("Orders");
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference(Hawk.get("mailingName").toString().replaceAll(" ", "")).child("Orders");
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

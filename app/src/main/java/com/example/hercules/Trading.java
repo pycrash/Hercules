@@ -1,4 +1,4 @@
-package com.example.hercules;
+    package com.example.hercules;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -63,7 +63,7 @@ public class Trading extends AppCompatActivity {
         });
         Hawk.init(Trading.this).build();
         Dialog dialog;
-        final String[] items = {"Leisure", "SOL"};
+        final String[] items = {"Ledger", "SOL"};
 
 
         itemsSelected = new ArrayList<>();
@@ -147,7 +147,7 @@ public class Trading extends AppCompatActivity {
     private void checkLeisure() {
         ProgressDialog progressDialog;
         progressDialog = new ProgressDialog(Trading.this, R.style.ProgressDialog);
-        progressDialog.setMessage("Requesting Leisure .....");
+        progressDialog.setMessage("Requesting Ledger .....");
         progressDialog.setCancelable(false);
         progressDialog.show();
         DocumentReference phoneCheck = db.collection("Leisure").document(Hawk.get("email"));
@@ -155,7 +155,7 @@ public class Trading extends AppCompatActivity {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 if (documentSnapshot.exists()) {
-                   Toast.makeText(getApplicationContext(), "You have already requested leisure", Toast.LENGTH_SHORT).show();
+                   Toast.makeText(getApplicationContext(), "You have already requested Ledger", Toast.LENGTH_SHORT).show();
                     progressDialog.hide();
                 } else {
                     final Map<String, Object> User = new HashMap<>();
@@ -250,7 +250,7 @@ public class Trading extends AppCompatActivity {
     }
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new LeisureFragment(), "Leisure");
+        adapter.addFragment(new LeisureFragment(), "Ledger");
         adapter.addFragment(new SOLFragment(), "SOL");
 
         viewPager.setAdapter(adapter);

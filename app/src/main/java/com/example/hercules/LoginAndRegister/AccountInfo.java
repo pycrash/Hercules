@@ -31,10 +31,10 @@ public class AccountInfo extends AppCompatActivity {
             }
         });
         Hawk.init(getApplicationContext()).build();
-        textView.setText("Name: " + Hawk.get("name") + "\n\n" +
+        textView.setText("Company Name: " + Hawk.get("name") + "\n\n" +
+                "ID: " + Hawk.get("mailingName") +"\n\n" +
                 "Phone: "+Hawk.get("phone") + "\n\n" +
                 "Email: "+Hawk.get("email") + "\n\n" +
-                "Mailing Name: " + Hawk.get("mailingName") +"\n\n" +
                 "Address: " + Hawk.get("address") +"\n\n" +
                 "Pincode: " + Hawk.get("pincode") +"\n\n" +
                 "State: " + Hawk.get("state") +"\n\n" +

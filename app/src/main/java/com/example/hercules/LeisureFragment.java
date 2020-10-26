@@ -36,7 +36,6 @@ import java.util.Objects;
  */
 public class LeisureFragment extends Fragment {
     RecyclerView recyclerView;
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
     ProgressBar progressBar;
     LinearLayout no_trading;
 
@@ -108,7 +107,7 @@ public class LeisureFragment extends Fragment {
     }
     private void loadOrders() {
         Hawk.init(Objects.requireNonNull(getContext())).build();
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference(Hawk.get("name")).child("Leisure");
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference(Hawk.get("mailingName").toString().replaceAll(" ", "")).child("Leisure");
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

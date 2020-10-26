@@ -8,8 +8,6 @@
     tools:context=".SOLFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_below="@+id/info_login"
-        android:layout_above="@+id/ashu"
         android:id="@+id/recycler_sol"
         android:scrollbars="none"
         android:layout_width="match_parent"
