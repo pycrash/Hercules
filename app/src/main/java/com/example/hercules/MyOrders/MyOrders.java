@@ -20,8 +20,6 @@ import android.widget.ProgressBar;
 import com.airbnb.lottie.LottieAnimationView;
 import com.bumptech.glide.Glide;
 import com.example.hercules.Adapters.MyOrderAdapter;
-import com.example.hercules.Models.MyOrder;
-import com.example.hercules.Models.PendingOrderModel;
 import com.example.hercules.Models.Requests;
 import com.example.hercules.OrderActivities.ConfirmationActivity;
 import com.example.hercules.R;
@@ -39,7 +37,7 @@ import java.util.List;
 
 public class MyOrders extends AppCompatActivity {
 RecyclerView recyclerView;
-List<PendingOrderModel> list;
+List<Requests> list;
 MyOrderAdapter adapter;
 ProgressBar progressBar;
     LinearLayout noOrders;
@@ -80,7 +78,7 @@ ProgressBar progressBar;
     }
 
     private void loadOrders() {
-
+        Hawk.init(MyOrders.this).build();
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference(Hawk.get("mailingName").toString().replaceAll(" ", "")).child("Orders");
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -88,7 +86,7 @@ ProgressBar progressBar;
                 list.clear();
                 for(DataSnapshot ds : snapshot.getChildren()) {
 
-                    PendingOrderModel requests = ds.getValue(PendingOrderModel.class);
+                    Requests requests = ds.getValue(Requests.class);
                     list.add(requests);
                     adapter = new MyOrderAdapter(MyOrders.this, list);
                     recyclerView.setAdapter(adapter);

@@ -15,9 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.example.hercules.Models.MyOrder;
-import com.example.hercules.Models.PendingOrderModel;
+import com.example.hercules.Models.Requests;
 import com.example.hercules.MyOrders.MyOrders;
 import com.example.hercules.R;
 import com.google.firebase.database.DatabaseReference;
@@ -32,11 +30,11 @@ import java.util.Map;
 
 public class PendingOrderAdapter extends RecyclerView.Adapter<PendingOrderAdapter.MyOrderHolder> {
 
-    List<PendingOrderModel> listData;
+    List<Requests> listData;
     Context context;
     String TAG = "My Orders";
 
-    public PendingOrderAdapter(Context context, List<PendingOrderModel> listData) {
+    public PendingOrderAdapter(Context context, List<Requests> listData) {
         this.listData = listData;
         this.context = context;
     }

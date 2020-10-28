@@ -1,5 +1,6 @@
 package com.example.hercules.MyOrders;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
@@ -7,8 +8,10 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
@@ -16,8 +19,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.hercules.Adapters.MyOrderProductsAdapter;
-import com.example.hercules.Adapters.PendingOrderAdapter;
-import com.example.hercules.Models.PendingOrderModel;
+import com.example.hercules.Models.Requests;
 import com.example.hercules.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -27,12 +29,14 @@ import com.google.firebase.database.ValueEventListener;
 import com.orhanobut.hawk.Hawk;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class DetailedOrdersActivity extends AppCompatActivity {
     public TextView orderid, date,name, contact_name,mailing_name, phone, contact_phone, address,state,
             pincode,discount, amount, new_amount, gstin, email;
-    public CardView done_order;
+    public CardView done_order, cancel_order;
     RecyclerView recyclerView;
     TextView addNotes;
     TextView status;
@@ -51,7 +55,7 @@ public class DetailedOrdersActivity extends AppCompatActivity {
                 finish();
             }
         });
-        PendingOrderModel pendingOrderModel = (PendingOrderModel) getIntent().getSerializableExtra("orderDetails");
+        Requests pendingOrderModel = (Requests) getIntent().getSerializableExtra("orderDetails");
         orderid = findViewById(R.id.new_order_id);
         date = findViewById(R.id.new_order_date);
         name = findViewById(R.id.new_order_name);
@@ -70,9 +74,9 @@ public class DetailedOrdersActivity extends AppCompatActivity {
         done_order = findViewById(R.id.pending_order_done);
         addNotes = findViewById(R.id.pending_order_add_notes);
         recyclerView = findViewById(R.id.new_order_items_recycler_view);
-        email =  findViewById(R.id.new_order_email);
+        email = findViewById(R.id.new_order_email);
         status = findViewById(R.id.pending_order_status);
-
+        cancel_order = findViewById(R.id.cancel_order);
 
 
         orderid.setText(pendingOrderModel.getOrderID());
@@ -88,15 +92,26 @@ public class DetailedOrdersActivity extends AppCompatActivity {
         pincode.setText(pendingOrderModel.getPincode());
         discount.setText(pendingOrderModel.getDiscount());
         amount.setText(pendingOrderModel.getTotal());
-        amount.setPaintFlags(amount.getPaintFlags()| Paint.STRIKE_THRU_TEXT_FLAG);
+        amount.setPaintFlags(amount.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         new_amount.setText(pendingOrderModel.getNewTotal());
         gstin.setText(pendingOrderModel.getGstin());
         addNotes.setText(pendingOrderModel.getNotes());
         status.setText(pendingOrderModel.getStatus());
         addNotes.setText(pendingOrderModel.getNotes());
+
+        if (pendingOrderModel.getStatus().equals("Completed")) {
+            cancel_order.setVisibility(View.GONE);
+            status.setBackgroundColor(ContextCompat.getColor(DetailedOrdersActivity.this, R.color.colorAccent));
+        } else if (pendingOrderModel.getStatus().equals("Cancelled")) {
+            cancel_order.setVisibility(View.GONE);
+            status.setBackgroundColor(ContextCompat.getColor(DetailedOrdersActivity.this, R.color.red));
+        } else {
+            status.setBackgroundColor(ContextCompat.getColor(DetailedOrdersActivity.this, R.color.yellow));
+        }
+
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(DetailedOrdersActivity.this));
-        MyOrderProductsAdapter cartAdapter  = new MyOrderProductsAdapter(pendingOrderModel.getCart(), DetailedOrdersActivity.this);
+        MyOrderProductsAdapter cartAdapter = new MyOrderProductsAdapter(pendingOrderModel.getCart(), DetailedOrdersActivity.this);
         recyclerView.setAdapter(cartAdapter);
         done_order.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,7 +121,80 @@ public class DetailedOrdersActivity extends AppCompatActivity {
 
             }
         });
-    }
+        cancel_order = findViewById(R.id.cancel_order);
+        boolean isCancelled = pendingOrderModel.isCancelled();
+        cancel_order.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (isCancelled) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(DetailedOrdersActivity.this, R.style.MyAlertDialogStyle);
+                    builder.setCancelable(false);
+                    builder.setMessage("You have already requested cancellation for this order. We will let you know once the order is cancelled.");
+                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.dismiss();
+                        }
+                    });
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                } else {
+                    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference(Hawk.get("mailingName").toString().replaceAll(" ", "")).child("Orders")
+                            .child(pendingOrderModel.getOrderID()).child("status");
+                    databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            String status = snapshot.getValue(String.class);
+                            if (status.equals("Pending"))  {
+                                FirebaseDatabase db = FirebaseDatabase.getInstance();
+                                Map<String, Object> user = new HashMap<>();
+                                user.put("cancelled", true);
 
+                                DatabaseReference databaseReference = db.getReference("Requests").child("New Orders").child(orderid.getText().toString());
+                                databaseReference.updateChildren(user);
+                                databaseReference = db.getReference(mailing_name.getText().toString().trim().replaceAll(" ", "")).child("Orders").child(orderid.getText().toString());
+                                databaseReference.updateChildren(user);
+
+                                databaseReference = db.getReference(mailing_name.getText().toString().trim().replaceAll(" ", "")).child("New Orders").child(orderid.getText().toString());
+                                databaseReference.updateChildren(user);
+                               Toast.makeText(DetailedOrdersActivity.this, "Requested for cancellation", Toast.LENGTH_SHORT).show();
+                            } else if (status.equals("Approved")) {
+                                FirebaseDatabase db = FirebaseDatabase.getInstance();
+                                Map<String, Object> user = new HashMap<>();
+                                user.put("cancelled", true);
+
+                                DatabaseReference databaseReference = db.getReference("Requests").child("Pending Orders").child(orderid.getText().toString());
+                                databaseReference.updateChildren(user);
+                                databaseReference = db.getReference(mailing_name.getText().toString().trim().replaceAll(" ", "")).child("Orders").child(orderid.getText().toString());
+                                databaseReference.updateChildren(user);
+
+                                databaseReference = db.getReference(mailing_name.getText().toString().trim().replaceAll(" ", "")).child("Pending Orders").child(orderid.getText().toString());
+                                databaseReference.updateChildren(user);
+                                Toast.makeText(DetailedOrdersActivity.this, "Requested for cancellation", Toast.LENGTH_SHORT).show();
+
+                            } else {
+                                AlertDialog.Builder builder = new AlertDialog.Builder(DetailedOrdersActivity.this, R.style.MyAlertDialogStyle);
+                                builder.setCancelable(false);
+                                builder.setMessage("This order can't be cancelled as this order is already in transit");
+                                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        dialogInterface.dismiss();
+                                    }
+                                });
+                                AlertDialog dialog = builder.create();
+                                dialog.show();
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+                }
+            }
+        });
+    }
 
 }

@@ -18,6 +18,7 @@ import android.content.Intent;
 
 import com.andremion.counterfab.CounterFab;
 import com.example.hercules.Cart.CartActivity;
+import com.example.hercules.CheckActivity;
 import com.example.hercules.Database.Database;
 import com.example.hercules.Information.AboutUsActivity;
 import com.example.hercules.Information.ReturnPolicyActivity;
@@ -43,6 +44,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.example.hercules.R;
@@ -51,6 +53,8 @@ import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 import java.util.List;
+
+
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -62,6 +66,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     NavigationView navigationView;
     private SwitchCompat switcher;
     CounterFab cart;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -289,6 +294,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         TextView header_phone = (TextView) hView.findViewById(R.id.textView_header_phone_no);
         String phone = Hawk.get("phone");
         header_phone.setText(phone);
+
+        Toast.makeText(HomeActivity.this, String.valueOf(Hawk.get("discount", 0)), Toast.LENGTH_LONG).show();
+
     }
 
 

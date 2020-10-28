@@ -11,10 +11,10 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.hercules.Database.Order;
-import com.example.hercules.Models.PendingOrderModel;
 import com.example.hercules.Models.Requests;
 import com.example.hercules.MyOrders.DetailedOrdersActivity;
 import com.example.hercules.R;
@@ -24,11 +24,11 @@ import java.util.List;
 
 public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.MyOrderHolder>  {
 
-    List<PendingOrderModel> listData;
+    List<Requests> listData;
     Context context;
     String TAG = "My Orders";
 
-    public MyOrderAdapter(Context context, List<PendingOrderModel> listData) {
+    public MyOrderAdapter(Context context, List<Requests> listData) {
         this.listData = listData;
         this.context = context;
     }
@@ -91,6 +91,15 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.MyOrderH
                 context.startActivity(intent);
             }
         });
+
+        if (listData.get(position).getStatus().equals("Completed")) {
+            holder.status.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccent));
+        } else if (listData.get(position).getStatus().equals("Cancelled")) {
+            holder.status.setBackgroundColor(ContextCompat.getColor(context, R.color.red));
+        } else {
+            holder.status.setBackgroundColor(ContextCompat.getColor(context, R.color.yellow));
+        }
+
 
     }
 

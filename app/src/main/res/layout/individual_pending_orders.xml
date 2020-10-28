@@ -542,6 +542,24 @@
 
                 </LinearLayout>
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/cancel_order"
+                    android:layout_margin="@dimen/standard_margin"
+                    app:cardBackgroundColor="@color/colorPrimaryDark"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textAlignment="center"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Cancel"
+                        android:textSize="@dimen/modal_text"
+                        android:padding="@dimen/standard_margin"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/white"/>
+                </androidx.cardview.widget.CardView>
+                <androidx.cardview.widget.CardView
                     android:id="@+id/pending_order_done"
                     android:layout_margin="@dimen/standard_margin"
                     app:cardBackgroundColor="@color/colorPrimaryDark"

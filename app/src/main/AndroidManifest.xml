@@ -14,7 +14,8 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SettingsActivity"></activity>
+        <activity android:name=".CheckActivity"></activity>
+        <activity android:name=".SettingsActivity" />
         <activity android:name=".Trading" />
         <activity android:name=".LoginAndRegister.AccountInfo" />
         <activity android:name=".Information.ShippingAndDeliveryPolicyActivity" />

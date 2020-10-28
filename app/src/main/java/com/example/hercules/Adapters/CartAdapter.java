@@ -27,7 +27,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 
     private List<Order> listData = new ArrayList<>();
     private Context context;
-    int totalPrice = 0;
+    double totalPrice = 0;
     private ItemClickListener clickListener;
     boolean removeAnything = false;
     int p;
@@ -154,13 +154,13 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         return listData.size();
     }
 
-    public int grandTotal() {
+    public double grandTotal() {
         for(int i=0; i < listData.size(); i++) {
             totalPrice += listData.get(i).getPrice() * listData.get(i).getQuantity();
         }
         return totalPrice;
     }
-    public int totalChange() {
+    public double totalChange() {
         return totalPrice;
     }
     public void setClickListener(ItemClickListener itemClickListener) {

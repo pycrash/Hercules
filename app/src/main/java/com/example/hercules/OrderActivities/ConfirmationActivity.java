@@ -2,7 +2,12 @@ package com.example.hercules.OrderActivities;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.content.ContextCompat;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -20,6 +25,7 @@ import com.example.hercules.Cart.CartActivity;
 import com.example.hercules.Database.Database;
 import com.example.hercules.Database.Order;
 import com.example.hercules.Models.Requests;
+import com.example.hercules.MyOrders.MyOrders;
 import com.example.hercules.R;
 import com.example.hercules.utils.CheckInternetConnection;
 import com.google.firebase.database.DatabaseReference;
@@ -41,7 +47,7 @@ public class ConfirmationActivity extends AppCompatActivity {
     Button btnContinue;
     ImageView back;
     List<Order> order = new ArrayList<>();
-    int totalAmount;
+    String old_total, new_Total;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference request ;
     TextView discount, newTotal;
@@ -55,13 +61,14 @@ public class ConfirmationActivity extends AppCompatActivity {
         discount = findViewById(R.id.discount);
         newTotal = findViewById(R.id.new_total);
 
-        int d =  Hawk.get("discount", 0);
+        double d =  getIntent().getDoubleExtra("discount", 0);
         Hawk.init(getApplicationContext()).build();
         address = findViewById(R.id.address_text_view);
         total = findViewById(R.id.total);
         btnContinue = findViewById(R.id.buttonContinue_login);
         back = findViewById(R.id.back_login);
-        totalAmount = getIntent().getIntExtra("total", 0);
+        old_total = getIntent().getStringExtra("total");
+        new_Total = getIntent().getStringExtra("newTotal");
         checkInternet();
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,9 +92,9 @@ public class ConfirmationActivity extends AppCompatActivity {
                 "Gstin: " + Hawk.get("gstin") +"\n\n"
         );
 
-        total.setText(getString(R.string.price, String.valueOf(getIntent().getIntExtra("total", 0))));
+        total.setText(old_total);
         discount.setText(d + " %");
-        newTotal.setText(getString(R.string.price, String.format("%.2f", (double) totalAmount * (double) ((double) (100 - (double) d) / 100))));
+        newTotal.setText(new_Total);
 
         btnContinue.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,7 +130,8 @@ public class ConfirmationActivity extends AppCompatActivity {
                         newTotal.getText().toString(),
                         total.getText().toString(),
                         order,
-                        "");
+                        "",
+                        false);
                 request = database.getReference("Requests").child("New Orders");
                 request.child(orderID).setValue(requests);
 
@@ -174,4 +182,5 @@ public class ConfirmationActivity extends AppCompatActivity {
         finish();
         handler.removeCallbacksAndMessages(null);
     }
+
 }
