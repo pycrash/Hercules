@@ -1,13 +1,9 @@
 package com.example.hercules.OrderActivities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NotificationCompat;
-import androidx.core.content.ContextCompat;
 
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -21,17 +17,22 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.hercules.Cart.CartActivity;
 import com.example.hercules.Database.Database;
 import com.example.hercules.Database.Order;
+import com.example.hercules.Models.Common;
+import com.example.hercules.Models.MyResponse;
 import com.example.hercules.Models.Requests;
-import com.example.hercules.MyOrders.MyOrders;
+import com.example.hercules.Models.Sender;
+import com.example.hercules.Models.Token;
 import com.example.hercules.R;
+import com.example.hercules.Remote.APIService;
 import com.example.hercules.utils.CheckInternetConnection;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.orhanobut.hawk.Hawk;
 
 import java.text.DateFormat;
@@ -40,6 +41,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ConfirmationActivity extends AppCompatActivity {
 
@@ -53,6 +58,9 @@ public class ConfirmationActivity extends AppCompatActivity {
     TextView discount, newTotal;
     AlertDialog dialog;
     Handler handler;
+    APIService apiService;
+    private static final String TAG = "ConfirmationActivity";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +68,8 @@ public class ConfirmationActivity extends AppCompatActivity {
 
         discount = findViewById(R.id.discount);
         newTotal = findViewById(R.id.new_total);
+
+        apiService = Common.getFCMService();
 
         double d =  getIntent().getDoubleExtra("discount", 0);
         Hawk.init(getApplicationContext()).build();
@@ -141,8 +151,8 @@ public class ConfirmationActivity extends AppCompatActivity {
                 request = database.getReference(Hawk.get("mailingName").toString().replaceAll(" ", "")).child("New Orders");
                 request.child(orderID).setValue(requests);
 
-                Toast.makeText(getApplicationContext(), "Order Placed", Toast.LENGTH_SHORT).show();
                 new Database(getBaseContext()).cleanCart();
+                sendNotification(orderID);
                 progressDialog.dismiss();
                 Intent intent = new Intent(getApplicationContext(), OrderDoneActivity.class);
                 intent.putExtra("orderid", orderID);
@@ -154,6 +164,55 @@ public class ConfirmationActivity extends AppCompatActivity {
         });
 
     }
+
+    private void sendNotification(String orderID) {
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Tokens");
+        Query data = databaseReference.orderByChild("serverToken").equalTo(true);
+        data.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot postSnapshot : snapshot.getChildren()) {
+                    Token serverToken = postSnapshot.getValue(Token.class);
+                    com.example.hercules.Models.Notification notification = new com.example.hercules.Models.Notification("Hercules", "You have new order : "+ orderID);
+                 Sender content = new Sender(serverToken.getToken(), notification);
+
+//                    Map<String , String> dataSend = new HashMap<>();
+//                    dataSend.put("title", "Hercules");
+//                    dataSend.put("message", "You have new order "+ orderID);
+//                    Sender send = new Sender(serverToken.getToken(), dataSend);
+
+                    apiService.sendNotification(content)
+                            .enqueue(new Callback<MyResponse>() {
+                                @Override
+                                public void onResponse(Call<MyResponse> call, Response<MyResponse> response) {
+                                    if (response.code() == 200) {
+                                    if (response.body().success == 1) {
+                                            Toast.makeText(getApplicationContext(), "Notification sent", Toast.LENGTH_SHORT).show();
+
+                                        } else {
+                                        Toast.makeText(getApplicationContext(), "Failed !!", Toast.LENGTH_SHORT).show();
+
+                                    }
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(Call<MyResponse> call, Throwable t) {
+                                    Log.e(TAG, "onFailure: " + t);
+
+                                }
+                            });
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e(TAG, "onCancelled: " + error);
+
+            }
+        });
+    }
+
     void checkInternet() {
         AlertDialog.Builder mBuilder = new AlertDialog.Builder(ConfirmationActivity.this);
         LayoutInflater inflater = (LayoutInflater) getSystemService( Context.LAYOUT_INFLATER_SERVICE );

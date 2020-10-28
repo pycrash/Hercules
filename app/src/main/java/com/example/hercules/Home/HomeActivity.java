@@ -25,6 +25,7 @@ import com.example.hercules.Information.ReturnPolicyActivity;
 import com.example.hercules.Information.ShippingAndDeliveryPolicyActivity;
 import com.example.hercules.Information.TermsAndConditionsActivity;
 import com.example.hercules.LoginAndRegister.AccountInfo;
+import com.example.hercules.Models.Token;
 import com.example.hercules.MyOrders.MyOrders;
 import com.example.hercules.Information.PrivacyPolicyActivity;
 import com.example.hercules.Products.MassGainerCategory;
@@ -33,6 +34,9 @@ import com.example.hercules.Products.PreWorkoutCategory;
 import com.example.hercules.LoginAndRegister.LoginSlider;
 import com.example.hercules.Products.ProteinsCategory;
 import com.example.hercules.Trading;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.orhanobut.hawk.Hawk;
 
 import android.content.SharedPreferences;
@@ -144,8 +148,16 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         });
 
         setupHeaderView();
+        updateToken(FirebaseInstanceId.getInstance().getToken());
     }
 
+    private void updateToken(String token) {
+        FirebaseDatabase db = FirebaseDatabase.getInstance();
+        DatabaseReference databaseReference = db.getReference("Tokens");
+        Token data = new Token(token, false);
+        Hawk.init(getApplicationContext()).build();
+        databaseReference.child(Hawk.get("phone")).setValue(data);
+    }
 
 
     @Override
@@ -294,8 +306,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         TextView header_phone = (TextView) hView.findViewById(R.id.textView_header_phone_no);
         String phone = Hawk.get("phone");
         header_phone.setText(phone);
-
-        Toast.makeText(HomeActivity.this, String.valueOf(Hawk.get("discount", 0)), Toast.LENGTH_LONG).show();
 
     }
 
