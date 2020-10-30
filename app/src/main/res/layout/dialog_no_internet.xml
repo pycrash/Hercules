@@ -14,7 +14,6 @@
 
         <com.airbnb.lottie.LottieAnimationView
             app:lottie_enableMergePathsForKitKatAndAbove="true"
-            android:id="@+id/lottieAnimationView2"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="3"
@@ -46,7 +45,6 @@
             android:textSize="@dimen/modal_text" />
 
         <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/lottieAnimationView3"
             android:layout_width="match_parent"
             app:lottie_enableMergePathsForKitKatAndAbove="true"
             android:layout_height="0dp"

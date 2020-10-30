@@ -41,7 +41,6 @@
         android:layout_below="@+id/info_login"
         android:layout_height="wrap_content">
     <LinearLayout
-        android:id="@+id/edit"
         android:background="@drawable/rectangle_dark"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

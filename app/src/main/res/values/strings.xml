@@ -1,6 +1,20 @@
 <resources>
     <string name="app_name">Hercules</string>
 
+
+
+    <!-- ****************************** Do not edit ****************************** -->
+    <!-- ****************************** App Control flow strings ****************************** -->
+
+    <!-- ****************************** Shared Prefs ****************************** -->
+    <string name="night_mode_shared_prefs">AppSettingPrefs</string>
+    <string name="night_mode_boolean">NightMode</string>
+
+    <!-- ****************************** User credentials strings ****************************** -->
+    <string name="email">email</string>
+    <string name="name">name</string>
+    <string name="phone">phone</string>
+
     <string name="workout_essentials">Workout Essentials</string>
     <string name="workout_essentials_info">Give an energy boost for your workout sessions</string>
 

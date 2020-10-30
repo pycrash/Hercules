@@ -18,7 +18,6 @@ import android.content.Intent;
 
 import com.andremion.counterfab.CounterFab;
 import com.example.hercules.Cart.CartActivity;
-import com.example.hercules.CheckActivity;
 import com.example.hercules.Database.Database;
 import com.example.hercules.Information.AboutUsActivity;
 import com.example.hercules.Information.ReturnPolicyActivity;
@@ -48,7 +47,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
 import com.example.hercules.R;
@@ -189,7 +187,10 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 public void onClick(DialogInterface dialogInterface, int i) {
 
                     new Database(getBaseContext()).cleanCart();
-
+                    FirebaseDatabase db = FirebaseDatabase.getInstance();
+                    DatabaseReference databaseReference = db.getReference("Tokens");
+                    Hawk.init(getApplicationContext()).build();
+                    databaseReference.child(Hawk.get("phone")).removeValue();
                     Hawk.deleteAll();
                     startActivity(new Intent(HomeActivity.this, LoginSlider.class));
                 }

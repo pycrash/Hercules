@@ -14,34 +14,58 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".CheckActivity"></activity>
-        <activity android:name=".SettingsActivity" />
-        <activity android:name=".Trading" />
-        <activity android:name=".LoginAndRegister.AccountInfo" />
-        <activity android:name=".Information.ShippingAndDeliveryPolicyActivity" />
-        <activity android:name=".Information.TermsAndConditionsActivity" />
-        <activity android:name=".Information.ReturnPolicyActivity" />
-        <activity android:name=".Information.AboutUsActivity" />
-        <activity android:name=".Information.PrivacyPolicyActivity" />
-        <activity android:name=".FullOrderDetails" />
-        <activity android:name=".MyOrders.MyOrders" />
-        <activity android:name=".OrderActivities.OrderDoneActivity" />
-        <activity android:name=".OrderActivities.ConfirmationActivity" />
-        <activity android:name=".Cart.CartActivity" />
-        <activity android:name=".Products.ProductShowcase" />
-        <activity android:name=".MyOrders.DetailedOrdersActivity" />
-        <activity android:name=".Home.HomeActivity" />
-        <activity
-            android:name=".LoginAndRegister.LoginActivity"
-            android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".SplashScreen.SplashScreen">
+
+        <!-- Splash screen -->
+        <!-- Launch Activity is splash screen -->
+        <activity android:name=".SplashScreen.SplashScreen"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginAndRegister.LoginSlider" />
+
+
+        <activity android:name=".CheckActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".SettingsActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Trading"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".LoginAndRegister.AccountInfo"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Information.ShippingAndDeliveryPolicyActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Information.TermsAndConditionsActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Information.ReturnPolicyActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Information.AboutUsActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Information.PrivacyPolicyActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".FullOrderDetails"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".MyOrders.MyOrders"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".OrderActivities.OrderDoneActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".OrderActivities.ConfirmationActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Cart.CartActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Products.ProductShowcase"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".MyOrders.DetailedOrdersActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Home.HomeActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".LoginAndRegister.LoginActivity"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity android:name=".LoginAndRegister.LoginSlider"
+            android:screenOrientation="portrait"/>
 
 
         <service android:name=".Service.MyFirebaseIdService">

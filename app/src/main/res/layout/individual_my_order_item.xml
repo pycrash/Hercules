@@ -104,7 +104,6 @@
                     android:layout_marginBottom="@dimen/less_padding"
                     android:background="@color/text_color"/>
                 <LinearLayout
-                    android:id="@+id/my_order_full_details"
                     android:layout_width="match_parent"
                     android:layout_margin="@dimen/less_padding"
                     android:orientation="vertical"

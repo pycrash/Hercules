@@ -24,21 +24,18 @@
             app:layout_scrollFlags="scroll">
         <RelativeLayout
             android:background="@color/background"
-            android:id="@+id/toolbar_main_activity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
 
 
             <RelativeLayout
-                android:id="@+id/relLayout1"
                 android:background="@color/dark_background"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 >
 
                 <com.google.android.material.appbar.AppBarLayout
-                    android:id="@+id/appbar"
                     android:background="@color/colorPrimaryDark"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -48,8 +45,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:id="@+id/container1">
+                        android:orientation="vertical">
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"

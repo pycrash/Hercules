@@ -2,7 +2,6 @@
 <LinearLayout
     android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/root_profile_creation"
     xmlns:android="http://schemas.android.com/apk/res/android"
 
     android:layout_width="match_parent"
@@ -12,7 +11,6 @@
 
 
     <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/lottieAnimationView2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"

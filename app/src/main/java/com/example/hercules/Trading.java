@@ -15,16 +15,28 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.hercules.Models.Common;
+import com.example.hercules.Models.DataMessage;
+import com.example.hercules.Models.MyResponse;
+import com.example.hercules.Models.Token;
 import com.example.hercules.MyOrders.MyOrders;
+import com.example.hercules.Remote.APIService;
 import com.example.hercules.utils.CheckInternetConnection;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -35,7 +47,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Trading extends AppCompatActivity {
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+    public class Trading extends AppCompatActivity {
     private TabLayout tabLayout;
     private ViewPager viewPager;
     CardView done, request;
@@ -44,6 +60,8 @@ public class Trading extends AppCompatActivity {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     androidx.appcompat.app.AlertDialog dialog;
     Handler handler;
+    APIService apiService;
+    public final static String TAG = "Trading";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -175,7 +193,8 @@ public class Trading extends AppCompatActivity {
                     documentReference.set(User).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
-                            Toast.makeText(getApplicationContext(), "Requested Leisure", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "Requested Ledger", Toast.LENGTH_SHORT).show();
+                            sendNotification( Hawk.get("name"), "Ledger");
                             progressDialog.hide();
 
 
@@ -228,6 +247,7 @@ public class Trading extends AppCompatActivity {
                         @Override
                         public void onSuccess(Void aVoid) {
                             Toast.makeText(getApplicationContext(), "Requested SOL", Toast.LENGTH_SHORT).show();
+                            sendNotification( Hawk.get("name"), "SOL");
                             progressDialog.hide();
 
 
@@ -314,4 +334,57 @@ public class Trading extends AppCompatActivity {
         finish();
         handler.removeCallbacksAndMessages(null);
     }
-}
+        private void sendNotification(String name, String type) {
+            apiService = Common.getFCMService();
+            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Tokens");
+            Query data = databaseReference.orderByChild("serverToken").equalTo(true);
+            data.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    for (DataSnapshot postSnapshot : snapshot.getChildren()) {
+                        Token serverToken = postSnapshot.getValue(Token.class);
+
+//                 com.example.hercules.Models.Notification notification = new com.example.hercules.Models.Notification("Hercules", "You have new order : "+ orderID);
+//                 Sender content = new Sender(serverToken.getToken(), notification);
+
+
+                        Map<String, String> dataSend = new HashMap<>();
+                        dataSend.put("title", type + " Requests");
+                        dataSend.put("message",  name + " has requested for " + type);
+                        assert serverToken != null;
+                        DataMessage content = new DataMessage(serverToken.getToken(), dataSend);
+//                    Sender send = new Sender(serverToken.getToken(), dataSend);
+
+                        apiService.sendNotification(content)
+                                .enqueue(new Callback<MyResponse>() {
+                                    @Override
+                                    public void onResponse(@NonNull Call<MyResponse> call, @NonNull Response<MyResponse> response) {
+                                        if (response.code() == 200) {
+                                            assert response.body() != null;
+                                            if (response.body().success == 1) {
+//                                            Toast.makeText(getApplicationContext(), "Notification sent", Toast.LENGTH_SHORT).show();
+                                                Log.d(TAG, "onResponse: Notification sent");
+                                            } else {
+//                                        Toast.makeText(getApplicationContext(), "Failed !!", Toast.LENGTH_SHORT).show();
+                                                Log.d(TAG, "onResponse: Failed to send notification");
+                                            }
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(@NonNull Call<MyResponse> call,@NonNull Throwable t) {
+                                        Log.e(TAG, "onFailure: API service failed with the following throwable " + t);
+
+                                    }
+                                });
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Log.e(TAG, "onCancelled: sending notification failed " + error);
+                }
+            });
+        }
+
+    }

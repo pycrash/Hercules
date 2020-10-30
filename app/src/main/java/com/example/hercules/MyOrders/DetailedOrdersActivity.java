@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -19,12 +20,18 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.hercules.Adapters.MyOrderProductsAdapter;
+import com.example.hercules.Models.Common;
+import com.example.hercules.Models.DataMessage;
+import com.example.hercules.Models.MyResponse;
 import com.example.hercules.Models.Requests;
+import com.example.hercules.Models.Token;
 import com.example.hercules.R;
+import com.example.hercules.Remote.APIService;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.orhanobut.hawk.Hawk;
 
@@ -33,6 +40,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class DetailedOrdersActivity extends AppCompatActivity {
     public TextView orderid, date,name, contact_name,mailing_name, phone, contact_phone, address,state,
             pincode,discount, amount, new_amount, gstin, email;
@@ -40,6 +51,9 @@ public class DetailedOrdersActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     TextView addNotes;
     TextView status;
+    APIService apiService;
+    public static final String TAG = "DetailedOrdersActivity";
+    Requests pendingOrderModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +69,7 @@ public class DetailedOrdersActivity extends AppCompatActivity {
                 finish();
             }
         });
-        Requests pendingOrderModel = (Requests) getIntent().getSerializableExtra("orderDetails");
+        pendingOrderModel = (Requests) getIntent().getSerializableExtra("orderDetails");
         orderid = findViewById(R.id.new_order_id);
         date = findViewById(R.id.new_order_date);
         name = findViewById(R.id.new_order_name);
@@ -157,6 +171,7 @@ public class DetailedOrdersActivity extends AppCompatActivity {
 
                                 databaseReference = db.getReference(mailing_name.getText().toString().trim().replaceAll(" ", "")).child("New Orders").child(orderid.getText().toString());
                                 databaseReference.updateChildren(user);
+                                sendNotification();
                                Toast.makeText(DetailedOrdersActivity.this, "Requested for cancellation", Toast.LENGTH_SHORT).show();
                             } else if (status.equals("Approved")) {
                                 FirebaseDatabase db = FirebaseDatabase.getInstance();
@@ -170,6 +185,7 @@ public class DetailedOrdersActivity extends AppCompatActivity {
 
                                 databaseReference = db.getReference(mailing_name.getText().toString().trim().replaceAll(" ", "")).child("Pending Orders").child(orderid.getText().toString());
                                 databaseReference.updateChildren(user);
+                                sendNotification();
                                 Toast.makeText(DetailedOrdersActivity.this, "Requested for cancellation", Toast.LENGTH_SHORT).show();
 
                             } else {
@@ -193,6 +209,58 @@ public class DetailedOrdersActivity extends AppCompatActivity {
                         }
                     });
                 }
+            }
+        });
+    }
+    private void sendNotification() {
+        apiService = Common.getFCMService();
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Tokens");
+        Query data = databaseReference.orderByChild("serverToken").equalTo(true);
+        data.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot postSnapshot : snapshot.getChildren()) {
+                    Token serverToken = postSnapshot.getValue(Token.class);
+
+//                 com.example.hercules.Models.Notification notification = new com.example.hercules.Models.Notification("Hercules", "You have new order : "+ orderID);
+//                 Sender content = new Sender(serverToken.getToken(), notification);
+
+
+                    Map<String, String> dataSend = new HashMap<>();
+                    dataSend.put("title", "Cancel Order " + pendingOrderModel.getOrderID());
+                    dataSend.put("message", pendingOrderModel.getName() + "has requested to cancel the order");
+                    assert serverToken != null;
+                    DataMessage content = new DataMessage(serverToken.getToken(), dataSend);
+//                    Sender send = new Sender(serverToken.getToken(), dataSend);
+
+                    apiService.sendNotification(content)
+                            .enqueue(new Callback<MyResponse>() {
+                                @Override
+                                public void onResponse(@NonNull Call<MyResponse> call, @NonNull Response<MyResponse> response) {
+                                    if (response.code() == 200) {
+                                        assert response.body() != null;
+                                        if (response.body().success == 1) {
+//                                            Toast.makeText(getApplicationContext(), "Notification sent", Toast.LENGTH_SHORT).show();
+                                            Log.d(TAG, "onResponse: Notification sent");
+                                        } else {
+//                                        Toast.makeText(getApplicationContext(), "Failed !!", Toast.LENGTH_SHORT).show();
+                                            Log.d(TAG, "onResponse: Failed to send notification");
+                                        }
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(@NonNull Call<MyResponse> call,@NonNull Throwable t) {
+                                    Log.e(TAG, "onFailure: API service failed with the following throwable " + t);
+
+                                }
+                            });
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e(TAG, "onCancelled: sending notification failed " + error);
             }
         });
     }

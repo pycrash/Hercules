@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.example.hercules.Database.Database;
 import com.example.hercules.Database.Order;
 import com.example.hercules.Models.Common;
+import com.example.hercules.Models.DataMessage;
 import com.example.hercules.Models.MyResponse;
 import com.example.hercules.Models.Requests;
 import com.example.hercules.Models.Sender;
@@ -40,7 +41,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -54,7 +57,7 @@ public class ConfirmationActivity extends AppCompatActivity {
     List<Order> order = new ArrayList<>();
     String old_total, new_Total;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference request ;
+    DatabaseReference request;
     TextView discount, newTotal;
     AlertDialog dialog;
     Handler handler;
@@ -71,7 +74,7 @@ public class ConfirmationActivity extends AppCompatActivity {
 
         apiService = Common.getFCMService();
 
-        double d =  getIntent().getDoubleExtra("discount", 0);
+        double d = getIntent().getDoubleExtra("discount", 0);
         Hawk.init(getApplicationContext()).build();
         address = findViewById(R.id.address_text_view);
         total = findViewById(R.id.total);
@@ -91,15 +94,15 @@ public class ConfirmationActivity extends AppCompatActivity {
 
         Hawk.init(getApplicationContext()).build();
         address.setText("Company Name: " + Hawk.get("name") + "\n\n" +
-                "Mailing Name: " + Hawk.get("mailingName") +"\n\n" +
-                "Phone: "+Hawk.get("phone") + "\n\n" +
-                "Email: "+Hawk.get("email") + "\n\n" +
-                "Address: " + Hawk.get("address") +"\n\n" +
-                "Pincode: " + Hawk.get("pincode") +"\n\n" +
-                "State: " + Hawk.get("state") +"\n\n" +
-                "Contact Name: " + Hawk.get("contactName") +"\n\n" +
-                "Contact Number: " + Hawk.get("contactNumber") +"\n\n" +
-                "Gstin: " + Hawk.get("gstin") +"\n\n"
+                "Mailing Name: " + Hawk.get("mailingName") + "\n\n" +
+                "Phone: " + Hawk.get("phone") + "\n\n" +
+                "Email: " + Hawk.get("email") + "\n\n" +
+                "Address: " + Hawk.get("address") + "\n\n" +
+                "Pincode: " + Hawk.get("pincode") + "\n\n" +
+                "State: " + Hawk.get("state") + "\n\n" +
+                "Contact Name: " + Hawk.get("contactName") + "\n\n" +
+                "Contact Number: " + Hawk.get("contactNumber") + "\n\n" +
+                "Gstin: " + Hawk.get("gstin") + "\n\n"
         );
 
         total.setText(old_total);
@@ -120,7 +123,7 @@ public class ConfirmationActivity extends AppCompatActivity {
 
 
                 String currentDate = DateFormat.getDateInstance(DateFormat.FULL).format(calendar.getTime());
-                String orderID = "OD"+date+Hawk.get("mailingName").toString().trim().replaceAll(" ", "");
+                String orderID = "OD" + date + Hawk.get("mailingName").toString().trim().replaceAll(" ", "");
 
                 Requests requests = new Requests(
                         orderID,
@@ -158,7 +161,7 @@ public class ConfirmationActivity extends AppCompatActivity {
                 intent.putExtra("orderid", orderID);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
-                overridePendingTransition(R.anim.zoom_in, R.anim.fadeout);
+                overridePendingTransition(R.anim.fadein, R.anim.fadeout);
                 finish();
             }
         });
@@ -173,32 +176,37 @@ public class ConfirmationActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot postSnapshot : snapshot.getChildren()) {
                     Token serverToken = postSnapshot.getValue(Token.class);
-                    com.example.hercules.Models.Notification notification = new com.example.hercules.Models.Notification("Hercules", "You have new order : "+ orderID);
-                 Sender content = new Sender(serverToken.getToken(), notification);
 
-//                    Map<String , String> dataSend = new HashMap<>();
-//                    dataSend.put("title", "Hercules");
-//                    dataSend.put("message", "You have new order "+ orderID);
+//                 com.example.hercules.Models.Notification notification = new com.example.hercules.Models.Notification("Hercules", "You have new order : "+ orderID);
+//                 Sender content = new Sender(serverToken.getToken(), notification);
+
+
+                    Map<String, String> dataSend = new HashMap<>();
+                    dataSend.put("title", "New Order");
+                    dataSend.put("message", "You have got a new order : " + orderID);
+                    assert serverToken != null;
+                    DataMessage content = new DataMessage(serverToken.getToken(), dataSend);
 //                    Sender send = new Sender(serverToken.getToken(), dataSend);
 
                     apiService.sendNotification(content)
                             .enqueue(new Callback<MyResponse>() {
                                 @Override
-                                public void onResponse(Call<MyResponse> call, Response<MyResponse> response) {
+                                public void onResponse(@NonNull Call<MyResponse> call,@NonNull Response<MyResponse> response) {
                                     if (response.code() == 200) {
-                                    if (response.body().success == 1) {
-                                            Toast.makeText(getApplicationContext(), "Notification sent", Toast.LENGTH_SHORT).show();
-
+                                        assert response.body() != null;
+                                        if (response.body().success == 1) {
+//                                            Toast.makeText(getApplicationContext(), "Notification sent", Toast.LENGTH_SHORT).show();
+                                            Log.d(TAG, "onResponse: Notification sent");
                                         } else {
-                                        Toast.makeText(getApplicationContext(), "Failed !!", Toast.LENGTH_SHORT).show();
-
-                                    }
+//                                        Toast.makeText(getApplicationContext(), "Failed !!", Toast.LENGTH_SHORT).show();
+                                            Log.d(TAG, "onResponse: Failed to send notification");
+                                        }
                                     }
                                 }
 
                                 @Override
-                                public void onFailure(Call<MyResponse> call, Throwable t) {
-                                    Log.e(TAG, "onFailure: " + t);
+                                public void onFailure(@NonNull Call<MyResponse> call,@NonNull Throwable t) {
+                                    Log.e(TAG, "onFailure: API service failed with the following throwable " + t);
 
                                 }
                             });
@@ -207,20 +215,19 @@ public class ConfirmationActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Log.e(TAG, "onCancelled: " + error);
-
+                Log.e(TAG, "onCancelled: sending notification failed " + error);
             }
         });
     }
 
     void checkInternet() {
         AlertDialog.Builder mBuilder = new AlertDialog.Builder(ConfirmationActivity.this);
-        LayoutInflater inflater = (LayoutInflater) getSystemService( Context.LAYOUT_INFLATER_SERVICE );
+        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View mView = inflater.inflate(R.layout.dialog_no_internet, null);
         mBuilder.setView(mView);
         mBuilder.setCancelable(false);
         dialog = mBuilder.create();
-         handler = new Handler();
+        handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
