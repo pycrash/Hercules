@@ -1,4 +1,4 @@
-package com.example.hercules.LoginSliderUtils;
+package com.example.hercules.utils.LoginSliderUtils;
 
 import androidx.arch.core.util.Function;
 import androidx.lifecycle.LiveData;

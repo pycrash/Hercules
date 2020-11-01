@@ -1,4 +1,4 @@
-package com.example.hercules.LoginSliderUtils;
+package com.example.hercules.utils.LoginSliderUtils;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;

@@ -1,4 +1,4 @@
-package com.example.hercules.LoginSliderUtils;
+package com.example.hercules.utils.LoginSliderUtils;
 
 import android.content.Context;
 import android.os.Handler;

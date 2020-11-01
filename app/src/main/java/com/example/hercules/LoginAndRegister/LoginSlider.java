@@ -7,8 +7,8 @@ import android.os.Bundle;
 
 import com.example.hercules.Information.PrivacyPolicyActivity;
 import com.example.hercules.Information.TermsAndConditionsActivity;
-import com.example.hercules.LoginSliderUtils.AutoScrollPagerAdapter;
-import com.example.hercules.LoginSliderUtils.AutoScrollViewPager;
+import com.example.hercules.utils.LoginSliderUtils.AutoScrollPagerAdapter;
+import com.example.hercules.utils.LoginSliderUtils.AutoScrollViewPager;
 
 import android.text.SpannableStringBuilder;
 import android.text.method.LinkMovementMethod;

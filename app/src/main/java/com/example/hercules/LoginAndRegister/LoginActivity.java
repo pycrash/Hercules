@@ -14,7 +14,6 @@ import android.graphics.PorterDuffColorFilter;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Looper;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -31,7 +30,7 @@ import android.widget.Toast;
 
 import com.example.hercules.Home.HomeActivity;
 import com.example.hercules.R;
-import com.example.hercules.utils.CheckInternetConnection;
+import com.example.hercules.utils.InternetUtils.CheckInternetConnection;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.Snackbar;
@@ -40,8 +39,6 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.orhanobut.hawk.Hawk;
-
-import java.util.Objects;
 
 public class LoginActivity extends AppCompatActivity {
     RelativeLayout root;

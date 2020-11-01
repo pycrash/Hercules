@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- System colors -->
     <color name="colorPrimary">#23A7d8</color>
     <color name="colorPrimaryDark">@color/colorPrimaryVariant</color>
     <color name="colorAccent">#4CAF50</color>
-
-    <color name="background">#2d2d2d</color>
     <color name="colorPrimaryVariant">#4bb6ef</color>
 
-
+    <!-- Views colors -->
+    <color name="background">#2d2d2d</color>
     <color name="navigation_tile_color">@color/dark_background</color>
     <color name="product_individual">@color/dark_background</color>
     <color name="button_text">#000000</color>
@@ -16,15 +16,14 @@
     <color name="cardviewColor">#FF424242</color>
 
 
+    <!-- Colors -->
     <color name="white">#ffffff</color>
     <color name="red">#F44336</color>
     <color name="transparent">#0000ffff</color>
     <color name="grey">#D3D3D3</color>
     <color name="green">#4CAF50</color>
     <color name="dark_background">#FF424242</color>
-
     <color name="yellow">#C0CA33</color>
-
 
 
 </resources>

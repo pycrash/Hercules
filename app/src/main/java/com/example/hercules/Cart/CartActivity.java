@@ -17,10 +17,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.hercules.Adapters.CartAdapter;
-import com.example.hercules.CheckActivity;
 import com.example.hercules.Home.HomeActivity;
 import com.example.hercules.LoginAndRegister.LoginSlider;
 import com.example.hercules.OrderActivities.ConfirmationActivity;
@@ -33,7 +31,6 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirestoreRegistrar;
 import com.orhanobut.hawk.Hawk;
 
 import java.util.ArrayList;

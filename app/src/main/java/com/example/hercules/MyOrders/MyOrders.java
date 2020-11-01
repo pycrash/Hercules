@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
@@ -17,19 +16,15 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
-import com.airbnb.lottie.LottieAnimationView;
-import com.bumptech.glide.Glide;
 import com.example.hercules.Adapters.MyOrderAdapter;
 import com.example.hercules.Models.Requests;
-import com.example.hercules.OrderActivities.ConfirmationActivity;
 import com.example.hercules.R;
-import com.example.hercules.utils.CheckInternetConnection;
+import com.example.hercules.utils.InternetUtils.CheckInternetConnection;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.orhanobut.hawk.Hawk;
 
 import java.util.ArrayList;

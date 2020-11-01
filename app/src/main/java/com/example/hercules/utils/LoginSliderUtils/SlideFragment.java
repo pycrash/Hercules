@@ -1,4 +1,4 @@
-package com.example.hercules.LoginSliderUtils;
+package com.example.hercules.utils.LoginSliderUtils;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

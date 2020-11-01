@@ -9,8 +9,8 @@ import android.util.Log;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
-import com.example.hercules.CheckActivity;
 import com.example.hercules.Constants.Constants;
+import com.example.hercules.Firestore.CheckUserInFireStore;
 import com.example.hercules.LoginAndRegister.LoginSlider;
 import com.example.hercules.R;
 import com.orhanobut.hawk.Hawk;
@@ -84,7 +84,7 @@ public class SplashScreen extends AppCompatActivity {
             if (userLoggedIn) {
                 Log.d(TAG, "launch: hawk contains user credentials");
                 Log.d(TAG, "launch: creating intent for CheckActivity to check the user in Server");
-                intent = new Intent(SplashScreen.this, CheckActivity.class);
+                intent = new Intent(SplashScreen.this, CheckUserInFireStore.class);
             } else {
                 Log.d(TAG, "launch: Hawk doesn't consist anything");
                 Log.d(TAG, "launch: creating intent to login screen");
@@ -94,7 +94,7 @@ public class SplashScreen extends AppCompatActivity {
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             Log.d(TAG, "launch: starting the required activity");
             startActivity(intent);
-            Log.d(TAG, "launch: overriding the pending anmations");
+            Log.d(TAG, "launch: overriding the pending animations");
             overridePendingTransition(R.anim.fadein, R.anim.fadeout);
             Log.d(TAG, "launch: finishing splash screen activity");
             finish();
