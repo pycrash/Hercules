@@ -38,7 +38,7 @@ The User app provides the following functionalities :
 * Create a new Firebase Project and add both business and user app..
 * Make sure to enable Firestore, Realtime database and Firebase Storage.
 * Add a collection named Admin in Firestore in which make a document whose ID is your email. The document fields should be as - name : (your name), email : (your email), password : (your password) as shown in below pic.
-![Product Name Screen Shot][img/ss17.jpg]
+![Home](img/screenshots/ss17.jpg)
 * Login and add Customer under Customers tab.
 * Login in the user app and enjoy.
 
