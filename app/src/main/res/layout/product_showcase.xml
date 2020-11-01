@@ -7,14 +7,13 @@
     android:orientation="vertical"
     android:tag="nested">
 
-
     <ImageView
         android:id="@+id/back_login"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginLeft="@dimen/standard_margin"
-        android:layout_marginRight="@dimen/standard_margin"
         android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_marginRight="@dimen/standard_margin"
         android:layout_marginBottom="@dimen/activity_vertical_margin"
         android:src="@drawable/back_arrow"
         app:tint="@color/text_color" />
@@ -23,8 +22,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/ashu"
-        android:layout_marginBottom="@dimen/standard_margin"
         android:layout_below="@+id/back_login"
+        android:layout_marginBottom="@dimen/standard_margin"
         android:background="@color/background">
 
         <LinearLayout
@@ -40,7 +39,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/standard_margin"
                 android:padding="@dimen/standard_margin"
-                android:text="Hercules Volts Isotonic Drink Organic Pineapple Flavor"
+                android:text="@string/pre1_name"
                 android:textColor="@color/colorPrimary"
                 android:textSize="@dimen/page_titles"
                 android:textStyle="bold" />
@@ -65,310 +64,313 @@
 
             </LinearLayout>
 
+            <TextView
+                android:id="@+id/product_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_margin="@dimen/standard_margin"
+                android:gravity="center"
+                android:tag="nested"
+                android:text="@string/price"
+                android:textColor="@color/green"
+                android:textSize="@dimen/page_titles"
+                android:textStyle="bold" />
 
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/standard_margin"
+                    android:layout_weight="1"
+                    android:padding="@dimen/standard_margin"
+                    android:text="@string/ui_product_id"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/modal_text"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/product_id"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/standard_margin"
+                    android:layout_weight="1"
+                    android:padding="@dimen/standard_margin"
+                    android:text="@string/product_id"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/modal_text" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/standard_margin"
+                    android:layout_weight="1"
+                    android:padding="@dimen/standard_margin"
+                    android:text="@string/ui_servings"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/modal_text"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/product_servings"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/standard_margin"
+                    android:layout_weight="1"
+                    android:padding="@dimen/standard_margin"
+                    android:text="@string/ui_servings"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/modal_text" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/standard_margin"
+                    android:layout_weight="1"
+                    android:padding="@dimen/standard_margin"
+                    android:text="@string/ui_flavour"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/modal_text"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/product_flavour"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/standard_margin"
+                    android:layout_weight="1"
+                    android:padding="@dimen/standard_margin"
+                    android:text="@string/ui_flavour"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/modal_text" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/standard_margin"
+                android:padding="@dimen/standard_margin"
+                android:text="@string/ui_description"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/modal_text"
+                android:textStyle="bold" />
+
+            <com.ms.square.android.expandabletextview.ExpandableTextView xmlns:expandableTextView="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/expand_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                expandableTextView:animDuration="200"
+                expandableTextView:maxCollapsedLines="2">
+
+                <TextView
+                    android:id="@id/expandable_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/standard_margin"
+                    android:layout_marginRight="@dimen/standard_margin"
+                    android:gravity="fill"
+                    android:text="@string/price"
+                    android:textAlignment="gravity"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/modal_text" />
+
+                <ImageButton
+                    android:id="@id/expand_collapse"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|end"
+                    android:background="@android:color/transparent"
+                    android:padding="@dimen/activity_vertical_margin"
+                    android:tint="@color/text_color" />
+
+            </com.ms.square.android.expandabletextview.ExpandableTextView>
+
+            <TextView
+                android:id="@+id/nutrional_facts"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/standard_margin"
+                android:padding="@dimen/standard_margin"
+                android:text="@string/ui_nutritional_facts"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/modal_text"
+                android:textStyle="bold" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/standard_margin"
+                android:layout_marginTop="@dimen/standard_margin"
+                android:layout_marginRight="@dimen/standard_margin"
+                android:layout_marginBottom="@dimen/standard_margin"
+                android:elevation="@dimen/cardview_default_elevation"
+                app:cardBackgroundColor="@color/product_individual"
+                app:cardCornerRadius="10dp">
 
 
-
-                    <TextView
-                        android:id="@+id/product_price"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/standard_margin"
-                        android:layout_gravity="start"
-                        android:gravity="center"
-                        android:tag="nested"
-                        android:text="@string/price"
-                        android:textColor="@color/green"
-                        android:textSize="@dimen/page_titles"
-                        android:textStyle="bold" />
-
-
-
-
-
-
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:orientation="horizontal">
 
                     <LinearLayout
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:padding="4dp">
 
                         <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/standard_margin"
-                            android:layout_weight="1"
-                            android:padding="@dimen/standard_margin"
-                            android:text="Product ID :"
-                            android:textColor="@color/colorPrimary"
-                            android:textSize="@dimen/modal_text"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/product_id"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/standard_margin"
-                            android:layout_weight="1"
-                            android:padding="@dimen/standard_margin"
-                            android:text="Product ID"
-                            android:textColor="@color/text_color"
-                            android:textSize="@dimen/modal_text"
-                            />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/standard_margin"
-                            android:layout_weight="1"
-                            android:padding="@dimen/standard_margin"
-                            android:text="Servings :"
-                            android:textColor="@color/colorPrimary"
-                            android:textSize="@dimen/modal_text"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/product_servings"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/standard_margin"
-                            android:layout_weight="1"
-                            android:padding="@dimen/standard_margin"
-                            android:text="Product Servings"
-                            android:textColor="@color/text_color"
-                            android:textSize="@dimen/modal_text" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/standard_margin"
-                            android:layout_weight="1"
-                            android:padding="@dimen/standard_margin"
-                            android:text="Flavour :"
-                            android:textColor="@color/colorPrimary"
-                            android:textSize="@dimen/modal_text"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/product_flavour"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/standard_margin"
-                            android:layout_weight="1"
-                            android:padding="@dimen/standard_margin"
-                            android:text="Product Flavour"
-                            android:textColor="@color/text_color"
-                            android:textSize="@dimen/modal_text"  />
-                    </LinearLayout>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/standard_margin"
-                        android:padding="@dimen/standard_margin"
-                        android:text="Description"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="@dimen/modal_text"
-                        android:textStyle="bold" />
-                    <com.ms.square.android.expandabletextview.ExpandableTextView
-                        xmlns:expandableTextView="http://schemas.android.com/apk/res-auto"
-                        android:id="@+id/expand_description"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        expandableTextView:animDuration="200"
-                        expandableTextView:maxCollapsedLines="2">
-
-                        <TextView
-                            android:id="@id/expandable_text"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/standard_margin"
-                            android:layout_marginRight="@dimen/standard_margin"
-                            android:gravity="fill"
-                            android:text="@string/price"
-                            android:textAlignment="gravity"
-                            android:textColor="@color/text_color"
-                            android:textSize="@dimen/modal_text" />
-
-                        <ImageButton
-                            android:id="@id/expand_collapse"
+                            android:id="@+id/product_fat"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="right|bottom"
-                            android:background="@android:color/transparent"
-                            android:padding="@dimen/activity_vertical_margin"
-                            android:tint="@color/text_color" />
+                            android:layout_gravity="center"
+                            android:text="@string/pre1_calories"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="@dimen/secondary_text"
+                            android:textStyle="bold" />
 
-                    </com.ms.square.android.expandabletextview.ExpandableTextView>
-
-                    <TextView
-                        android:id="@+id/nutrional_facts"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/standard_margin"
-                        android:padding="@dimen/standard_margin"
-                        android:text="Nutional facts per 100g"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="@dimen/modal_text"
-                        android:textStyle="bold" />
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/standard_margin"
-                        android:layout_marginTop="@dimen/standard_margin"
-                        android:layout_marginRight="@dimen/standard_margin"
-                        android:layout_marginLeft="@dimen/standard_margin"
-                        android:elevation="@dimen/cardview_default_elevation"
-                        app:cardBackgroundColor="@color/product_individual"
-                        app:cardCornerRadius="10dp">
-
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
+                        <TextView
+                            android:id="@+id/textview_fat"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_margin="4dp"
-                            android:orientation="horizontal">
-                            <LinearLayout
-                                android:padding="4dp"
-                                android:layout_width="0dp"
-                                android:layout_weight="1"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical"
-                                >
-                                <TextView
-                                    android:id="@+id/product_fat"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="20"
-                                    android:textStyle="bold"
-                                    android:layout_gravity="center"
-                                    android:textSize="@dimen/secondary_text"
-                                    android:textColor="@color/colorPrimaryDark"/>
-                                <TextView
-                                    android:id="@+id/textview_fat"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Fat"
-                                    android:layout_gravity="center"
-                                    android:textSize="@dimen/small_text"
-                                    android:textColor="@color/text_color"/>
-                            </LinearLayout>
-                            <View
-                                android:layout_width="1dp"
-                                android:layout_height="match_parent"
-                                android:background="@color/text_color"/>
-                            <LinearLayout
-                                android:padding="4dp"
-                                android:layout_width="0dp"
-                                android:layout_weight="1"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical"
-                                >
-                                <TextView
-                                    android:id="@+id/product_carbo"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="20"
-                                    android:textStyle="bold"
-                                    android:layout_gravity="center"
-                                    android:textSize="@dimen/secondary_text"
-                                    android:textColor="@color/colorPrimaryDark"/>
-                                <TextView
-                                    android:id="@+id/textview_carbo"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Carbo"
-                                    android:layout_gravity="center"
-                                    android:textSize="@dimen/small_text"
-                                    android:textColor="@color/text_color"/>
-                            </LinearLayout>
-                            <View
-                                android:layout_width="1dp"
-                                android:layout_height="match_parent"
-                                android:background="@color/text_color"/>
-                            <LinearLayout
-                                android:padding="4dp"
-                                android:layout_width="0dp"
-                                android:layout_weight="1"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical"
-                                >
-                                <TextView
-                                    android:id="@+id/product_proteins"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="20"
-                                    android:textStyle="bold"
-                                    android:layout_gravity="center"
-                                    android:textSize="@dimen/secondary_text"
-                                    android:textColor="@color/colorPrimaryDark"/>
-                                <TextView
-                                    android:id="@+id/textview_protein"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Protein"
-                                    android:layout_gravity="center"
-                                    android:textSize="@dimen/small_text"
-                                    android:textColor="@color/text_color"/>
-                            </LinearLayout>
-                            <View
-                                android:layout_width="1dp"
-                                android:layout_height="match_parent"
-                                android:background="@color/text_color"/>
-                            <LinearLayout
-                                android:padding="4dp"
-                                android:layout_width="0dp"
-                                android:layout_weight="1"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical"
-                                >
-                                <TextView
-                                    android:id="@+id/product_calories"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="20"
-                                    android:textStyle="bold"
-                                    android:layout_gravity="center"
-                                    android:textSize="@dimen/secondary_text"
-                                    android:textColor="@color/colorPrimaryDark"/>
-                                <TextView
-                                    android:id="@+id/textview_calories"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Calories"
-                                    android:layout_gravity="center"
-                                    android:textSize="@dimen/small_text"
-                                    android:textColor="@color/text_color"/>
-                            </LinearLayout>
-                        </LinearLayout>
+                            android:layout_gravity="center"
+                            android:text="@string/ui_fat"
+                            android:textColor="@color/text_color"
+                            android:textSize="@dimen/small_text" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/text_color" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:padding="4dp">
+
+                        <TextView
+                            android:id="@+id/product_carbo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="@string/pre1_calories"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="@dimen/secondary_text"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/textview_carbo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="@string/ui_carbo"
+                            android:textColor="@color/text_color"
+                            android:textSize="@dimen/small_text" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/text_color" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:padding="4dp">
+
+                        <TextView
+                            android:id="@+id/product_proteins"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="@string/pre1_calories"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="@dimen/secondary_text"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/textview_protein"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="@string/ui_protein"
+                            android:textColor="@color/text_color"
+                            android:textSize="@dimen/small_text" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/text_color" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:padding="4dp">
+
+                        <TextView
+                            android:id="@+id/product_calories"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="@string/pre1_calories"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="@dimen/secondary_text"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/textview_calories"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="@string/ui_calories"
+                            android:textColor="@color/text_color"
+                            android:textSize="@dimen/small_text" />
+                    </LinearLayout>
+                </LinearLayout>
 
 
-                    </androidx.cardview.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
         </LinearLayout>
 
     </ScrollView>
+
     <LinearLayout
 
-        android:background="@color/product_individual"
         android:id="@+id/ashu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:background="@color/product_individual"
         android:orientation="vertical">
+
         <LinearLayout
             android:id="@+id/in_cart"
             android:layout_width="match_parent"
@@ -378,80 +380,84 @@
             <TextView
                 android:id="@+id/already_in_your_cart"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:gravity="center"
                 android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/standard_margin"
+                android:layout_marginTop="@dimen/less_padding"
+                android:layout_marginRight="@dimen/standard_margin"
+                android:layout_marginBottom="@dimen/less_padding"
+                android:layout_weight="1"
+                android:backgroundTint="@color/green"
+                android:gravity="center"
+                android:text="@string/item_already_in_cart"
                 android:textColor="@color/red"
                 android:textSize="@dimen/modal_text"
-                android:layout_marginTop="@dimen/less_padding"
-                android:layout_marginBottom="@dimen/less_padding"
-                android:textStyle="bold"
-                android:text="This item is already in your cart !!"
-                android:backgroundTint="@color/green"
-                android:layout_marginRight="@dimen/standard_margin"
-                android:layout_marginLeft="@dimen/standard_margin" />
+                android:textStyle="bold" />
+
             <androidx.cardview.widget.CardView
                 android:id="@+id/go_to_cart"
-                android:layout_margin="@dimen/activity_vertical_margin"
-                app:cardBackgroundColor="@color/colorPrimaryDark"
                 android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/activity_vertical_margin"
                 android:layout_weight="1"
                 android:elevation="@dimen/cardview_default_elevation"
-                app:cardCornerRadius="@dimen/card_view_radius"
-                android:layout_height="wrap_content">
+                app:cardBackgroundColor="@color/colorPrimaryDark"
+                app:cardCornerRadius="@dimen/card_view_radius">
+
                 <TextView
-                    android:textAlignment="center"
-                    android:layout_gravity="center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:padding="@dimen/standard_margin"
-                    android:text="Go to cart"
+                    android:text="@string/go_to_cart"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/white"
                     android:textSize="@dimen/modal_text"
-                    android:textStyle="bold"
-                    android:textColor="@android:color/white"/>
+                    android:textStyle="bold" />
             </androidx.cardview.widget.CardView>
         </LinearLayout>
 
         <LinearLayout
 
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
             <com.cepheuen.elegantnumberbutton.view.ElegantNumberButton
                 android:id="@+id/cart_number"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="40dp"
                 android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/standard_margin"
+                android:layout_marginRight="@dimen/standard_margin"
+                android:layout_weight="1"
                 android:background="@color/green"
                 android:backgroundTint="@color/green"
                 app:backGroundColor="@color/green"
-                app:textColor="@color/white"
-                android:layout_marginRight="@dimen/standard_margin"
-                android:layout_marginLeft="@dimen/standard_margin"
-                app:initialNumber="0"/>
-        <androidx.cardview.widget.CardView
-            android:id="@+id/add_to_cart"
-            android:layout_margin="@dimen/activity_vertical_margin"
-            app:cardBackgroundColor="@color/colorPrimaryDark"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:elevation="@dimen/cardview_default_elevation"
-            app:cardCornerRadius="@dimen/card_view_radius"
-            android:layout_height="wrap_content">
-            <TextView
-                android:textAlignment="center"
-                android:layout_gravity="center"
-                android:layout_width="wrap_content"
+                app:initialNumber="0"
+                app:textColor="@color/white" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/add_to_cart"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/standard_margin"
-                android:text="Add to cart"
-                android:textSize="@dimen/modal_text"
-                android:textStyle="bold"
-                android:textColor="@android:color/white"/>
-        </androidx.cardview.widget.CardView>
-    </LinearLayout>
+                android:layout_margin="@dimen/activity_vertical_margin"
+                android:layout_weight="1"
+                android:elevation="@dimen/cardview_default_elevation"
+                app:cardBackgroundColor="@color/colorPrimaryDark"
+                app:cardCornerRadius="@dimen/card_view_radius">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:padding="@dimen/standard_margin"
+                    android:text="@string/add_to_cart"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/modal_text"
+                    android:textStyle="bold" />
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
     </LinearLayout>
 </RelativeLayout>

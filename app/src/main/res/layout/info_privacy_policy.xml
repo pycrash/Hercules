@@ -28,7 +28,7 @@
         android:textStyle="bold"
         android:layout_below="@+id/back"
         android:textColor="@color/text_color"
-        android:text="Privacy Policy"/>
+        android:text="@string/ui_privacy_policy"/>
 
 
             <androidx.cardview.widget.CardView
@@ -83,7 +83,7 @@
                 android:layout_gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Done"
+                android:text="@string/done"
                 android:textSize="@dimen/page_titles"
                 android:textStyle="bold"
                 android:padding="@dimen/standard_margin"

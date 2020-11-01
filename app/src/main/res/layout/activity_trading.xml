@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/root_login"
-    android:fitsSystemWindows="true"
-    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root_login"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SplashScreen.SplashScreen"
-    android:background="@color/background">
+    android:background="@color/background"
+    android:fitsSystemWindows="true"
+    tools:context=".SplashScreen.SplashScreen">
 
     <ImageView
         android:id="@+id/back"
@@ -23,92 +22,94 @@
         android:id="@+id/info_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/page_titles"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:layout_marginBottom="@dimen/activity_vertical_margin"
-        android:layout_marginEnd="@dimen/activity_horizontal_margin"
-        android:textStyle="bold"
         android:layout_below="@+id/back"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:text="@string/ui_trading"
         android:textColor="@color/text_color"
-        android:text="Trading"/>
+        android:textSize="@dimen/page_titles"
+        android:textStyle="bold" />
 
-        <com.google.android.material.tabs.TabLayout
-            app:tabIconTint="@color/light_violet"
-            android:id="@+id/tabs"
-            android:layout_below="@+id/info_login"
-            app:tabMode="fixed"
-            android:background="@color/background"
-            app:tabIndicatorColor="@color/light_violet"
-            app:tabTextColor="@color/text_color"
-            app:tabRippleColor="@color/light_violet"
-            app:tabSelectedTextColor="@color/colorPrimaryDark"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:tabGravity="fill"/>
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/info_login"
+        android:background="@color/background"
+        app:tabGravity="fill"
+        app:tabIconTint="@color/light_violet"
+        app:tabIndicatorColor="@color/light_violet"
+        app:tabMode="fixed"
+        app:tabRippleColor="@color/light_violet"
+        app:tabSelectedTextColor="@color/colorPrimaryDark"
+        app:tabTextColor="@color/text_color" />
 
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/container"
-        android:scrollbars="none"
-        android:layout_above="@+id/ashu"
-        android:layout_below="@id/tabs"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@+id/ashu"
+        android:layout_below="@id/tabs"
+        android:scrollbars="none"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:background="@color/background" />
+
     <LinearLayout
-        android:layout_margin="@dimen/standard_margin"
-        android:background="@color/cardviewColor"
         android:id="@+id/ashu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:layout_margin="@dimen/standard_margin"
+        android:background="@color/cardviewColor"
         android:orientation="horizontal">
 
 
+        <androidx.cardview.widget.CardView
+            android:id="@+id/request"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/less_padding"
+            android:layout_weight="1"
+            android:elevation="@dimen/cardview_default_elevation"
+            android:padding="@dimen/standard_margin"
+            app:cardBackgroundColor="@color/colorPrimaryDark"
+            app:cardCornerRadius="@dimen/card_view_radius">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:padding="@dimen/standard_margin"
+                android:text="@string/request"
+                android:textAlignment="center"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/modal_text"
+                android:textStyle="bold" />
+        </androidx.cardview.widget.CardView>
 
-            <androidx.cardview.widget.CardView
+        <androidx.cardview.widget.CardView
+            android:id="@+id/done"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:elevation="@dimen/cardview_default_elevation"
+            android:padding="@dimen/standard_margin"
+            app:cardBackgroundColor="@color/colorPrimaryDark"
+            app:cardCornerRadius="@dimen/card_view_radius">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:padding="@dimen/standard_margin"
-                android:id="@+id/request"
-                app:cardBackgroundColor="@color/colorPrimaryDark"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_marginRight="@dimen/less_padding"
-                android:elevation="@dimen/cardview_default_elevation"
-                app:cardCornerRadius="@dimen/card_view_radius"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:textAlignment="center"
-                    android:layout_gravity="center"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="@dimen/standard_margin"
-                    android:text="Request"
-                    android:textSize="@dimen/modal_text"
-                    android:textStyle="bold"
-                    android:textColor="@android:color/white"/>
-            </androidx.cardview.widget.CardView>
-            <androidx.cardview.widget.CardView
-                android:padding="@dimen/standard_margin"
-                android:id="@+id/done"
-                app:cardBackgroundColor="@color/colorPrimaryDark"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:elevation="@dimen/cardview_default_elevation"
-                app:cardCornerRadius="@dimen/card_view_radius"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:textAlignment="center"
-                    android:layout_gravity="center"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="@dimen/standard_margin"
-                    android:text="Done"
-                    android:textSize="@dimen/modal_text"
-                    android:textStyle="bold"
-                    android:textColor="@android:color/white"/>
-            </androidx.cardview.widget.CardView>
-        </LinearLayout>
+                android:text="@string/done"
+                android:textAlignment="center"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/modal_text"
+                android:textStyle="bold" />
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
 
 </RelativeLayout>

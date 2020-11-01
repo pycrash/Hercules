@@ -14,6 +14,7 @@ import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.hercules.Database.Order;
 import com.example.hercules.Models.Requests;
 import com.example.hercules.MyOrders.DetailedOrdersActivity;
@@ -22,7 +23,7 @@ import com.example.hercules.R;
 import java.io.Serializable;
 import java.util.List;
 
-public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.MyOrderHolder>  {
+public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.MyOrderHolder> {
 
     List<Requests> listData;
     Context context;
@@ -34,7 +35,7 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.MyOrderH
     }
 
     class MyOrderHolder extends RecyclerView.ViewHolder implements Serializable {
-        public TextView status, id, date,amount, new_amount;
+        public TextView status, id, date, amount, new_amount, cancelText;
         public CardView view_details;
         RecyclerView recyclerView;
 
@@ -49,10 +50,10 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.MyOrderH
             view_details = itemView.findViewById(R.id.my_order_details);
             recyclerView = itemView.findViewById(R.id.my_order_recycler_view);
             new_amount = itemView.findViewById(R.id.my_order_new_price);
+            cancelText = itemView.findViewById(R.id.text_cancellation);
         }
 
     }
-
 
 
     @NonNull
@@ -75,22 +76,25 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.MyOrderH
         holder.status.setText(status);
         holder.date.setText(date);
         holder.amount.setText(amount);
-        holder.amount.setPaintFlags(holder.amount.getPaintFlags()| Paint.STRIKE_THRU_TEXT_FLAG);
+        holder.amount.setPaintFlags(holder.amount.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         holder.new_amount.setText(listData.get(position).getNewTotal());
         holder.recyclerView.setHasFixedSize(true);
         holder.recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
 
-        MyOrderProductsAdapter cartAdapter  = new MyOrderProductsAdapter(listData.get(position).getCart(), context);
+        MyOrderProductsAdapter cartAdapter = new MyOrderProductsAdapter(listData.get(position).getCart(), context);
         holder.recyclerView.setAdapter(cartAdapter);
 
-        holder.view_details.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(context, DetailedOrdersActivity.class);
-                intent.putExtra("orderDetails",  listData.get(position));
-                context.startActivity(intent);
-            }
+        holder.view_details.setOnClickListener(view -> {
+            Intent intent = new Intent(context, DetailedOrdersActivity.class);
+            intent.putExtra("orderDetails", listData.get(position));
+            context.startActivity(intent);
         });
+
+        if (listData.get(position).isCancelled()) {
+            holder.cancelText.setVisibility(View.VISIBLE);
+        } else {
+            holder.cancelText.setVisibility(View.GONE);
+        }
 
         if (listData.get(position).getStatus().equals("Completed")) {
             holder.status.setBackgroundColor(ContextCompat.getColor(context, R.color.colorAccent));

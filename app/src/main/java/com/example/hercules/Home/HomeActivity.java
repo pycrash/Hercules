@@ -1,5 +1,6 @@
 package com.example.hercules.Home;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,7 +33,7 @@ import com.example.hercules.Products.MuscleBuilderCategory;
 import com.example.hercules.Products.PreWorkoutCategory;
 import com.example.hercules.LoginAndRegister.LoginSlider;
 import com.example.hercules.Products.ProteinsCategory;
-import com.example.hercules.Trading;
+import com.example.hercules.Trading.Trading;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -92,20 +93,12 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(HomeActivity.this);
 
-        menu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                drawer.openDrawer(GravityCompat.START);
-            }
-        });
+        menu.setOnClickListener(v -> drawer.openDrawer(GravityCompat.START));
 
         call = findViewById(R.id.call);
-        call.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + "9999531838"));
-                startActivity(intent);
-            }
+        call.setOnClickListener(view -> {
+            Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + "9999531838"));
+            startActivity(intent);
         });
         Menu menu1 = navigationView.getMenu();
         MenuItem menuItem = menu1.findItem(R.id.dark_mode_switch);
@@ -117,32 +110,22 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         switcher = (SwitchCompat) actionView.findViewById(R.id.switcher);
 
-        if (isNightModeOn) {
-            switcher.setChecked(true);
-        } else {
-            switcher.setChecked(false);
-        }
-        switcher.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (switcher.isChecked()) {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                    overridePendingTransition(R.anim.fadeout, R.anim.fadein);
-                    sharedPrefsEdit.putBoolean("NightMode", true);
-                } else {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                    sharedPrefsEdit.putBoolean("NightMode", false);
-                }
-                sharedPrefsEdit.apply();
+        switcher.setChecked(isNightModeOn);
+        switcher.setOnClickListener(v -> {
+            if (switcher.isChecked()) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                overridePendingTransition(R.anim.fadeout, R.anim.fadein);
+                sharedPrefsEdit.putBoolean("NightMode", true);
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                sharedPrefsEdit.putBoolean("NightMode", false);
             }
+            sharedPrefsEdit.apply();
         });
         cart.setCount((int)new Database(getApplicationContext()).count()); // Set the count value to show on badge
-        cart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(HomeActivity.this, CartActivity.class));
-                overridePendingTransition(R.anim.fadein, R.anim.fadeout);
-            }
+        cart.setOnClickListener(view -> {
+            startActivity(new Intent(HomeActivity.this, CartActivity.class));
+            overridePendingTransition(R.anim.fadein, R.anim.fadeout);
         });
 
         setupHeaderView();
@@ -182,24 +165,16 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         if (id == R.id.log_out) {
             AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this, R.style.MyAlertDialogStyle);
             builder.setMessage("Are you sure you want to log out?");
-            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
+            builder.setPositiveButton("OK", (dialogInterface, i) -> {
 
-                    new Database(getBaseContext()).cleanCart();
-                    FirebaseDatabase db = FirebaseDatabase.getInstance();
-                    DatabaseReference databaseReference = db.getReference("Tokens");
-                    Hawk.init(getApplicationContext()).build();
-                    databaseReference.child(Hawk.get("phone")).removeValue();
-                    Hawk.deleteAll();
-                    startActivity(new Intent(HomeActivity.this, LoginSlider.class));
-                }
-            }).setNegativeButton("No", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    dialogInterface.dismiss();
-                }
-            });
+                new Database(getBaseContext()).cleanCart();
+                FirebaseDatabase db = FirebaseDatabase.getInstance();
+                DatabaseReference databaseReference = db.getReference("Tokens");
+                Hawk.init(getApplicationContext()).build();
+                databaseReference.child(Hawk.get("phone")).removeValue();
+                Hawk.deleteAll();
+                startActivity(new Intent(HomeActivity.this, LoginSlider.class));
+            }).setNegativeButton("No", (dialogInterface, i) -> dialogInterface.dismiss());
             AlertDialog dialog = builder.create();
             dialog.show();
 
@@ -273,6 +248,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             super(manager);
         }
 
+        @NonNull
         @Override
         public Fragment getItem(int position) {
             return mFragmentList.get(position);

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/root_login"
-    android:fitsSystemWindows="true"
-    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root_login"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SplashScreen.SplashScreen"
-    android:background="@color/background">
+    android:background="@color/background"
+    android:fitsSystemWindows="true"
+    tools:context=".SplashScreen.SplashScreen">
+
     <ImageView
         android:id="@+id/back"
         android:layout_width="30dp"
@@ -22,159 +22,166 @@
         android:id="@+id/info_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/page_titles"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:layout_marginBottom="@dimen/activity_vertical_margin"
-        android:layout_marginEnd="@dimen/activity_horizontal_margin"
-        android:textStyle="bold"
         android:layout_below="@+id/back"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:text="@string/ui_order_details"
         android:textColor="@color/text_color"
-        android:text="Order Details"/>
+        android:textSize="@dimen/page_titles"
+        android:textStyle="bold" />
+
     <androidx.core.widget.NestedScrollView
-        android:layout_below="@+id/info_login"
-        android:layout_above="@+id/cancel_order"
         android:layout_width="match_parent"
-        android:scrollbars="none"
-        android:layout_marginBottom="@dimen/standard_margin"
-        android:layout_height="match_parent">
-    <LinearLayout
-        android:padding="@dimen/standard_margin"
-        android:layout_width="match_parent"
-        android:layout_below="@id/info_login"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-        <androidx.cardview.widget.CardView
+        android:layout_above="@+id/a1"
+        android:layout_below="@+id/info_login"
+        android:layout_marginBottom="@dimen/standard_margin"
+        android:scrollbars="none">
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="@dimen/standard_margin"
-            android:layout_marginTop="@dimen/standard_margin"
-            android:layout_marginRight="@dimen/standard_margin"
-            android:layout_marginLeft="@dimen/standard_margin"
-            android:elevation="@dimen/cardview_default_elevation"
-            app:cardBackgroundColor="@color/product_individual"
-            app:cardCornerRadius="10dp">
+            android:layout_below="@id/info_login"
+            android:orientation="vertical"
+            android:padding="@dimen/standard_margin">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/standard_margin"
+                android:layout_marginTop="@dimen/standard_margin"
+                android:layout_marginRight="@dimen/standard_margin"
+                android:layout_marginBottom="@dimen/standard_margin"
+                android:elevation="@dimen/cardview_default_elevation"
+                app:cardBackgroundColor="@color/product_individual"
+                app:cardCornerRadius="10dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
+
                     <LinearLayout
-                        android:layout_marginTop="@dimen/standard_margin"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/standard_margin"
+                        android:layout_marginTop="@dimen/standard_margin"
                         android:layout_marginEnd="@dimen/standard_margin"
                         android:orientation="horizontal">
+
                         <TextView
 
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/text_color"
-                            android:fontFamily="monospace"
-                            android:text="Order ID:  "
-                            android:textSize="@dimen/secondary_text"
-                            android:textStyle="bold"
                             android:layout_marginBottom="8dp"
-                            />
+                            android:fontFamily="monospace"
+                            android:text="@string/ui_order_id"
+                            android:textColor="@color/text_color"
+                            android:textSize="@dimen/secondary_text"
+                            android:textStyle="bold" />
+
                         <TextView
                             android:id="@+id/new_order_id"
                             android:layout_width="match_parent"
-                            android:textAlignment="viewEnd"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/text_color"
-                            android:fontFamily="monospace"
                             android:layout_gravity="end"
-                            android:text="Order ID"
-                            android:textSize="@dimen/secondary_text"
                             android:layout_marginBottom="8dp"
-                            />
+                            android:fontFamily="monospace"
+                            android:text="@string/ui_order_id"
+                            android:textAlignment="viewEnd"
+                            android:textColor="@color/text_color"
+                            android:textSize="@dimen/secondary_text" />
                     </LinearLayout>
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/standard_margin"
                         android:layout_marginEnd="@dimen/standard_margin"
                         android:orientation="horizontal">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/text_color"
-                            android:fontFamily="monospace"
-                            android:text="Order Date:  "
-                            android:textSize="@dimen/secondary_text"
-                            android:textStyle="bold"
                             android:layout_marginBottom="8dp"
-                            />
+                            android:fontFamily="monospace"
+                            android:text="@string/ui_order_date"
+                            android:textColor="@color/text_color"
+                            android:textSize="@dimen/secondary_text"
+                            android:textStyle="bold" />
+
                         <TextView
                             android:id="@+id/new_order_date"
                             android:layout_width="match_parent"
-                            android:textAlignment="viewEnd"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/text_color"
-                            android:fontFamily="monospace"
                             android:layout_gravity="end"
-                            android:text="Order Date"
-                            android:textSize="@dimen/secondary_text"
                             android:layout_marginBottom="8dp"
-                            />
+                            android:fontFamily="monospace"
+                            android:text="@string/ui_order_date"
+                            android:textAlignment="viewEnd"
+                            android:textColor="@color/text_color"
+                            android:textSize="@dimen/secondary_text" />
                     </LinearLayout>
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/standard_margin"
                         android:layout_marginEnd="@dimen/standard_margin"
                         android:orientation="horizontal">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/text_color"
-                            android:fontFamily="monospace"
-                            android:text="Name:  "
-                            android:textSize="@dimen/secondary_text"
-                            android:textStyle="bold"
                             android:layout_marginBottom="8dp"
-                            />
+                            android:fontFamily="monospace"
+                            android:text="@string/ui_name"
+                            android:textColor="@color/text_color"
+                            android:textSize="@dimen/secondary_text"
+                            android:textStyle="bold" />
+
                         <TextView
                             android:id="@+id/new_order_name"
                             android:layout_width="match_parent"
-                            android:textAlignment="viewEnd"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/text_color"
-                            android:fontFamily="monospace"
                             android:layout_gravity="end"
-                            android:text="Name"
-                            android:textSize="@dimen/secondary_text"
                             android:layout_marginBottom="8dp"
-                            />
+                            android:fontFamily="monospace"
+                            android:text="@string/name"
+                            android:textAlignment="viewEnd"
+                            android:textColor="@color/text_color"
+                            android:textSize="@dimen/secondary_text" />
                     </LinearLayout>
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/standard_margin"
                         android:layout_marginEnd="@dimen/standard_margin"
                         android:orientation="horizontal">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/text_color"
-                            android:fontFamily="monospace"
-                            android:text="Email:  "
-                            android:textSize="@dimen/secondary_text"
-                            android:textStyle="bold"
                             android:layout_marginBottom="8dp"
-                            />
+                            android:fontFamily="monospace"
+                            android:text="@string/ui_email"
+                            android:textColor="@color/text_color"
+                            android:textSize="@dimen/secondary_text"
+                            android:textStyle="bold" />
+
                         <TextView
                             android:id="@+id/new_order_email"
                             android:layout_width="match_parent"
-                            android:textAlignment="viewEnd"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/text_color"
-                            android:fontFamily="monospace"
                             android:layout_gravity="end"
-                            android:text="Name"
-                            android:textSize="@dimen/secondary_text"
                             android:layout_marginBottom="8dp"
-                            />
+                            android:fontFamily="monospace"
+                            android:text="@string/email"
+                            android:textAlignment="viewEnd"
+                            android:textColor="@color/text_color"
+                            android:textSize="@dimen/secondary_text" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -183,57 +190,28 @@
                         android:layout_marginStart="@dimen/standard_margin"
                         android:layout_marginEnd="@dimen/standard_margin"
                         android:orientation="horizontal">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/text_color"
-                            android:fontFamily="monospace"
-                            android:text="Contact Name:  "
-                            android:textSize="@dimen/secondary_text"
-                            android:textStyle="bold"
                             android:layout_marginBottom="8dp"
-                            />
+                            android:fontFamily="monospace"
+                            android:text="@string/ui_contact_name"
+                            android:textColor="@color/text_color"
+                            android:textSize="@dimen/secondary_text"
+                            android:textStyle="bold" />
+
                         <TextView
                             android:id="@+id/new_order_contact_name"
                             android:layout_width="match_parent"
-                            android:textAlignment="viewEnd"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/text_color"
-                            android:fontFamily="monospace"
                             android:layout_gravity="end"
-                            android:text="Contact Name"
-                            android:textSize="@dimen/secondary_text"
                             android:layout_marginBottom="8dp"
-                            />
-                    </LinearLayout>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/standard_margin"
-                        android:layout_marginEnd="@dimen/standard_margin"
-                        android:orientation="horizontal">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/text_color"
                             android:fontFamily="monospace"
-                            android:text="Mailing Name:  "
-                            android:textSize="@dimen/secondary_text"
-                            android:textStyle="bold"
-                            android:layout_marginBottom="8dp"
-                            />
-                        <TextView
-                            android:id="@+id/new_order_mailing_name"
-                            android:layout_width="match_parent"
+                            android:text="@string/contactName"
                             android:textAlignment="viewEnd"
-                            android:layout_height="wrap_content"
                             android:textColor="@color/text_color"
-                            android:fontFamily="monospace"
-                            android:layout_gravity="end"
-                            android:text="Contact Name"
-                            android:textSize="@dimen/secondary_text"
-                            android:layout_marginBottom="8dp"
-                            />
+                            android:textSize="@dimen/secondary_text" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -242,114 +220,147 @@
                         android:layout_marginStart="@dimen/standard_margin"
                         android:layout_marginEnd="@dimen/standard_margin"
                         android:orientation="horizontal">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/text_color"
-                            android:fontFamily="monospace"
-                            android:text="Phone number :"
-                            android:textSize="@dimen/secondary_text"
-                            android:textStyle="bold"
                             android:layout_marginBottom="8dp"
-                            />
+                            android:fontFamily="monospace"
+                            android:text="@string/ui_mailing_name"
+                            android:textColor="@color/text_color"
+                            android:textSize="@dimen/secondary_text"
+                            android:textStyle="bold" />
+
                         <TextView
-                            android:id="@+id/new_order_number"
+                            android:id="@+id/new_order_mailing_name"
                             android:layout_width="match_parent"
-                            android:textAlignment="viewEnd"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/text_color"
-                            android:fontFamily="monospace"
                             android:layout_gravity="end"
-                            android:text="number"
-                            android:textSize="@dimen/secondary_text"
                             android:layout_marginBottom="8dp"
-                            />
+                            android:fontFamily="monospace"
+                            android:text="@string/mailingName"
+                            android:textAlignment="viewEnd"
+                            android:textColor="@color/text_color"
+                            android:textSize="@dimen/secondary_text" />
                     </LinearLayout>
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/standard_margin"
                         android:layout_marginEnd="@dimen/standard_margin"
                         android:orientation="horizontal">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/text_color"
-                            android:fontFamily="monospace"
-                            android:text="Contact Phone number :"
-                            android:textSize="@dimen/secondary_text"
-                            android:textStyle="bold"
                             android:layout_marginBottom="8dp"
-                            />
+                            android:fontFamily="monospace"
+                            android:text="@string/ui_phone_number"
+                            android:textColor="@color/text_color"
+                            android:textSize="@dimen/secondary_text"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/new_order_number"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end"
+                            android:layout_marginBottom="8dp"
+                            android:fontFamily="monospace"
+                            android:text="@string/phone"
+                            android:textAlignment="viewEnd"
+                            android:textColor="@color/text_color"
+                            android:textSize="@dimen/secondary_text" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/standard_margin"
+                        android:layout_marginEnd="@dimen/standard_margin"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="8dp"
+                            android:fontFamily="monospace"
+                            android:text="@string/ui_contact_number"
+                            android:textColor="@color/text_color"
+                            android:textSize="@dimen/secondary_text"
+                            android:textStyle="bold" />
+
                         <TextView
                             android:id="@+id/new_order_contact_number"
                             android:layout_width="match_parent"
-                            android:textAlignment="viewEnd"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/text_color"
-                            android:fontFamily="monospace"
                             android:layout_gravity="end"
-                            android:text="number"
-                            android:textSize="@dimen/secondary_text"
                             android:layout_marginBottom="8dp"
-                            />
+                            android:fontFamily="monospace"
+                            android:text="@string/phone"
+                            android:textAlignment="viewEnd"
+                            android:textColor="@color/text_color"
+                            android:textSize="@dimen/secondary_text" />
                     </LinearLayout>
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/standard_margin"
                         android:layout_marginEnd="@dimen/standard_margin"
                         android:orientation="vertical">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/text_color"
-                            android:fontFamily="monospace"
-                            android:text="Address"
-                            android:textSize="@dimen/secondary_text"
-                            android:textStyle="bold"
                             android:layout_marginBottom="8dp"
-                            />
+                            android:fontFamily="monospace"
+                            android:text="@string/ui_address"
+                            android:textColor="@color/text_color"
+                            android:textSize="@dimen/secondary_text"
+                            android:textStyle="bold" />
+
                         <TextView
                             android:id="@+id/new_order_address"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/text_color"
-                            android:fontFamily="monospace"
                             android:layout_gravity="end"
-                            android:text="012B, Ashiana Gulmohar Park, Bhiwadi, Rajasthan, "
-                            android:textSize="@dimen/secondary_text"
                             android:layout_marginBottom="8dp"
-                            />
+                            android:fontFamily="monospace"
+                            android:text="@string/address"
+                            android:textColor="@color/text_color"
+                            android:textSize="@dimen/secondary_text" />
                     </LinearLayout>
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/standard_margin"
                         android:layout_marginEnd="@dimen/standard_margin"
                         android:orientation="horizontal">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/text_color"
-                            android:fontFamily="monospace"
-                            android:text="Pincode :"
-                            android:textSize="@dimen/secondary_text"
-                            android:textStyle="bold"
                             android:layout_marginBottom="8dp"
-                            />
+                            android:fontFamily="monospace"
+                            android:text="@string/ui_pincode"
+                            android:textColor="@color/text_color"
+                            android:textSize="@dimen/secondary_text"
+                            android:textStyle="bold" />
+
                         <TextView
                             android:id="@+id/new_order_pincode"
                             android:layout_width="match_parent"
-                            android:textAlignment="viewEnd"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/text_color"
-                            android:fontFamily="monospace"
                             android:layout_gravity="end"
-                            android:text="301019"
-                            android:textSize="@dimen/secondary_text"
                             android:layout_marginBottom="8dp"
-                            />
+                            android:fontFamily="monospace"
+                            android:text="@string/pincode"
+                            android:textAlignment="viewEnd"
+                            android:textColor="@color/text_color"
+                            android:textSize="@dimen/secondary_text" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -358,28 +369,28 @@
                         android:layout_marginStart="@dimen/standard_margin"
                         android:layout_marginEnd="@dimen/standard_margin"
                         android:orientation="horizontal">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/text_color"
-                            android:fontFamily="monospace"
-                            android:text="State :"
-                            android:textSize="@dimen/secondary_text"
-                            android:textStyle="bold"
                             android:layout_marginBottom="8dp"
-                            />
+                            android:fontFamily="monospace"
+                            android:text="@string/ui_state"
+                            android:textColor="@color/text_color"
+                            android:textSize="@dimen/secondary_text"
+                            android:textStyle="bold" />
+
                         <TextView
                             android:id="@+id/new_order_state"
                             android:layout_width="match_parent"
-                            android:textAlignment="viewEnd"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/text_color"
-                            android:fontFamily="monospace"
                             android:layout_gravity="end"
-                            android:text="Rajsathan"
-                            android:textSize="@dimen/secondary_text"
                             android:layout_marginBottom="8dp"
-                            />
+                            android:fontFamily="monospace"
+                            android:text="@string/state"
+                            android:textAlignment="viewEnd"
+                            android:textColor="@color/text_color"
+                            android:textSize="@dimen/secondary_text" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -388,241 +399,262 @@
                         android:layout_marginStart="@dimen/standard_margin"
                         android:layout_marginEnd="@dimen/standard_margin"
                         android:orientation="horizontal">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/text_color"
-                            android:fontFamily="monospace"
-                            android:text="Discount :"
-                            android:textSize="@dimen/secondary_text"
-                            android:textStyle="bold"
                             android:layout_marginBottom="8dp"
-                            />
+                            android:fontFamily="monospace"
+                            android:text="@string/ui_discount"
+                            android:textColor="@color/text_color"
+                            android:textSize="@dimen/secondary_text"
+                            android:textStyle="bold" />
+
                         <TextView
                             android:id="@+id/new_order_discount"
                             android:layout_width="match_parent"
-                            android:textAlignment="viewEnd"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/text_color"
-                            android:fontFamily="monospace"
                             android:layout_gravity="end"
-                            android:text="10 %"
-                            android:textSize="@dimen/secondary_text"
                             android:layout_marginBottom="8dp"
-                            />
+                            android:fontFamily="monospace"
+                            android:text="@string/discount"
+                            android:textAlignment="viewEnd"
+                            android:textColor="@color/text_color"
+                            android:textSize="@dimen/secondary_text" />
                     </LinearLayout>
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/standard_margin"
                         android:layout_marginEnd="@dimen/standard_margin"
                         android:orientation="horizontal">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/text_color"
-                            android:fontFamily="monospace"
-                            android:text="GSTIN :"
-                            android:textSize="@dimen/secondary_text"
-                            android:textStyle="bold"
                             android:layout_marginBottom="8dp"
-                            />
+                            android:fontFamily="monospace"
+                            android:text="@string/ui_gstin"
+                            android:textColor="@color/text_color"
+                            android:textSize="@dimen/secondary_text"
+                            android:textStyle="bold" />
+
                         <TextView
                             android:id="@+id/new_order_gstin"
                             android:layout_width="match_parent"
-                            android:textAlignment="viewEnd"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/text_color"
-                            android:fontFamily="monospace"
                             android:layout_gravity="end"
-                            android:text="OD09282672525"
-                            android:textSize="@dimen/secondary_text"
                             android:layout_marginBottom="8dp"
-                            />
+                            android:fontFamily="monospace"
+                            android:text="@string/gstin"
+                            android:textAlignment="viewEnd"
+                            android:textColor="@color/text_color"
+                            android:textSize="@dimen/secondary_text" />
                     </LinearLayout>
-
-
 
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_marginStart="@dimen/less_padding"
-                        android:layout_marginEnd="@dimen/less_padding"
                         android:layout_marginTop="@dimen/less_padding"
+                        android:layout_marginEnd="@dimen/less_padding"
                         android:layout_marginBottom="@dimen/less_padding"
-                        android:background="@color/text_color"/>
+                        android:background="@color/text_color" />
+
                     <LinearLayout
                         android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_margin="@dimen/less_padding"
-                        android:orientation="vertical"
-                        android:layout_height="wrap_content">
+                        android:orientation="vertical">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/text_color"
-                            android:fontFamily="monospace"
-                            android:text="Items Ordered:"
-                            android:textSize="@dimen/secondary_text"
-                            android:textStyle="bold"
                             android:layout_marginBottom="8dp"
-                            />
+                            android:fontFamily="monospace"
+                            android:text="@string/ui_items_ordered"
+                            android:textColor="@color/text_color"
+                            android:textSize="@dimen/secondary_text"
+                            android:textStyle="bold" />
+
                         <androidx.recyclerview.widget.RecyclerView
-                            android:layout_margin="@dimen/less_padding"
                             android:id="@+id/new_order_items_recycler_view"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"/>
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/less_padding" />
 
                     </LinearLayout>
+
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_marginStart="@dimen/less_padding"
-                        android:layout_marginEnd="@dimen/less_padding"
                         android:layout_marginTop="@dimen/standard_margin"
+                        android:layout_marginEnd="@dimen/less_padding"
                         android:layout_marginBottom="@dimen/standard_margin"
-                        android:background="@color/text_color"/>
+                        android:background="@color/text_color" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/standard_margin"
                         android:layout_marginTop="@dimen/less_padding"
-                        android:layout_marginBottom="@dimen/standard_margin"
                         android:layout_marginEnd="@dimen/standard_margin"
+                        android:layout_marginBottom="@dimen/standard_margin"
                         android:orientation="horizontal">
+
                         <TextView
                             android:id="@+id/pending_order_status"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@android:color/black"
-                            android:fontFamily="monospace"
-                            android:text="Pending"
                             android:background="@color/colorAccent"
+                            android:fontFamily="monospace"
                             android:padding="@dimen/standard_margin"
+                            android:text="@string/pending"
+                            android:textColor="@android:color/black"
                             android:textSize="@dimen/secondary_text"
-                            android:textStyle="bold"
-                            />
+                            android:textStyle="bold" />
+
                         <View
                             android:layout_width="0dp"
-                            android:layout_weight="1"
                             android:layout_height="1dp"
-                            android:layout_gravity="center"/>
+                            android:layout_gravity="center"
+                            android:layout_weight="1" />
+
                         <TextView
                             android:id="@+id/new_order_price"
                             android:layout_width="wrap_content"
-                            android:textAlignment="viewEnd"
                             android:layout_height="wrap_content"
-                            android:gravity="end"
-                            android:textColor="@color/text_color"
-                            android:fontFamily="monospace"
                             android:layout_gravity="center"
-                            android:text="Rs 10000"
+                            android:fontFamily="monospace"
+                            android:gravity="end"
+                            android:text="@string/price"
+                            android:textAlignment="viewEnd"
+                            android:textColor="@color/text_color"
                             android:textSize="@dimen/secondary_text"
-                            android:textStyle="bold"
-                            />
+                            android:textStyle="bold" />
+
                         <TextView
                             android:id="@+id/new_order_new_price"
                             android:layout_width="wrap_content"
-                            android:textAlignment="viewEnd"
                             android:layout_height="wrap_content"
-                            android:gravity="end"
-                            android:layout_marginStart="@dimen/activity_horizontal_margin"
-                            android:textColor="@color/text_color"
-                            android:fontFamily="monospace"
                             android:layout_gravity="center"
-                            android:text="Rs 10000"
+                            android:layout_marginStart="@dimen/activity_horizontal_margin"
+                            android:fontFamily="monospace"
+                            android:gravity="end"
+                            android:text="@string/price"
+                            android:textAlignment="viewEnd"
+                            android:textColor="@color/text_color"
                             android:textSize="@dimen/secondary_text"
-                            android:textStyle="bold"
-                            />
+                            android:textStyle="bold" />
                     </LinearLayout>
+
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_marginStart="@dimen/less_padding"
-                        android:layout_marginEnd="@dimen/less_padding"
                         android:layout_marginTop="@dimen/standard_margin"
+                        android:layout_marginEnd="@dimen/less_padding"
                         android:layout_marginBottom="@dimen/standard_margin"
-                        android:background="@color/text_color"/>
+                        android:background="@color/text_color" />
+
                     <LinearLayout
                         android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_margin="@dimen/less_padding"
-                        android:orientation="vertical"
-                        android:layout_height="wrap_content">
+                        android:orientation="vertical">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/text_color"
-                            android:fontFamily="monospace"
-                            android:text="Notes:"
-                            android:textSize="@dimen/secondary_text"
-                            android:textStyle="bold"
                             android:layout_marginBottom="8dp"
-                            />
+                            android:fontFamily="monospace"
+                            android:text="@string/ui_notes"
+                            android:textColor="@color/text_color"
+                            android:textSize="@dimen/secondary_text"
+                            android:textStyle="bold" />
+
                         <TextView
                             android:id="@+id/pending_order_add_notes"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:maxLines="15"
-                            android:textSize="@dimen/secondary_text"
-                            android:lines="3"
-                            android:focusable="false"
                             android:backgroundTint="@color/colorPrimaryDark"
+                            android:focusable="false"
+                            android:lines="3"
+                            android:maxLines="15"
                             android:textColor="@color/text_color"
                             android:textColorHint="@color/text_color"
-                            />
+                            android:textSize="@dimen/secondary_text" />
 
                     </LinearLayout>
-
 
 
                 </LinearLayout>
 
 
+            </androidx.cardview.widget.CardView>
+
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <LinearLayout
+        android:id="@+id/a1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/text_cancellation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/ui_cancel_text"
+            android:textColor="@color/red"
+            android:textSize="@dimen/modal_text"
+            android:textStyle="bold" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cancel_order"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/standard_margin"
+            app:cardBackgroundColor="@color/red">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:padding="@dimen/standard_margin"
+                android:text="@string/cancel"
+                android:textAlignment="center"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/modal_text"
+                android:textStyle="bold" />
         </androidx.cardview.widget.CardView>
 
+        <androidx.cardview.widget.CardView
+            android:id="@+id/pending_order_done"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/standard_margin"
+            app:cardBackgroundColor="@color/colorPrimaryDark">
 
-
-
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:padding="@dimen/standard_margin"
+                android:text="@string/done"
+                android:textAlignment="center"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/modal_text"
+                android:textStyle="bold" />
+        </androidx.cardview.widget.CardView>
     </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
-    <androidx.cardview.widget.CardView
-        android:layout_above="@+id/pending_order_done"
-        android:id="@+id/cancel_order"
-        android:layout_margin="@dimen/standard_margin"
-        app:cardBackgroundColor="@color/red"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:textAlignment="center"
-            android:layout_gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Cancel"
-            android:textSize="@dimen/modal_text"
-            android:padding="@dimen/standard_margin"
-            android:textStyle="bold"
-            android:textColor="@android:color/white"/>
-    </androidx.cardview.widget.CardView>
-    <androidx.cardview.widget.CardView
-        android:layout_alignParentBottom="true"
-        android:id="@+id/pending_order_done"
-        android:layout_margin="@dimen/standard_margin"
-        app:cardBackgroundColor="@color/colorPrimaryDark"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:textAlignment="center"
-            android:layout_gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Done"
-            android:textSize="@dimen/modal_text"
-            android:padding="@dimen/standard_margin"
-            android:textStyle="bold"
-            android:textColor="@android:color/white"/>
-    </androidx.cardview.widget.CardView>
 
 </RelativeLayout>

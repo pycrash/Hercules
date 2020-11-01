@@ -12,34 +12,35 @@
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
 
-
     <TextView
-        android:layout_marginTop="@dimen/activity_vertical_margin"
         android:id="@+id/textview_header_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/page_big_titles"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
         android:paddingTop="@dimen/standard_margin"
+        android:text="@string/name"
         android:textColor="@color/text_color"
-        android:text="Name" />
+        android:textSize="@dimen/page_big_titles" />
+
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:layout_marginTop="6dp"
-        android:background="@color/colorPrimaryDark"/>
+        android:background="@color/colorPrimaryDark" />
 
 
     <TextView
         android:id="@+id/textView_header_phone_no"
         android:layout_width="wrap_content"
-        android:layout_marginTop="@dimen/standard_margin"
-        android:textColor="@color/text_color"
         android:layout_height="wrap_content"
-        android:text="Phone" />
+        android:layout_marginTop="@dimen/standard_margin"
+        android:text="@string/phone"
+        android:textColor="@color/text_color" />
+
     <TextView
         android:id="@+id/textView_header_email_address"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/text_color"
-        android:text="Email" />
+        android:text="@string/email"
+        android:textColor="@color/text_color" />
 </LinearLayout>

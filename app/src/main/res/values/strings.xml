@@ -2,12 +2,11 @@
     <string name="app_name">Hercules</string>
 
     <!-- ****************************** Do not edit ****************************** -->
-    <!-- ****************************** App Control flow strings ****************************** -->
-
     <!-- ****************************** Shared Prefs ****************************** -->
     <string name="night_mode_shared_prefs">AppSettingPrefs</string>
     <string name="night_mode_boolean">NightMode</string>
 
+    <!-- ****************************** Do not edit ****************************** -->
     <!-- ****************************** User credentials strings ****************************** -->
     <string name="email">email</string>
     <string name="name">name</string>
@@ -16,19 +15,120 @@
     <string name="address">address</string>
     <string name="pincode">pincode</string>
     <string name="state">state</string>
-    <string name="contactName">phone</string>
-    <string name="contactNumber">phone</string>
-    <string name="gstin">phone</string>
+    <string name="contactName">contactName</string>
+    <string name="contactNumber">contactNumber</string>
+    <string name="gstin">gstin</string>
     <string name="discount">discount</string>
 
+    <!-- ****************************** Do not edit ****************************** -->
     <!-- ****************************** Request Strings ****************************** -->
     <string name="ledger">Ledger</string>
     <string name="SOL">SOL</string>
 
+    <!-- ****************************** Do not edit ****************************** -->
     <!-- ****************************** Notification Strings ****************************** -->
     <string name="notif_title">title</string>
     <string name="notif_message">message</string>
     <string name="serverToken">serverToken</string>
+
+
+    <!-- ****************************** Do not edit ****************************** -->
+    <!--  ****************************** Status Strings  ****************************** -->
+    <string name="pending">Pending</string>
+
+
+    <!-- ****************************** Product Final Strings ****************************** -->
+    <string name="ui_product_id">Product ID : </string>
+    <string name="ui_servings">Servings : </string>
+    <string name="ui_no_of_servings">No. of Servings : </string>
+    <string name="ui_flavour">Flavour : </string>
+    <string name="ui_description">Description</string>
+    <string name="ui_quantity">Quantity</string>
+    <string name="ui_nutritional_facts">Nutritional facts per 100g</string>
+    <string name="ui_fat">Fat</string>
+    <string name="ui_carbo">Carbo</string>
+    <string name="ui_protein">Protein</string>
+    <string name="ui_calories">Calories</string>
+
+
+    <!-- ****************************** Cart Final Strings  ****************************** -->
+    <string name="your_cart">Your Cart</string>
+    <string name="item_already_in_cart">This item is already in your cart !!</string>
+    <string name="go_to_cart">Go to cart</string>
+    <string name="add_to_cart">Add to cart</string>
+    <string name="no_items_here">No Items Here !!</string>
+
+
+    <!--  ****************************** Login Final Strings  ****************************** -->
+    <string name="continue_with_email">Continue With Email</string>
+    <string name="enter_email">Enter Email Address</string>
+    <string name="ui_email_address">Email address</string>
+    <string name="ui_password">Password</string>
+    <string name="account_info">Account Info</string>
+
+
+    <!--  ****************************** Button Final Strings  ****************************** -->
+    <string name="button_continue">Continue</string>
+    <string name="done">Done</string>
+    <string name="view">View</string>
+    <string name="cancel">Cancel</string>
+    <string name="request">Request</string>
+    <string name="place_order">Place Order</string>
+
+
+    <!--  ****************************** My Orders Final Strings  ****************************** -->
+    <string name="ui_my_orders">My Orders</string>
+    <string name="ui_order_details">Order Details</string>
+    <string name="ui_order_id">Order ID: </string>
+    <string name="ui_order_date">Order Date: </string>
+    <string name="ui_order_status">Order Status : </string>
+    <string name="ui_name">Name: </string>
+    <string name="ui_email">Email: </string>
+    <string name="ui_contact_name">Contact Name: </string>
+    <string name="ui_contact_number">Contact Phone number : </string>
+    <string name="ui_mailing_name">Mailing Name: </string>
+    <string name="ui_phone_number">Phone number : </string>
+    <string name="ui_address">Address</string>
+    <string name="ui_pincode">Pincode : </string>
+    <string name="ui_state">State : </string>
+    <string name="ui_discount">Discount : </string>
+    <string name="ui_gstin">GSTIN : </string>
+    <string name="ui_items_ordered">Items Ordered: </string>
+    <string name="ui_notes">Notes: </string>
+    <string name="ui_total">Total : </string>
+    <string name="ui_new_total">New Total : </string>
+    <string name="view_full_order_details">View full order details</string>
+    <string name="ui_cancel_text">Seller is processing your request to cancel this order</string>
+    <string name="no_orders">No Orders</string>
+
+
+    <!--  ****************************** Order Confirmation Strings  ****************************** -->
+    <string name="ui_order_confirmation">Confirmation</string>
+
+    <!--  ****************************** UI Trading Final Strings  ****************************** -->
+    <string name="ui_trading">Trading</string>
+    <string name="ui_name_of_file">Name of file</string>
+    <string name="ui_date">Date : </string>
+    <string name="nothing_here">Nothing Here !!</string>
+
+
+    <!--  ****************************** Information Final Strings  ****************************** -->
+    <string name="ui_terms_and_conditions">Terms and Conditions</string>
+    <string name="ui_shipping_and_delivery_policy">Shipping and Delivery Policy</string>
+    <string name="ui_return_policy">Return Policy</string>
+    <string name="ui_privacy_policy">Privacy Policy</string>
+    <string name="ui_about_us">About Us</string>
+
+
+    <!--  ****************************** Internet Related Strings  ****************************** -->
+    <string name="oh_no">Oh No!</string>
+    <string name="no_internet">No internet connection. Check your network and try again</string>
+
+
+    <!--  ****************************** Home Related Strings  ****************************** -->
+    <string name="home">Home</string>
+    <string name="loading">LOADING....</string>
+
 
 
     <string name="workout_essentials">Workout Essentials</string>

@@ -8,29 +8,23 @@ import android.content.Intent;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Looper;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 
-import com.example.hercules.BuildConfig;
 import com.example.hercules.Helper.NotificationHelper;
 import com.example.hercules.Home.HomeActivity;
 import com.example.hercules.MyOrders.MyOrders;
 import com.example.hercules.R;
-import com.example.hercules.Trading;
-import com.google.android.material.tabs.TabLayout;
-import com.google.firebase.messaging.FirebaseMessaging;
+import com.example.hercules.Trading.Trading;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
-import com.orhanobut.hawk.Hawk;
 
 import java.util.Map;
 import java.util.Random;
 
-public class MyFirebaseMessaging extends FirebaseMessagingService {
+public class MyFirebaseMessaging extends FirebaseMessagingService  {
     public final static String TAG = "MyFirebaseMessaging";
     @Override
     public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {

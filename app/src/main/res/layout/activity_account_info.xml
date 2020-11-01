@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/root_login"
-    android:fitsSystemWindows="true"
-    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root_login"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SplashScreen.SplashScreen"
-    android:background="@color/background">
+    android:background="@color/background"
+    android:fitsSystemWindows="true"
+    tools:context=".SplashScreen.SplashScreen">
+
     <ImageView
         android:id="@+id/back"
         android:layout_width="30dp"
@@ -22,47 +22,39 @@
         android:id="@+id/info_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/page_titles"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:layout_marginBottom="@dimen/activity_vertical_margin"
-        android:layout_marginEnd="@dimen/activity_horizontal_margin"
-        android:textStyle="bold"
         android:layout_below="@+id/back"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:text="@string/account_info"
         android:textColor="@color/text_color"
-        android:text="Account Info"/>
+        android:textSize="@dimen/page_titles"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/text_view"
         android:layout_width="match_parent"
-        android:layout_below="@+id/info_login"
-        android:padding="@dimen/activity_vertical_margin"
-        android:background="@drawable/rectangle_dark"
-        android:layout_margin="@dimen/activity_vertical_margin"
-        android:textColorHint="#ffffff"
-        android:textColor="@color/text_color"
-        android:text="012B Ashiana Gulmohar Park, Bhiwadi, Rajasthan, Gulmohar"
-        android:textSize="@dimen/modal_text"
         android:layout_height="wrap_content"
-        />
-
-
-
-
-
-
-
+        android:layout_below="@+id/info_login"
+        android:layout_margin="@dimen/activity_vertical_margin"
+        android:background="@drawable/rectangle_dark"
+        android:padding="@dimen/activity_vertical_margin"
+        android:text="@string/address"
+        android:textColor="@color/text_color"
+        android:textColorHint="#ffffff"
+        android:textSize="@dimen/modal_text" />
 
 
     <Button
         android:id="@+id/buttonContinue_login"
-        android:layout_below="@+id/text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/text_view"
         android:layout_centerHorizontal="true"
         android:layout_margin="@dimen/activity_vertical_margin"
-        android:enabled="true"
         android:background="@drawable/button_style"
-        android:text="Done"
+        android:enabled="true"
+        android:text="@string/done"
         android:textAllCaps="true"
         android:textColor="@color/button_text" />
 </RelativeLayout>

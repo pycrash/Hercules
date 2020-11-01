@@ -29,9 +29,7 @@
 
         <activity android:name=".Firestore.CheckUserInFireStore"
             android:screenOrientation="portrait"/>
-        <activity android:name=".SettingsActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Trading"
+        <activity android:name=".Trading.Trading"
             android:screenOrientation="portrait"/>
         <activity android:name=".LoginAndRegister.AccountInfo"
             android:screenOrientation="portrait"/>
@@ -45,8 +43,7 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".Information.PrivacyPolicyActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".FullOrderDetails"
-            android:screenOrientation="portrait"/>
+
         <activity android:name=".MyOrders.MyOrders"
             android:screenOrientation="portrait"/>
         <activity android:name=".OrderActivities.OrderDoneActivity"

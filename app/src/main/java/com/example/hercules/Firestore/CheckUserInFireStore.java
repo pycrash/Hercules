@@ -23,8 +23,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.orhanobut.hawk.Hawk;
 
 public class CheckUserInFireStore extends AppCompatActivity {
-    AlertDialog dialog;
-    Handler handler;
+
     public static final String TAG = "CheckUserInFireStore";
 
     @Override
@@ -43,53 +42,45 @@ public class CheckUserInFireStore extends AppCompatActivity {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         Hawk.init(CheckUserInFireStore.this).build();
         DocumentReference doc = db.collection("Users").document(Hawk.get("email"));
-        doc.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                if (documentSnapshot.exists()) {
-                    Intent intent = new Intent(CheckUserInFireStore.this, HomeActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                    Hawk.init(CheckUserInFireStore.this).build();
-                    Hawk.put("name", documentSnapshot.get("name"));
-                    Hawk.put("email", documentSnapshot.get("email"));
-                    Hawk.put("phone", documentSnapshot.get("phone"));
-                    Hawk.put("mailingName", documentSnapshot.get("mailingName"));
-                    Hawk.put("address", documentSnapshot.get("address"));
-                    Hawk.put("pincode", documentSnapshot.get("pincode"));
-                    Hawk.put("state", documentSnapshot.get("state"));
-                    Hawk.put("contactName", documentSnapshot.get("contactName"));
-                    Hawk.put("contactNumber", documentSnapshot.get("contactNumber"));
-                    Hawk.put("gstin", documentSnapshot.get("gstin"));
-                    Hawk.put("discount", documentSnapshot.get("discount"));
+        doc.get().addOnSuccessListener(documentSnapshot -> {
+            if (documentSnapshot.exists()) {
+                Intent intent = new Intent(CheckUserInFireStore.this, HomeActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                Hawk.init(CheckUserInFireStore.this).build();
+                Hawk.put("name", documentSnapshot.get("name"));
+                Hawk.put("email", documentSnapshot.get("email"));
+                Hawk.put("phone", documentSnapshot.get("phone"));
+                Hawk.put("mailingName", documentSnapshot.get("mailingName"));
+                Hawk.put("address", documentSnapshot.get("address"));
+                Hawk.put("pincode", documentSnapshot.get("pincode"));
+                Hawk.put("state", documentSnapshot.get("state"));
+                Hawk.put("contactName", documentSnapshot.get("contactName"));
+                Hawk.put("contactNumber", documentSnapshot.get("contactNumber"));
+                Hawk.put("gstin", documentSnapshot.get("gstin"));
+                Hawk.put("discount", documentSnapshot.get("discount"));
 
-                    startActivity(intent);
-                    overridePendingTransition(R.anim.fadein, R.anim.fadeout);
-                    handler.removeCallbacksAndMessages(null);
-                    finish();
-                } else {
-                    Intent intent = new Intent(CheckUserInFireStore.this, LoginSlider.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(intent);
-                    Hawk.deleteAll();
-                    overridePendingTransition(R.anim.fadein, R.anim.fadeout);
-                    handler.removeCallbacksAndMessages(null);
-                    finish();
+                startActivity(intent);
+                overridePendingTransition(R.anim.fadein, R.anim.fadeout);
+                finish();
+            } else {
+                Intent intent = new Intent(CheckUserInFireStore.this, LoginSlider.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+                Hawk.deleteAll();
+                overridePendingTransition(R.anim.fadein, R.anim.fadeout);
+                finish();
+            }
+        }).addOnFailureListener(e -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(CheckUserInFireStore.this, R.style.MyAlertDialogStyle);
+            builder.setMessage("Error connecting to server").setPositiveButton("Retry", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    checkUser();
                 }
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(CheckUserInFireStore.this, R.style.MyAlertDialogStyle);
-                builder.setMessage("Error connecting to server").setPositiveButton("Retry", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        checkUser();
-                    }
-                });
-                builder.setCancelable(false);
-                AlertDialog dialog = builder.create();
-                dialog.show();
-            }
+            });
+            builder.setCancelable(false);
+            AlertDialog dialog = builder.create();
+            dialog.show();
         });
     }
 }

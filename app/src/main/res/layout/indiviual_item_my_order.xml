@@ -1,105 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardBackgroundColor="@color/product_individual"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    app:cardBackgroundColor="@color/product_individual">
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/my_order_product_image"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/standard_margin"
+                android:scaleType="fitCenter"
+                android:src="@drawable/builder1" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:minHeight="116dp"
                 android:orientation="vertical">
-                <LinearLayout
-                    android:layout_width="match_parent"
+
+                <TextView
+                    android:id="@+id/my_order_product_name"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal|center_vertical"
-                    android:orientation="horizontal">
-                    <ImageView
-                        android:id="@+id/my_order_product_image"
-                        android:layout_margin="@dimen/standard_margin"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:layout_gravity="center"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/builder1"/>
-                    <LinearLayout
-                        android:minHeight="116dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-                        <TextView
-                            android:layout_marginStart="@dimen/standard_margin"
-                            android:layout_marginEnd="@dimen/standard_margin"
-                            android:id="@+id/my_order_product_name"
-                            android:layout_marginTop="16dp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/text_color"
-                            android:fontFamily="monospace"
-                            android:text="Nature "
-                            android:textSize="@dimen/secondary_text"
-                            android:textStyle="bold"
-                            android:layout_marginBottom="8dp"
-                            />
+                    android:layout_marginStart="@dimen/standard_margin"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="@dimen/standard_margin"
+                    android:layout_marginBottom="8dp"
+                    android:fontFamily="monospace"
+                    android:text="@string/pre1_name"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/secondary_text"
+                    android:textStyle="bold" />
 
 
+                <TextView
+                    android:id="@+id/my_order_product_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/standard_margin"
+                    android:layout_marginTop="@dimen/less_padding"
+                    android:layout_marginEnd="@dimen/standard_margin"
+                    android:text="@string/product_id"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/secondary_text"
+                    android:textStyle="bold" />
 
 
+                <TextView
+                    android:id="@+id/my_order_product_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/standard_margin"
+                    android:layout_marginTop="@dimen/standard_margin"
+                    android:layout_marginEnd="@dimen/standard_margin"
+                    android:text="@string/price"
+                    android:textAlignment="center"
+                    android:textColor="@color/green"
+                    android:textSize="@dimen/modal_text"
+                    android:textStyle="bold" />
 
-                            <TextView
-                                android:id="@+id/my_order_product_id"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="ID"
-                                android:layout_marginTop="@dimen/less_padding"
-                                android:layout_marginStart="@dimen/standard_margin"
-                                android:layout_marginEnd="@dimen/standard_margin"
-                                android:textStyle="bold"
-                                android:textSize="@dimen/secondary_text"
-                                android:textColor="@color/text_color"
-                                />
-
-
-
-
-                            <TextView
-                                android:layout_marginStart="@dimen/standard_margin"
-                                android:layout_marginEnd="@dimen/standard_margin"
-                                android:id="@+id/my_order_product_price"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/green"
-                                android:textAlignment="center"
-                                android:layout_marginTop="@dimen/standard_margin"
-                                android:textSize="@dimen/modal_text"
-                                android:textStyle="bold"
-                                android:text="Rs. %s"
-                                />
-                                <TextView
-                                    android:id="@+id/my_order_quantity"
-                                    android:layout_marginStart="@dimen/standard_margin"
-                                    android:layout_marginEnd="@dimen/standard_margin"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:textColor="@color/text_color"
-                                    android:textAlignment="center"
-                                    android:layout_marginTop="@dimen/standard_margin"
-                                    android:textSize="@dimen/modal_text"
-                                    android:layout_marginBottom="@dimen/activity_vertical_margin"
-                                    android:textStyle="bold"
-                                    android:text="Quantitiy"
-                                    />
-
-
-
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
+                <TextView
+                    android:id="@+id/my_order_quantity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/standard_margin"
+                    android:layout_marginTop="@dimen/standard_margin"
+                    android:layout_marginEnd="@dimen/standard_margin"
+                    android:layout_marginBottom="@dimen/activity_vertical_margin"
+                    android:text="@string/ui_quantity"
+                    android:textAlignment="center"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/modal_text"
+                    android:textStyle="bold" />
 
 
             </LinearLayout>
 
+        </LinearLayout>
 
-        </androidx.cardview.widget.CardView>
+</androidx.cardview.widget.CardView>

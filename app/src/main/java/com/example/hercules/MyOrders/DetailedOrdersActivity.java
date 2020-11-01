@@ -46,7 +46,7 @@ import retrofit2.Response;
 
 public class DetailedOrdersActivity extends AppCompatActivity {
     public TextView orderid, date,name, contact_name,mailing_name, phone, contact_phone, address,state,
-            pincode,discount, amount, new_amount, gstin, email;
+            pincode,discount, amount, new_amount, gstin, email, textCancel;
     public CardView done_order, cancel_order;
     RecyclerView recyclerView;
     TextView addNotes;
@@ -55,6 +55,7 @@ public class DetailedOrdersActivity extends AppCompatActivity {
     public static final String TAG = "DetailedOrdersActivity";
     Requests pendingOrderModel;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,12 +63,9 @@ public class DetailedOrdersActivity extends AppCompatActivity {
 
         ImageView back;
         back = findViewById(R.id.back);
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-                finish();
-            }
+        back.setOnClickListener(view -> {
+            onBackPressed();
+            finish();
         });
         pendingOrderModel = (Requests) getIntent().getSerializableExtra("orderDetails");
         orderid = findViewById(R.id.new_order_id);
@@ -91,6 +89,7 @@ public class DetailedOrdersActivity extends AppCompatActivity {
         email = findViewById(R.id.new_order_email);
         status = findViewById(R.id.pending_order_status);
         cancel_order = findViewById(R.id.cancel_order);
+        textCancel = findViewById(R.id.text_cancellation);
 
 
         orderid.setText(pendingOrderModel.getOrderID());
@@ -123,92 +122,92 @@ public class DetailedOrdersActivity extends AppCompatActivity {
             status.setBackgroundColor(ContextCompat.getColor(DetailedOrdersActivity.this, R.color.yellow));
         }
 
+
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(DetailedOrdersActivity.this));
         MyOrderProductsAdapter cartAdapter = new MyOrderProductsAdapter(pendingOrderModel.getCart(), DetailedOrdersActivity.this);
         recyclerView.setAdapter(cartAdapter);
-        done_order.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-                finish();
+        done_order.setOnClickListener(view -> {
+            onBackPressed();
+            finish();
 
-            }
         });
         cancel_order = findViewById(R.id.cancel_order);
         boolean isCancelled = pendingOrderModel.isCancelled();
-        cancel_order.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (isCancelled) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(DetailedOrdersActivity.this, R.style.MyAlertDialogStyle);
-                    builder.setCancelable(false);
-                    builder.setMessage("You have already requested cancellation for this order. We will let you know once the order is cancelled.");
-                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            dialogInterface.dismiss();
+        if (isCancelled) {
+            textCancel.setVisibility(View.VISIBLE);
+        } else {
+            textCancel.setVisibility(View.GONE);
+        }
+        cancel_order.setOnClickListener(view -> {
+            if (isCancelled) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(DetailedOrdersActivity.this, R.style.MyAlertDialogStyle);
+                builder.setCancelable(false);
+                builder.setMessage("You have already requested cancellation for this order. We will let you know once the order is cancelled.");
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            } else {
+                DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference(Hawk.get("mailingName").toString().replaceAll(" ", "")).child("Orders")
+                        .child(pendingOrderModel.getOrderID()).child("status");
+                databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        String status = snapshot.getValue(String.class);
+                        if (status.equals("Pending"))  {
+                            FirebaseDatabase db = FirebaseDatabase.getInstance();
+                            Map<String, Object> user = new HashMap<>();
+                            user.put("cancelled", true);
+
+                            DatabaseReference databaseReference = db.getReference("Requests").child("New Orders").child(orderid.getText().toString());
+                            databaseReference.updateChildren(user);
+                            databaseReference = db.getReference(mailing_name.getText().toString().trim().replaceAll(" ", "")).child("Orders").child(orderid.getText().toString());
+                            databaseReference.updateChildren(user);
+
+                            databaseReference = db.getReference(mailing_name.getText().toString().trim().replaceAll(" ", "")).child("New Orders").child(orderid.getText().toString());
+                            databaseReference.updateChildren(user);
+                            sendNotification();
+                           Toast.makeText(DetailedOrdersActivity.this, "Requested for cancellation", Toast.LENGTH_SHORT).show();
+                        } else if (status.equals("Approved")) {
+                            FirebaseDatabase db = FirebaseDatabase.getInstance();
+                            Map<String, Object> user = new HashMap<>();
+                            user.put("cancelled", true);
+
+                            DatabaseReference databaseReference = db.getReference("Requests").child("Pending Orders").child(orderid.getText().toString());
+                            databaseReference.updateChildren(user);
+                            databaseReference = db.getReference(mailing_name.getText().toString().trim().replaceAll(" ", "")).child("Orders").child(orderid.getText().toString());
+                            databaseReference.updateChildren(user);
+
+                            databaseReference = db.getReference(mailing_name.getText().toString().trim().replaceAll(" ", "")).child("Pending Orders").child(orderid.getText().toString());
+                            databaseReference.updateChildren(user);
+                            sendNotification();
+                            Toast.makeText(DetailedOrdersActivity.this, "Requested for cancellation", Toast.LENGTH_SHORT).show();
+
+                        } else {
+                            AlertDialog.Builder builder = new AlertDialog.Builder(DetailedOrdersActivity.this, R.style.MyAlertDialogStyle);
+                            builder.setCancelable(false);
+                            builder.setMessage("This order can't be cancelled as this order is already in transit");
+                            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    dialogInterface.dismiss();
+                                }
+                            });
+                            AlertDialog dialog = builder.create();
+                            dialog.show();
                         }
-                    });
-                    AlertDialog dialog = builder.create();
-                    dialog.show();
-                } else {
-                    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference(Hawk.get("mailingName").toString().replaceAll(" ", "")).child("Orders")
-                            .child(pendingOrderModel.getOrderID()).child("status");
-                    databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            String status = snapshot.getValue(String.class);
-                            if (status.equals("Pending"))  {
-                                FirebaseDatabase db = FirebaseDatabase.getInstance();
-                                Map<String, Object> user = new HashMap<>();
-                                user.put("cancelled", true);
+                    }
 
-                                DatabaseReference databaseReference = db.getReference("Requests").child("New Orders").child(orderid.getText().toString());
-                                databaseReference.updateChildren(user);
-                                databaseReference = db.getReference(mailing_name.getText().toString().trim().replaceAll(" ", "")).child("Orders").child(orderid.getText().toString());
-                                databaseReference.updateChildren(user);
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
 
-                                databaseReference = db.getReference(mailing_name.getText().toString().trim().replaceAll(" ", "")).child("New Orders").child(orderid.getText().toString());
-                                databaseReference.updateChildren(user);
-                                sendNotification();
-                               Toast.makeText(DetailedOrdersActivity.this, "Requested for cancellation", Toast.LENGTH_SHORT).show();
-                            } else if (status.equals("Approved")) {
-                                FirebaseDatabase db = FirebaseDatabase.getInstance();
-                                Map<String, Object> user = new HashMap<>();
-                                user.put("cancelled", true);
-
-                                DatabaseReference databaseReference = db.getReference("Requests").child("Pending Orders").child(orderid.getText().toString());
-                                databaseReference.updateChildren(user);
-                                databaseReference = db.getReference(mailing_name.getText().toString().trim().replaceAll(" ", "")).child("Orders").child(orderid.getText().toString());
-                                databaseReference.updateChildren(user);
-
-                                databaseReference = db.getReference(mailing_name.getText().toString().trim().replaceAll(" ", "")).child("Pending Orders").child(orderid.getText().toString());
-                                databaseReference.updateChildren(user);
-                                sendNotification();
-                                Toast.makeText(DetailedOrdersActivity.this, "Requested for cancellation", Toast.LENGTH_SHORT).show();
-
-                            } else {
-                                AlertDialog.Builder builder = new AlertDialog.Builder(DetailedOrdersActivity.this, R.style.MyAlertDialogStyle);
-                                builder.setCancelable(false);
-                                builder.setMessage("This order can't be cancelled as this order is already in transit");
-                                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialogInterface, int i) {
-                                        dialogInterface.dismiss();
-                                    }
-                                });
-                                AlertDialog dialog = builder.create();
-                                dialog.show();
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-
-                        }
-                    });
-                }
+                    }
+                });
             }
         });
     }

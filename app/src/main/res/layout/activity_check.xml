@@ -11,37 +11,36 @@
         android:id="@+id/imageView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:scaleType="fitCenter"
-        android:layout_marginBottom="@dimen/standard_margin"
-        android:layout_marginEnd="@dimen/standard_margin"
-        android:layout_marginLeft="@dimen/standard_margin"
-        android:layout_marginRight="@dimen/standard_margin"
         android:layout_marginStart="@dimen/standard_margin"
+        android:layout_marginLeft="@dimen/standard_margin"
         android:layout_marginTop="@dimen/standard_margin"
+        android:layout_marginEnd="@dimen/standard_margin"
+        android:layout_marginRight="@dimen/standard_margin"
+        android:layout_marginBottom="@dimen/standard_margin"
+        android:layout_weight="1"
         android:adjustViewBounds="true"
         android:baselineAlignBottom="false"
         android:clickable="false"
-        app:lottie_enableMergePathsForKitKatAndAbove="true"
+        android:scaleType="fitCenter"
         app:lottie_autoPlay="true"
+        app:lottie_enableMergePathsForKitKatAndAbove="true"
         app:lottie_loop="true"
         app:lottie_rawRes="@raw/loading" />
 
 
-
     <TextView
-        android:layout_gravity="center"
         android:id="@+id/section_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_marginStart="@dimen/standard_margin"
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:layout_marginEnd="@dimen/standard_margin"
         android:layout_marginBottom="@dimen/activity_vertical_margin"
         android:gravity="center"
-        android:text="LOADING...."
-        android:textColor="@color/colorPrimary"
+        android:text="@string/loading"
         android:textAlignment="center"
+        android:textColor="@color/colorPrimary"
         android:textSize="@dimen/page_big_titles"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
 </LinearLayout>
