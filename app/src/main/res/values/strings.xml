@@ -1,8 +1,6 @@
 <resources>
     <string name="app_name">Hercules</string>
 
-
-
     <!-- ****************************** Do not edit ****************************** -->
     <!-- ****************************** App Control flow strings ****************************** -->
 
@@ -14,6 +12,24 @@
     <string name="email">email</string>
     <string name="name">name</string>
     <string name="phone">phone</string>
+    <string name="mailingName">mailingName</string>
+    <string name="address">address</string>
+    <string name="pincode">pincode</string>
+    <string name="state">state</string>
+    <string name="contactName">phone</string>
+    <string name="contactNumber">phone</string>
+    <string name="gstin">phone</string>
+    <string name="discount">discount</string>
+
+    <!-- ****************************** Request Strings ****************************** -->
+    <string name="ledger">Ledger</string>
+    <string name="SOL">SOL</string>
+
+    <!-- ****************************** Notification Strings ****************************** -->
+    <string name="notif_title">title</string>
+    <string name="notif_message">message</string>
+    <string name="serverToken">serverToken</string>
+
 
     <string name="workout_essentials">Workout Essentials</string>
     <string name="workout_essentials_info">Give an energy boost for your workout sessions</string>
@@ -28,7 +44,7 @@
     <string name="gram">%1$s g</string>
     <string name="kcal">%1$s Kcal</string>
     <string name="nutritional_facts">Nutritional Facts	Per %1$s g</string>
-    <string name="discount">%1$s &#37;</string>
+    <string name="discount_display">%1$s &#37;</string>
 
     <string name="terms">By proceeding, you agree to our Terms of service &amp; Privacy policy.</string>
 
