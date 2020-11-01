@@ -12,22 +12,22 @@ The User app provides the following functionalities :
 
 ## Screenshots
 
-| ![Home](img/screenshots/ss1.jpg) | ![Home](img/screenshots/ss2.jpg) | ![Home](img/screenshots/ss3.jpg) | ![Home](img/screenshots/ss4.jpg) |
+| ![Home](img/ss1.jpg) | ![Home](img/ss2.jpg) | ![Home](img/ss3.jpg) | ![Home](img/ss4.jpg) |
 | --------------------------------------- | ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
 | Intro                                    | Login                       | Home Screen                       | Navigation View                             |
 
 
-| ![Home](img/screenshots/ss5.jpg) | ![Home](img/screenshots/ss6.jpg) | ![Home](img/screenshots/ss7.jpg) | ![Home](img/screenshots/ss8.jpg) |
+| ![Home](img/ss5.jpg) | ![Home](img/ss6.jpg) | ![Home](img/ss7.jpg) | ![Home](img/ss8.jpg) |
 | ---------------------------------------- | ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
 | Product                             | Product Description                      | Cart                | Place Order                      |
 
 
-| ![Home](img/screenshots/ss9.jpg) | ![Home](img/screenshots/ss10.jpg) | ![Home](img/screenshots/ss11.jpg) | ![Home](img/screenshots/ss12.jpg) |
+| ![Home](img/ss9.jpg) | ![Home](img/ss10.jpg) | ![Home](img/ss11.jpg) | ![Home](img/ss12.jpg) |
 | ---------------------------------------- | ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
 | Order Confirmation                             | Orders History                      | Detailed Order History                |  Request SOL / Ledger                     |
 
 
-| ![Home](img/screenshots/ss13.jpg) | ![Home](img/ss14.jpg) | ![Home](img/screenshots/ss15.jpg) | ![Home](img/screenshots/ss16.jpg) |
+| ![Home](img/ss13.jpg) | ![Home](img/ss14.jpg) | ![Home](img/ss15.jpg) | ![Home](img/ss16.jpg) |
 | ---------------------------------------- | ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
 |  View SOL / Ledger                          | No Internet Dialog                      | Dark Mode               | Notifications                    |
 
@@ -38,7 +38,7 @@ The User app provides the following functionalities :
 * Create a new Firebase Project and add both business and user app..
 * Make sure to enable Firestore, Realtime database and Firebase Storage.
 * Add a collection named Admin in Firestore in which make a document whose ID is your email. The document fields should be as - name : (your name), email : (your email), password : (your password) as shown in below pic.
-![Home](img/screenshots/ss17.jpg)
+![Home](img/ss17.jpg)
 * Login and add Customer under Customers tab.
 * Login in the user app and enjoy.
 
