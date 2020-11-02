@@ -26,6 +26,7 @@ import com.example.hercules.Models.Token;
 import com.example.hercules.R;
 import com.example.hercules.Remote.APIService;
 import com.example.hercules.utils.InternetUtils.CheckInternetConnection;
+import com.example.hercules.utils.Notifications.NotificationUtil;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -59,7 +60,6 @@ public class ConfirmationActivity extends AppCompatActivity {
     TextView discount, newTotal;
     AlertDialog dialog;
     Handler handler;
-    APIService apiService;
     private static final String TAG = "ConfirmationActivity";
 
     @Override
@@ -67,182 +67,126 @@ public class ConfirmationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirmation);
 
+        Log.d(TAG, "onCreate: here");
+        Log.d(TAG, "onCreate: calling no Internet util");
+        CheckInternetConnection.showNoInternetDialog(ConfirmationActivity.this, handler);
+
         discount = findViewById(R.id.discount);
         newTotal = findViewById(R.id.new_total);
-
-        apiService = Common.getFCMService();
-
-        double d = getIntent().getDoubleExtra("discount", 0);
-        Hawk.init(getApplicationContext()).build();
         address = findViewById(R.id.address_text_view);
         total = findViewById(R.id.total);
         btnContinue = findViewById(R.id.buttonContinue_login);
         back = findViewById(R.id.back_login);
-        old_total = getIntent().getStringExtra("total");
-        new_Total = getIntent().getStringExtra("newTotal");
-        checkInternet();
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-                finish();
-                handler.removeCallbacksAndMessages(null);
-            }
+
+        Log.d(TAG, "onCreate: getting extra intent from Cart Activity");
+        old_total = getIntent().getStringExtra(getString(R.string.total));
+        new_Total = getIntent().getStringExtra(getString(R.string.new_total));
+        double d = getIntent().getDoubleExtra(getString(R.string.discount), 0);
+
+        Log.d(TAG, "onCreate: got the following info from previous activity");
+        Log.d(TAG, "onCreate: old total : " + old_total);
+        Log.d(TAG, "onCreate: new total : " + newTotal);
+        Log.d(TAG, "onCreate: discount : " + discount);
+
+        Log.d(TAG, "onCreate: building Hawk");
+        Hawk.init(getApplicationContext()).build();
+
+        back.setOnClickListener(view -> {
+            Log.d(TAG, "onClick: Back Button Pressed, going to cart activity");
+            onBackPressed();
+            Log.d(TAG, "onClick: finishing this activity");
+            finish();
+            handler.removeCallbacksAndMessages(null);
         });
 
-        Hawk.init(getApplicationContext()).build();
-        address.setText("Company Name: " + Hawk.get("name") + "\n\n" +
-                "Mailing Name: " + Hawk.get("mailingName") + "\n\n" +
-                "Phone: " + Hawk.get("phone") + "\n\n" +
-                "Email: " + Hawk.get("email") + "\n\n" +
-                "Address: " + Hawk.get("address") + "\n\n" +
-                "Pincode: " + Hawk.get("pincode") + "\n\n" +
-                "State: " + Hawk.get("state") + "\n\n" +
-                "Contact Name: " + Hawk.get("contactName") + "\n\n" +
-                "Contact Number: " + Hawk.get("contactNumber") + "\n\n" +
-                "Gstin: " + Hawk.get("gstin") + "\n\n"
-        );
+        Log.d(TAG, "onCreate: setting the user credentials");
+        Log.d(TAG, "onCreate: Company Name : " + Hawk.get(getString(R.string.name)));
+
+        address.setText(getString(R.string.ui_order_confirmation_info, Hawk.get(getString(R.string.name)),
+                Hawk.get(getString(R.string.mailingName)), Hawk.get(getString(R.string.phone)),
+                Hawk.get(getString(R.string.email)), Hawk.get(getString(R.string.address)),
+                Hawk.get(getString(R.string.pincode)), Hawk.get(getString(R.string.state)),
+                Hawk.get(getString(R.string.contactName)), Hawk.get(getString(R.string.contactNumber)),
+                Hawk.get(getString(R.string.gstin))));
 
         total.setText(old_total);
-        discount.setText(d + " %");
+        discount.setText(getString(R.string.discount_display, String.valueOf(d)));
         newTotal.setText(new_Total);
 
-        btnContinue.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ProgressDialog progressDialog = new ProgressDialog(ConfirmationActivity.this, R.style.ProgressDialog);
-                progressDialog.setMessage("Placing your order");
-                progressDialog.setCancelable(false);
-                progressDialog.show();
-                order = new Database(ConfirmationActivity.this).getCarts();
+        btnContinue.setOnClickListener(view -> {
+            ProgressDialog progressDialog = new ProgressDialog(ConfirmationActivity.this, R.style.ProgressDialog);
+            progressDialog.setMessage("Placing your order");
+            progressDialog.setCancelable(false);
+            progressDialog.show();
+            order = new Database(ConfirmationActivity.this).getCarts();
 
-                Calendar calendar = Calendar.getInstance();
-                String date = new SimpleDateFormat("ddMMyyyyHHMMss").format(new Date());
+            Calendar calendar = Calendar.getInstance();
+            String date = new SimpleDateFormat("ddMMyyyyHHmmss").format(new Date());
 
 
-                String currentDate = DateFormat.getDateInstance(DateFormat.FULL).format(calendar.getTime());
-                String orderID = "OD" + date + Hawk.get("mailingName").toString().trim().replaceAll(" ", "");
+            String currentDate = DateFormat.getDateInstance(DateFormat.FULL).format(calendar.getTime());
+            String orderID = "OD" + date + Hawk.get(getString(R.string.mailingName)).toString().trim().replaceAll(" ", "");
 
-                Requests requests = new Requests(
-                        orderID,
-                        currentDate,
-                        Hawk.get("name"),
-                        Hawk.get("phone"),
-                        Hawk.get("email"),
-                        Hawk.get("contactName"),
-                        Hawk.get("mailingName"),
-                        Hawk.get("contactNumber"),
-                        Hawk.get("gstin"),
-                        discount.getText().toString(),
-                        Hawk.get("address"),
-                        Hawk.get("pincode"),
-                        Hawk.get("state"),
-                        "Pending",
-                        newTotal.getText().toString(),
-                        total.getText().toString(),
-                        order,
-                        "",
-                        false);
-                request = database.getReference("Requests").child("New Orders");
-                request.child(orderID).setValue(requests);
+            Log.d(TAG, "onCreate: uploading the customer request to Firebase");
+            Requests requests = new Requests(
+                    orderID,
+                    currentDate,
+                    Hawk.get(getString(R.string.name)),
+                    Hawk.get(getString(R.string.phone)),
+                    Hawk.get(getString(R.string.email)),
+                    Hawk.get(getString(R.string.contactName)),
+                    Hawk.get(getString(R.string.mailingName)),
+                    Hawk.get(getString(R.string.contactNumber)),
+                    Hawk.get(getString(R.string.gstin)),
+                    discount.getText().toString(),
+                    Hawk.get(getString(R.string.address)),
+                    Hawk.get(getString(R.string.pincode)),
+                    Hawk.get(getString(R.string.state)),
+                    getString(R.string.pending),
+                    newTotal.getText().toString(),
+                    total.getText().toString(),
+                    order,
+                    "",
+                    false);
 
-                request = database.getReference(Hawk.get("mailingName").toString().replaceAll(" ", "")).child("Orders");
-                request.child(orderID).setValue(requests);
+            request = database.getReference(getString(R.string.firebase_request)).child(getString(R.string.firebase_new_orders));
+            request.child(orderID).setValue(requests);
 
-                request = database.getReference(Hawk.get("mailingName").toString().replaceAll(" ", "")).child("New Orders");
-                request.child(orderID).setValue(requests);
+            request = database.getReference(Hawk.get(getString(R.string.mailingName)).toString().replaceAll(" ", "")).child("Orders");
+            request.child(orderID).setValue(requests);
 
-                new Database(getBaseContext()).cleanCart();
-                sendNotification(orderID);
-                progressDialog.dismiss();
-                Intent intent = new Intent(getApplicationContext(), OrderDoneActivity.class);
-                intent.putExtra("orderid", orderID);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-                overridePendingTransition(R.anim.fadein, R.anim.fadeout);
-                finish();
-            }
+            request = database.getReference(Hawk.get(getString(R.string.mailingName)).toString().replaceAll(" ", ""))
+                    .child(getString(R.string.firebase_new_orders));
+            request.child(orderID).setValue(requests);
+
+            Log.d(TAG, "onCreate: cleaning the cart");
+            new Database(getBaseContext()).cleanCart();
+
+            Log.d(TAG, "onCreate: preparing the notification for sending");
+            String title = "New Order";
+            String message = "You have got a new order - " + orderID;
+            NotificationUtil.sendNotification(TAG, title, message, ConfirmationActivity.this);
+            Log.d(TAG, "onCreate: notification sent");
+            Log.d(TAG, "onCreate: dismissing the progress dialog");
+            progressDialog.dismiss();
+
+            Log.d(TAG, "onCreate: starting the order done activity");
+            Intent intent = new Intent(getApplicationContext(), OrderDoneActivity.class);
+            intent.putExtra(getString(R.string.orderid), orderID);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            overridePendingTransition(R.anim.fadein, R.anim.fadeout);
+            finish();
         });
 
-    }
-
-    private void sendNotification(String orderID) {
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Tokens");
-        Query data = databaseReference.orderByChild("serverToken").equalTo(true);
-        data.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot postSnapshot : snapshot.getChildren()) {
-                    Token serverToken = postSnapshot.getValue(Token.class);
-
-//                 com.example.hercules.Models.Notification notification = new com.example.hercules.Models.Notification("Hercules", "You have new order : "+ orderID);
-//                 Sender content = new Sender(serverToken.getToken(), notification);
-
-
-                    Map<String, String> dataSend = new HashMap<>();
-                    dataSend.put("title", "New Order");
-                    dataSend.put("message", "You have got a new order : " + orderID);
-                    assert serverToken != null;
-                    DataMessage content = new DataMessage(serverToken.getToken(), dataSend);
-//                    Sender send = new Sender(serverToken.getToken(), dataSend);
-
-                    apiService.sendNotification(content)
-                            .enqueue(new Callback<MyResponse>() {
-                                @Override
-                                public void onResponse(@NonNull Call<MyResponse> call,@NonNull Response<MyResponse> response) {
-                                    if (response.code() == 200) {
-                                        assert response.body() != null;
-                                        if (response.body().success == 1) {
-//                                            Toast.makeText(getApplicationContext(), "Notification sent", Toast.LENGTH_SHORT).show();
-                                            Log.d(TAG, "onResponse: Notification sent");
-                                        } else {
-//                                        Toast.makeText(getApplicationContext(), "Failed !!", Toast.LENGTH_SHORT).show();
-                                            Log.d(TAG, "onResponse: Failed to send notification");
-                                        }
-                                    }
-                                }
-
-                                @Override
-                                public void onFailure(@NonNull Call<MyResponse> call,@NonNull Throwable t) {
-                                    Log.e(TAG, "onFailure: API service failed with the following throwable " + t);
-
-                                }
-                            });
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Log.e(TAG, "onCancelled: sending notification failed " + error);
-            }
-        });
-    }
-
-    void checkInternet() {
-        AlertDialog.Builder mBuilder = new AlertDialog.Builder(ConfirmationActivity.this);
-        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View mView = inflater.inflate(R.layout.dialog_no_internet, null);
-        mBuilder.setView(mView);
-        mBuilder.setCancelable(false);
-        dialog = mBuilder.create();
-        handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                handler.postDelayed(this, 10);
-                boolean isInternet = CheckInternetConnection.checkInternet(ConfirmationActivity.this);
-                if (!isInternet) {
-                    dialog.show();
-                } else {
-                    dialog.hide();
-                }
-            }
-        }, 20);
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        Log.d(TAG, "onBackPressed: back button is pressed");
+        Log.d(TAG, "onBackPressed: going to cart activity");
+        Log.d(TAG, "onBackPressed: finishing this activity");
         finish();
         handler.removeCallbacksAndMessages(null);
     }

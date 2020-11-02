@@ -45,6 +45,19 @@
     <string name="category_builder">builder</string>
     <string name="category">category</string>
     <string name="position">position</string>
+    <string name="orderid">orderid</string>
+
+    <!-- ****************************** Do not edit ****************************** -->
+    <!--  ****************************** Firebase strings  ****************************** -->
+    <string name="firebase_request">Requests</string>
+    <string name="firebase_new_orders">New Orders</string>
+
+
+
+    <!-- ****************************** Do not edit ****************************** -->
+    <!--  ****************************** Order related strings  ****************************** -->
+    <string name="total">total</string>
+    <string name="new_total">newTotal</string>
 
 
     <!-- ****************************** Product Final Strings ****************************** -->
@@ -118,6 +131,17 @@
 
     <!--  ****************************** Order Confirmation Strings  ****************************** -->
     <string name="ui_order_confirmation">Confirmation</string>
+    <string name="ui_order_confirmation_info">Company Name: %1$s \n\n
+                Mailing Name: %2$s \n\n
+                Phone: %3$s \n\n
+                Email: %4$s \n\n
+                Address: %5$s \n\n
+                Pincode: %6$s \n\n
+                State: %7$s \n\n
+                Contact Name: %8$s \n\n
+                Contact Number: %9$s \n\n
+                Gstin: %10$s \n\n</string>
+
 
     <!--  ****************************** UI Trading Final Strings  ****************************** -->
     <string name="ui_trading">Trading</string>
