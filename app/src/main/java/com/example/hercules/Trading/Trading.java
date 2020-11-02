@@ -11,24 +11,19 @@ import androidx.viewpager.widget.ViewPager;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example.hercules.LeisureFragment;
 import com.example.hercules.R;
-import com.example.hercules.SOLFragment;
 import com.example.hercules.utils.InternetUtils.CheckInternetConnection;
 import com.example.hercules.utils.Notifications.NotificationUtil;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.orhanobut.hawk.Hawk;
 
@@ -38,8 +33,6 @@ import java.util.List;
 import java.util.Map;
 
 public class Trading extends AppCompatActivity {
-    private TabLayout tabLayout;
-    private ViewPager viewPager;
     CardView done, request;
     ArrayList<Integer> itemsSelected;
     ImageView back;
@@ -54,7 +47,7 @@ public class Trading extends AppCompatActivity {
         setContentView(R.layout.activity_trading);
 
         Log.d(TAG, "onCreate: calling no internet method");
-        CheckInternetConnection.showNoInternetDialog(TAG, Trading.this);
+        CheckInternetConnection.showNoInternetDialog( Trading.this, handler);
 
         back = findViewById(R.id.back);
         back.setOnClickListener(view -> {
@@ -103,11 +96,11 @@ public class Trading extends AppCompatActivity {
 
         dialog = builder.create();
 
-        viewPager = (ViewPager) findViewById(R.id.container);
+        ViewPager viewPager = findViewById(R.id.container);
         Log.d(TAG, "onCreate: setting up ViewPager");
         setupViewPager(viewPager);
 
-        tabLayout = (TabLayout) findViewById(R.id.tabs);
+        TabLayout tabLayout = findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
 
         done = findViewById(R.id.done);
@@ -115,6 +108,7 @@ public class Trading extends AppCompatActivity {
             Log.d(TAG, "onClick: done clicked, going to home");
             onBackPressed();
             Log.d(TAG, "onClick: finishing the activity");
+            handler.removeCallbacksAndMessages(null);
             finish();
         });
 
@@ -191,27 +185,21 @@ public class Trading extends AppCompatActivity {
 
 
                 DocumentReference documentReference = db.collection(getString(R.string.ledger)).document(Hawk.get(getString(R.string.email)));
-                documentReference.set(User).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Log.d(TAG, "onSuccess: Successfully added the request to Collection Ledger");
-                        Log.d(TAG, "onSuccess: showing success Toast message");
-                        Toast.makeText(getApplicationContext(), "Requested Ledger", Toast.LENGTH_SHORT).show();
-                        Log.d(TAG, "onSuccess: sending the notification");
-                        String title = getString(R.string.ledger) + " Requests";
-                        String message = Hawk.get(getString(R.string.name)) + " has requested for " + getString(R.string.ledger);
-                        Log.d(TAG, "onSuccess: sending the following notification credentials");
-                        Log.d(TAG, "onSuccess: title: " + title);
-                        Log.d(TAG, "onSuccess: message: " + message);
-                        NotificationUtil.sendNotification(TAG, title, message, Trading.this);
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.d(TAG, "onFailure: Can't request Ledger document");
-                        Log.d(TAG, "onFailure: got the following exception while requesting Ledger " + e);
-                        Toast.makeText(getApplicationContext(), "Can't connect to server, Retry again", Toast.LENGTH_SHORT).show();
-                    }
+                documentReference.set(User).addOnSuccessListener(aVoid -> {
+                    Log.d(TAG, "onSuccess: Successfully added the request to Collection Ledger");
+                    Log.d(TAG, "onSuccess: showing success Toast message");
+                    Toast.makeText(getApplicationContext(), "Requested Ledger", Toast.LENGTH_SHORT).show();
+                    Log.d(TAG, "onSuccess: sending the notification");
+                    String title = getString(R.string.ledger) + " Requests";
+                    String message = Hawk.get(getString(R.string.name)) + " has requested for " + getString(R.string.ledger);
+                    Log.d(TAG, "onSuccess: sending the following notification credentials");
+                    Log.d(TAG, "onSuccess: title: " + title);
+                    Log.d(TAG, "onSuccess: message: " + message);
+                    NotificationUtil.sendNotification(TAG, title, message, Trading.this);
+                }).addOnFailureListener(e -> {
+                    Log.d(TAG, "onFailure: Can't request Ledger document");
+                    Log.d(TAG, "onFailure: got the following exception while requesting Ledger " + e);
+                    Toast.makeText(getApplicationContext(), "Can't connect to server, Retry again", Toast.LENGTH_SHORT).show();
                 });
             }
             Log.d(TAG, "onSuccess: hiding the progress bar");
@@ -275,21 +263,18 @@ public class Trading extends AppCompatActivity {
                 Log.d(TAG, "UserCredentials: " + getString(R.string.discount) + " : " + Hawk.get(getString(R.string.discount)));
 
                 DocumentReference documentReference = db.collection(getString(R.string.SOL)).document(Hawk.get(getString(R.string.email)));
-                documentReference.set(User).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Log.d(TAG, "onSuccess: Successfully added the request to Collection SOL");
-                        Log.d(TAG, "onSuccess: showing success Toast message");
-                        Toast.makeText(getApplicationContext(), "Requested SOL", Toast.LENGTH_SHORT).show();
-                        Log.d(TAG, "onSuccess: sending the notification");
-                        String title = getString(R.string.SOL) + " Requests";
-                        String message = Hawk.get(getString(R.string.name)) + " has requested for " + getString(R.string.SOL);
-                        Log.d(TAG, "onSuccess: sending the following notification credentials");
-                        Log.d(TAG, "onSuccess: title: " + title);
-                        Log.d(TAG, "onSuccess: message: " + message);
-                        NotificationUtil.sendNotification(TAG, title, message, Trading.this);
+                documentReference.set(User).addOnSuccessListener(aVoid -> {
+                    Log.d(TAG, "onSuccess: Successfully added the request to Collection SOL");
+                    Log.d(TAG, "onSuccess: showing success Toast message");
+                    Toast.makeText(getApplicationContext(), "Requested SOL", Toast.LENGTH_SHORT).show();
+                    Log.d(TAG, "onSuccess: sending the notification");
+                    String title = getString(R.string.SOL) + " Requests";
+                    String message = Hawk.get(getString(R.string.name)) + " has requested for " + getString(R.string.SOL);
+                    Log.d(TAG, "onSuccess: sending the following notification credentials");
+                    Log.d(TAG, "onSuccess: title: " + title);
+                    Log.d(TAG, "onSuccess: message: " + message);
+                    NotificationUtil.sendNotification(TAG, title, message, Trading.this);
 
-                    }
                 }).addOnFailureListener(e -> {
                     Log.d(TAG, "onFailure: Can't request SOL document");
                     Log.d(TAG, "onFailure: got the following exception while requesting SOL " + e);
@@ -310,7 +295,7 @@ public class Trading extends AppCompatActivity {
         Log.d(TAG, "setupViewPager: setting the adapter for viewpager");
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         Log.d(TAG, "setupViewPager: adding Ledger and SOL fragments");
-        adapter.addFragment(new LeisureFragment(), getString(R.string.ledger));
+        adapter.addFragment(new LedgerFragment(), getString(R.string.ledger));
         adapter.addFragment(new SOLFragment(), getString(R.string.SOL));
         Log.d(TAG, "setupViewPager: setting the adapter on viewpager");
         viewPager.setAdapter(adapter);
@@ -359,4 +344,9 @@ public class Trading extends AppCompatActivity {
         handler.removeCallbacksAndMessages(null);
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        handler.removeCallbacksAndMessages(null);
+    }
 }

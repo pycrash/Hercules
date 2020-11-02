@@ -8,11 +8,11 @@ public class ProductModel implements Serializable {
     private int image;
     private double price;
     private String productID;
-    private double fat, carbo, protein, calories, servings;
+    private String fat, carbo, protein, calories, servings;
 
 
-
-    public ProductModel() {}
+    public ProductModel() {
+    }
 
     public String getProductID() {
         return productID;
@@ -22,47 +22,47 @@ public class ProductModel implements Serializable {
         this.productID = productID;
     }
 
-    public double getFat() {
+    public String getFat() {
         return fat;
     }
 
-    public void setFat(double fat) {
+    public void setFat(String fat) {
         this.fat = fat;
     }
 
-    public double getCarbo() {
+    public String getCarbo() {
         return carbo;
     }
 
-    public void setCarbo(double carbo) {
+    public void setCarbo(String carbo) {
         this.carbo = carbo;
     }
 
-    public double getProtein() {
+    public String getProtein() {
         return protein;
     }
 
-    public void setProtein(double protein) {
+    public void setProtein(String protein) {
         this.protein = protein;
     }
 
-    public double getCalories() {
+    public String getCalories() {
         return calories;
     }
 
-    public void setCalories(double calories) {
+    public void setCalories(String calories) {
         this.calories = calories;
     }
 
-    public double getServings() {
+    public String getServings() {
         return servings;
     }
 
-    public void setServings(double servings) {
+    public void setServings(String servings) {
         this.servings = servings;
     }
 
-    public ProductModel(String productID, int image, String productName, double price, double fat, double carbo, double protein, double calories, double servings) {
+    public ProductModel(String productID, int image, String productName, double price, String fat, String carbo, String protein, String calories, String servings) {
         this.productName = productName;
         this.image = image;
         this.price = price;

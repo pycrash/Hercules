@@ -25,6 +25,7 @@ import com.orhanobut.hawk.Hawk;
 public class CheckUserInFireStore extends AppCompatActivity {
 
     public static final String TAG = "CheckUserInFireStore";
+    Handler handler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +35,7 @@ public class CheckUserInFireStore extends AppCompatActivity {
 
         Log.d(TAG, "onCreate: calling different methods");
         Log.d(TAG, "onCreate: checking ");
-        CheckInternetConnection.showNoInternetDialog(TAG, CheckUserInFireStore.this);
+        CheckInternetConnection.showNoInternetDialog( CheckUserInFireStore.this, handler);
         checkUser();
 
     }
@@ -72,12 +73,7 @@ public class CheckUserInFireStore extends AppCompatActivity {
             }
         }).addOnFailureListener(e -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(CheckUserInFireStore.this, R.style.MyAlertDialogStyle);
-            builder.setMessage("Error connecting to server").setPositiveButton("Retry", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    checkUser();
-                }
-            });
+            builder.setMessage("Error connecting to server").setPositiveButton("Retry", (dialogInterface, i) -> checkUser());
             builder.setCancelable(false);
             AlertDialog dialog = builder.create();
             dialog.show();

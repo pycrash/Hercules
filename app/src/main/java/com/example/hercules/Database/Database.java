@@ -45,12 +45,12 @@ public class Database extends SQLiteAssetHelper {
                 ));
             } while (c.moveToNext());
         }
+        db.close();
         return result;
     }
 
     public void addToCart(Order order) {
         SQLiteDatabase db = getReadableDatabase();
-
         String query = String.format("INSERT INTO OrderDetail (ProductID, Image, ProductName, Quantity, Price, Multiplier) VALUES('%s','%d','%s','%d','%d','%d');",
                 order.getProductID(),
                 order.getImageResource(),
@@ -59,14 +59,15 @@ public class Database extends SQLiteAssetHelper {
                 order.getPrice(),
                 order.getMultiplier());
         db.execSQL(query);
-
+        db.close();
 
     }
 
     public void cleanCart() {
         SQLiteDatabase db = getReadableDatabase();
-        String query = String.format("DELETE FROM OrderDetail");
+        String query = "DELETE FROM OrderDetail";
         db.execSQL(query);
+        db.close();
 
 
     }
@@ -102,8 +103,7 @@ public class Database extends SQLiteAssetHelper {
     public void deleteFromDatabase(String id) {
         SQLiteDatabase db = getWritableDatabase();
         db.delete("OrderDetail", "ProductID=?", new String[]{id});
-
-        // Add the String you are searching by here.
+        db.close();
     }
 
     public void updateQuantity(String id, int quantity) {
@@ -113,7 +113,7 @@ public class Database extends SQLiteAssetHelper {
         SQLiteDatabase db = getWritableDatabase();
         Log.d(TAG, "updateQuantity: "+quantity);
         db.update("OrderDetail", data, "ProductID = ?", new String[]{id});
-        db.close();              //AND your Database!
+        db.close();
     }
 
     public int getQuantity(String id) {
@@ -125,8 +125,8 @@ public class Database extends SQLiteAssetHelper {
             c.moveToFirst();
             quantity = c.getInt(c.getColumnIndex("Quantity"));//
             c.close();
-            db.close();
         }
+        db.close();
         return quantity;
     }
 
@@ -140,6 +140,7 @@ public class Database extends SQLiteAssetHelper {
             db.close();
             c.close();
         }
+        db.close();
         return count;
     }
     public boolean tableContainsAnything() {
@@ -150,7 +151,6 @@ public class Database extends SQLiteAssetHelper {
             empty = (cur.getInt (0) == 0);
             cur.close();
         }
-
         return empty;
     }
 }

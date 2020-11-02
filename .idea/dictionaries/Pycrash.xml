@@ -4,9 +4,16 @@
       <w>carbo</w>
       <w>cardview</w>
       <w>firestore</w>
+      <w>glutamine</w>
       <w>gstin</w>
+      <w>isoleucine</w>
+      <w>leucine</w>
       <w>notif</w>
+      <w>nutrional</w>
       <w>pincode</w>
+      <w>productname</w>
+      <w>textview</w>
+      <w>valine</w>
     </words>
   </dictionary>
 </component>

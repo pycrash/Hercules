@@ -1,79 +1,56 @@
-package com.example.hercules;
+package com.example.hercules.Trading;
 
-import android.Manifest;
-import android.app.ProgressDialog;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.cardview.widget.CardView;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.provider.Settings;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.hercules.Adapters.TradingAdapter;
 import com.example.hercules.Models.UploadPDF;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
+import com.example.hercules.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 import com.orhanobut.hawk.Hawk;
 
-import java.text.DateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link SOLFragment#newInstance} factory method to
+ * Use the {@link LedgerFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class SOLFragment extends Fragment {
-
+public class LedgerFragment extends Fragment {
     RecyclerView recyclerView;
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
     ProgressBar progressBar;
     LinearLayout no_trading;
+
     //list to store uploads data
     List<UploadPDF> uploadList;
     //these are the views
-    ProgressDialog progressDialog;
     TradingAdapter adapter;
-    //the firebase objects for storage and database
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private static final String TAG = "Ledger_Fragment";
 
-    public SOLFragment() {
+    public LedgerFragment() {
         // Required empty public constructor
     }
 
@@ -83,11 +60,11 @@ public class SOLFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment SOLFragment.
+     * @return A new instance of fragment LeisureFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static SOLFragment newInstance(String param1, String param2) {
-        SOLFragment fragment = new SOLFragment();
+    public static LedgerFragment newInstance(String param1, String param2) {
+        LedgerFragment fragment = new LedgerFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -98,63 +75,80 @@ public class SOLFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        Log.d(TAG, "onCreateView: inflating ledger fragment");
         View view = inflater.inflate(R.layout.fragment_s_o_l, container, false);
 
         no_trading = view.findViewById(R.id.no_trading);
+        Log.d(TAG, "onCreateView: making progress bar visible");
         progressBar = view.findViewById(R.id.progressBar);
         progressBar.setVisibility(View.VISIBLE);
 
+        Log.d(TAG, "onCreateView: setting up recycler view");
         uploadList = new ArrayList<>();
         recyclerView = view.findViewById(R.id.recycler_sol);
-        //adding a clicklistener on listview
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(view.getContext(), LinearLayoutManager.VERTICAL, false);
         layoutManager.setStackFromEnd(true);
         layoutManager.setReverseLayout(true);
         recyclerView.setLayoutManager(layoutManager);
         uploadList = new ArrayList<>();
-        loadOrders();
 
+        Log.d(TAG, "onCreateView: going to loadLedger method");
+        loadLedger();
         return view;
-
     }
 
-    private void loadOrders() {
+    private void loadLedger() {
+        Log.d(TAG, "loadLedger: here");
+        Log.d(TAG, "loadLedger: building Hawk");
         Hawk.init(Objects.requireNonNull(getContext())).build();
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference(Hawk.get("mailingName").toString().replaceAll(" ", "")).child("SOL");
+
+        Log.d(TAG, "loadLedger: referencing child Ledger for " + Hawk.get(getString(R.string.mailingName)));
+
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference(Hawk.get(getString(R.string.mailingName)).toString().replaceAll(" ", "")).child(getString(R.string.ledger));
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Log.d(TAG, "onDataChange: clearing the array list - uploadList");
                 uploadList.clear();
-                for(DataSnapshot ds : snapshot.getChildren()) {
+                Log.d(TAG, "onDataChange: getting the children of Ledger");
+                for (DataSnapshot ds : snapshot.getChildren()) {
                     UploadPDF newOrderModel = ds.getValue(UploadPDF.class);
                     uploadList.add(newOrderModel);
                     adapter = new TradingAdapter(uploadList, getContext());
                     recyclerView.setAdapter(adapter);
-
                 }
+
+                Log.d(TAG, "onDataChange: retrieve successful, making progress bar Invisible");
                 progressBar.setVisibility(View.GONE);
+
+                Log.d(TAG, "onDataChange: checking if the uploadList is empty or not");
                 if (uploadList.size() == 0) {
+                    Log.d(TAG, "onDataChange: uploadList is empty");
+                    Log.d(TAG, "onDataChange: making lottie animation visible");
                     no_trading.setVisibility(View.VISIBLE);
                 } else {
+                    Log.d(TAG, "onDataChange: uploadList is not empty");
+                    Log.d(TAG, "onDataChange: making lottie animation invisible");
                     no_trading.setVisibility(View.GONE);
                 }
+
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(getContext(), "Error", Toast.LENGTH_LONG).show();
+                Log.d(TAG, "onCancelled: error encountered while retrieving childs");
+                Log.d(TAG, "onCancelled: error : " + error);
+                Toast.makeText(getContext(), "Can't connect to server, try again after some time", Toast.LENGTH_LONG).show();
+                Log.d(TAG, "onCancelled: going back to Home activity");
                 getActivity().onBackPressed();
+                Log.d(TAG, "onCancelled: finishing the activity");
                 getActivity().finish();
             }
         });

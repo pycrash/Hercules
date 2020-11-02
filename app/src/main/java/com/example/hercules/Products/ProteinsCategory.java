@@ -2,6 +2,7 @@ package com.example.hercules.Products;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,25 +20,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class ProteinsCategory extends Fragment  implements ItemClickListener {
+public class ProteinsCategory extends Fragment implements ItemClickListener {
     List<ProductModel> mList;
-    public String[] productName = {"Hercules Rapid Whey 1 Kg / 2.2 Lbs", "Hercules Rapid Whey 2 Kg / 4.4 Lbs"};
-    public final double[] price = {2999, 5650};
-    public final int[] image = {R.drawable.protein1, R.drawable.protein2};
-    public final double[] fat = {0.51, 0.51};
-    public final double[] carbo = {3, 3};
-    public final double[] proteins = {26.18, 26.18};
-    public final double[] calories = {135, 135};
-    public final double[] servings = {29, 59};
+    public String[] productName;
+    public String[] price;
+    public int[] image;
+    public String[] fat;
+    public String[] carbo;
+    public String[] proteins;
+    public String[] calories;
+    public String[] servings;
 
-    public static ProteinsCategory newInstance(int position) {
-        ProteinsCategory fragment = new ProteinsCategory();
-        Bundle args = new Bundle();
-        args.putInt("position", position);
-        fragment.setArguments(args);
-
-        return fragment;
-    }
+    public static final String TAG = "Proteins_Category";
 
     public ProteinsCategory() {
 
@@ -46,19 +40,26 @@ public class ProteinsCategory extends Fragment  implements ItemClickListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            /* mPosition = getArguments().getInt("position");*/
-        }
     }
 
 
-    private List<ProductModel> prepareData(){
+    private List<ProductModel> prepareData() {
+        Log.d(TAG, "prepareData: setting up data for Pre Workout Category");
+        productName = new String[]{getString(R.string.protein1_name), getString(R.string.protein2_name)};
+        price = new String[]{getString(R.string.protein1_price), getString(R.string.protein2_price)};
+        image = new int[]{R.drawable.protein1, R.drawable.protein2};
+        fat = new String[]{getString(R.string.protein1_fat), getString(R.string.protein2_fat)};
+        carbo = new String[]{getString(R.string.protein1_carbo), getString(R.string.protein2_carbo)};
+        proteins = new String[]{getString(R.string.protein1_proteins), getString(R.string.protein2_proteins)};
+        calories = new String[]{getString(R.string.protein1_calories), getString(R.string.protein2_calories)};
+        servings = new String[]{getString(R.string.protein1_servings), getString(R.string.protein2_servings)};
 
+        Log.d(TAG, "prepareData: setting up data on recycler view");
         List<ProductModel> list = new ArrayList<>();
-        for(int i=0;i<productName.length;i++){
+        for (int i = 0; i < productName.length; i++) {
             ProductModel model = new ProductModel();
             model.setProductName(productName[i]);
-            model.setPrice(price[i]);
+            model.setPrice(Double.parseDouble(price[i]));
             model.setImage(image[i]);
             model.setFat(fat[i]);
             model.setCarbo(carbo[i]);
@@ -75,30 +76,33 @@ public class ProteinsCategory extends Fragment  implements ItemClickListener {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_products, container, false);
 
-        RecyclerView recyclerView = (RecyclerView)view.findViewById(R.id.recycleViewWheyProtein);
-
-
+        Log.d(TAG, "onCreateView: setting up recycler view");
+        RecyclerView recyclerView = view.findViewById(R.id.recycleViewWheyProtein);
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(view.getContext());
         recyclerView.setLayoutManager(layoutManager);
 
         mList = prepareData();
         ProductAdapter adapter = new ProductAdapter(mList, view.getContext());
+        Log.d(TAG, "onCreateView: setting up adapter on recycler view");
         recyclerView.setAdapter(adapter);
+        Log.d(TAG, "onCreateView: setting up click listener on recycler view");
         adapter.setClickListener(this);
         return view;
     }
+
     @Override
     public void onClick(View view, int position) {
-
-        ProductModel model = mList.get(position);
+        Log.d(TAG, "onClick: going to Product Showcase intent");
         Intent intent = new Intent(getContext(), ProductShowcase.class);
-        intent.putExtra("position", position);
-        intent.putExtra("category", getString(R.string.category_protein));
+        Log.d(TAG, "onClick: putting recycler view position and ctageory in intent");
+        Log.d(TAG, "onClick: position : " + position);
+        Log.d(TAG, "onClick: category : " + getString(R.string.category_protein));
+        intent.putExtra(getString(R.string.position), position);
+        intent.putExtra(getString(R.string.category), getString(R.string.category_protein));
         startActivity(intent);
 
     }
-
 
 
 }
