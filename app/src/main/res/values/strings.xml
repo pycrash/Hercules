@@ -35,7 +35,10 @@
 
     <!-- ****************************** Do not edit ****************************** -->
     <!--  ****************************** Status Strings  ****************************** -->
+    <string name="status">status</string>
     <string name="pending">Pending</string>
+    <string name="completed">Completed</string>
+    <string name="cancelled">Cancelled</string>
 
     <!-- ****************************** Do not edit ****************************** -->
     <!--  ****************************** Intent related strings  ****************************** -->
@@ -46,11 +49,13 @@
     <string name="category">category</string>
     <string name="position">position</string>
     <string name="orderid">orderid</string>
+    <string name="orderDetails">orderDetails</string>
 
     <!-- ****************************** Do not edit ****************************** -->
     <!--  ****************************** Firebase strings  ****************************** -->
     <string name="firebase_request">Requests</string>
     <string name="firebase_new_orders">New Orders</string>
+    <string name="firebase_orders">Orders</string>
 
 
 
