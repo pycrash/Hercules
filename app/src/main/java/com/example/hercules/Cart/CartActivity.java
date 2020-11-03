@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -48,52 +49,60 @@ public class CartActivity extends AppCompatActivity implements ItemClickListener
     List<Order> cart = new ArrayList<>();
     double amount;
     double d;
-    int new_amount;
     Handler handler;
     ProgressDialog progressDialog;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+    public static final String TAG = "CartActivity";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
+
+        Log.d(TAG, "onCreate: started");
+
         total = findViewById(R.id.total);
         newtotal = findViewById(R.id.newTotal);
-
-
         place = findViewById(R.id.place_order);
         placeOrder = findViewById(R.id.ashu);
         animation = findViewById(R.id.animation_cart);
+
+        Log.d(TAG, "onCreate: setting up recyler view");
         recyclerView = findViewById(R.id.cart_recycler_view);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
+
+        Log.d(TAG, "onCreate: calling loadCart method");
         loadCart();
+
         amount = cartAdapter.grandTotal();
-        newtotal.setText(getString(R.string.price, String.format("%.2f", (double) amount * (double) ((double) (100 - (double) d) / 100))));
+        Log.d(TAG, "onCreate: loading grand total, grand total :  " + amount);
+
+        Log.d(TAG, "onCreate: setting up new total");
+        newtotal.setText(getString(R.string.price, String.format("%.2f", amount * ((100 - d) / 100))));
 
 
+        placeOrder.setOnClickListener(view -> {
+            Log.d(TAG, "onClick: place order clicked");
+            Intent intent = new Intent(CartActivity.this, ConfirmationActivity.class);
+            intent.putExtra(getString(R.string.total), total.getText().toString());
+            intent.putExtra(getString(R.string.new_total), newtotal.getText().toString().trim());
+            intent.putExtra(getString(R.string.discount), d);
 
-        placeOrder.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(CartActivity.this, ConfirmationActivity.class);
-                intent.putExtra("total", total.getText().toString());
-                intent.putExtra("newTotal", newtotal.getText().toString().trim());
-                intent.putExtra("discount", d);
-                startActivity(intent);
-
-            }
+            Log.d(TAG, "onClick: starting confirmation activity");
+            startActivity(intent);
         });
-        handler= new Handler();
+        handler = new Handler();
         int delay = 10;
 
-        handler.postDelayed(new Runnable(){
-            public void run(){
-
+        handler.postDelayed(new Runnable() {
+            public void run() {
                 total.setText(getString(R.string.price, String.valueOf(cartAdapter.totalChange())));
-                newtotal.setText(getString(R.string.price, String.format("%.2f", (double) (cartAdapter.totalChange()) * (double) ((double) (100 - (double) d) / 100))));
+                newtotal.setText(getString(R.string.price, String.format("%.2f", (cartAdapter.totalChange()) * ((100 - d) / 100))));
                 cart = new Database(CartActivity.this).getCarts();
-                if(cart.size() == 0) {
+                if (cart.size() == 0) {
                     animation.setVisibility(View.VISIBLE);
                     placeOrder.setVisibility(View.GONE);
                 }
@@ -101,24 +110,23 @@ public class CartActivity extends AppCompatActivity implements ItemClickListener
             }
         }, delay);
         back = findViewById(R.id.back_login);
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-                finish();
-                handler.removeCallbacksAndMessages(null);
+        back.setOnClickListener(view -> {
+            Log.d(TAG, "onClick: back pressed");
+            onBackPressed();
+            finish();
+            handler.removeCallbacksAndMessages(null);
 
-            }
         });
     }
 
     private void loadCart() {
+        Log.d(TAG, "loadCart: getting cart");
         cart = new Database(this).getCarts();
-        if(cart.size() == 0) {
+        if (cart.size() == 0) {
             animation.setVisibility(View.VISIBLE);
             placeOrder.setVisibility(View.GONE);
         }
-        cartAdapter  = new CartAdapter(cart, CartActivity.this);
+        cartAdapter = new CartAdapter(cart, CartActivity.this);
         recyclerView.setAdapter(cartAdapter);
         cartAdapter.setClickListener(this);
     }
@@ -126,61 +134,62 @@ public class CartActivity extends AppCompatActivity implements ItemClickListener
     @Override
     public void onClick(View view, int position) {
         total.setText(getString(R.string.price, String.valueOf(cartAdapter.totalChange())));
-        newtotal.setText(getString(R.string.price, String.format("%.2f", (double) (cartAdapter.totalChange()) * (double) ((double) (100 - (double) d) / 100))));
+        newtotal.setText(getString(R.string.price, String.format("%.2f", (cartAdapter.totalChange()) * ((100 - d) / 100))));
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-         progressDialog = new ProgressDialog(CartActivity.this, R.style.ProgressDialog);
-         progressDialog.setMessage("Getting your realtime discount");
-         progressDialog.setCancelable(false);
-         progressDialog.show();
+        Log.d(TAG, "onStart: user can see activity");
+        Log.d(TAG, "onStart: showing progress dialog");
+        progressDialog = new ProgressDialog(CartActivity.this, R.style.ProgressDialog);
+        progressDialog.setMessage("Getting your realtime discount");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
 
+        Log.d(TAG, "onStart: building Hawk");
         Hawk.init(CartActivity.this).build();
-        DocumentReference doc = db.collection("Users").document(Hawk.get("email"));
-        doc.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                if (documentSnapshot.exists()) {
-                    Intent intent = new Intent(CartActivity.this, HomeActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                    Hawk.put("discount", documentSnapshot.get("discount"));
-                    d = documentSnapshot.getDouble("discount");
-                    total.setText(getString(R.string.price, String.valueOf(amount)));
-                    newtotal.setText(getString(R.string.price, String.format("%.2f", (double) amount * (double) ((double) (100 - (double) d) / 100))));
-                    total.setPaintFlags(total.getPaintFlags()| Paint.STRIKE_THRU_TEXT_FLAG);
-                    progressDialog.dismiss();
 
+        Log.d(TAG, "onStart: connecting to Firestore");
+        DocumentReference doc = db.collection(getString(R.string.users)).document(Hawk.get(getString(R.string.email)));
+        doc.get().addOnSuccessListener(documentSnapshot -> {
+            if (documentSnapshot.exists()) {
+                Log.d(TAG, "onStart: document snapshot exists");
+                Intent intent = new Intent(CartActivity.this, HomeActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                Hawk.put(getString(R.string.discount), documentSnapshot.get(getString(R.string.discount)));
+                if (documentSnapshot.getDouble(getString(R.string.discount)) != null) {
+                    d = documentSnapshot.getDouble(getString(R.string.discount));
                 } else {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(CartActivity.this, R.style.MyAlertDialogStyle);
-                    builder.setMessage("Session timed out").setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            startActivity(new Intent(CartActivity.this, LoginSlider.class));
-                            Hawk.deleteAll();
-                            overridePendingTransition(R.anim.fadeout, R.anim.fadein);
-                            finishAffinity();
-                        }
-                    });
+                    d = 0;
                 }
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
+                total.setText(getString(R.string.price, String.valueOf(amount)));
+                newtotal.setText(getString(R.string.price, String.format("%.2f", amount * ((100 - d) / 100))));
+                total.setPaintFlags(total.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                progressDialog.dismiss();
+
+            } else {
                 AlertDialog.Builder builder = new AlertDialog.Builder(CartActivity.this, R.style.MyAlertDialogStyle);
-                builder.setMessage("Error connecting to server, try again after some time").setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        onBackPressed();
-
-                    }
-
+                builder.setMessage("Session timed out").setPositiveButton("Ok", (dialogInterface, i) -> {
+                    Log.d(TAG, "onClick: going to LoginSlider activity");
+                    startActivity(new Intent(CartActivity.this, LoginSlider.class));
+                    Hawk.deleteAll();
+                    overridePendingTransition(R.anim.fadeout, R.anim.fadein);
+                    finish();
                 });
-                builder.setCancelable(false);
-                AlertDialog dialog = builder.create();
-                dialog.show();
             }
+        }).addOnFailureListener(e -> {
+            Log.e(TAG, "onStart: could not connect to server");
+            Log.e(TAG, "onStart: got the following error  " + e);
+            AlertDialog.Builder builder = new AlertDialog.Builder(CartActivity.this, R.style.MyAlertDialogStyle);
+            builder.setMessage("Error connecting to server, try again after some time").setPositiveButton("Ok", (dialogInterface, i) -> {
+                onBackPressed();
+                finish();
+
+            });
+            builder.setCancelable(false);
+            AlertDialog dialog = builder.create();
+            dialog.show();
         });
     }
 }
