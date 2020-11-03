@@ -99,8 +99,19 @@ public class ConfirmationActivity extends AppCompatActivity {
             handler.removeCallbacksAndMessages(null);
         });
 
-        Log.d(TAG, "onCreate: setting the user credentials");
+        Log.d(TAG, "onCreate: setting the user credentials");        Log.d(TAG, "onCreate: ID : " + Hawk.get(getString(R.string.mailingName)));
+
         Log.d(TAG, "onCreate: Company Name : " + Hawk.get(getString(R.string.name)));
+        Log.d(TAG, "onCreate: ID : " + Hawk.get(getString(R.string.mailingName)));
+        Log.d(TAG, "onCreate: Phone:  " + Hawk.get(getString(R.string.phone)));
+        Log.d(TAG, "onCreate: Email : " + Hawk.get(getString(R.string.email)));
+        Log.d(TAG, "onCreate: Address : " + Hawk.get(getString(R.string.address)));
+        Log.d(TAG, "onCreate: Pincode : " + Hawk.get(getString(R.string.pincode)));
+        Log.d(TAG, "onCreate: State : " + Hawk.get(getString(R.string.state)));
+        Log.d(TAG, "onCreate: Contact Name : " + Hawk.get(getString(R.string.contactName)));
+        Log.d(TAG, "onCreate: Contact Number : " + Hawk.get(getString(R.string.contactNumber)));
+        Log.d(TAG, "onCreate: GSTIN : " + Hawk.get(getString(R.string.gstin)));
+
 
         address.setText(getString(R.string.ui_order_confirmation_info, Hawk.get(getString(R.string.name)),
                 Hawk.get(getString(R.string.mailingName)), Hawk.get(getString(R.string.phone)),

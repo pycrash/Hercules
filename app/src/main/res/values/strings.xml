@@ -137,7 +137,7 @@
     <!--  ****************************** Order Confirmation Strings  ****************************** -->
     <string name="ui_order_confirmation">Confirmation</string>
     <string name="ui_order_confirmation_info">Company Name: %1$s \n\n
-                Mailing Name: %2$s \n\n
+                ID: %2$s \n\n
                 Phone: %3$s \n\n
                 Email: %4$s \n\n
                 Address: %5$s \n\n

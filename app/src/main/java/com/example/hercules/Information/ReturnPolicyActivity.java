@@ -6,13 +6,11 @@ import androidx.cardview.widget.CardView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.hercules.Home.HomeActivity;
 import com.example.hercules.R;
-import com.example.hercules.Remote.RetroFitClient;
 
 public class ReturnPolicyActivity extends AppCompatActivity {
     TextView returnPolicy;
