@@ -24,6 +24,7 @@ public class Database extends SQLiteAssetHelper {
     }
 
     public List<Order> getCarts() {
+        Log.d(TAG, "getCarts: getting database");
         SQLiteDatabase db = getReadableDatabase();
         SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
 
@@ -50,6 +51,7 @@ public class Database extends SQLiteAssetHelper {
     }
 
     public void addToCart(Order order) {
+        Log.d(TAG, "addToCart: adding product to cart");
         SQLiteDatabase db = getReadableDatabase();
         String query = String.format("INSERT INTO OrderDetail (ProductID, Image, ProductName, Quantity, Price, Multiplier) VALUES('%s','%d','%s','%d','%d','%d');",
                 order.getProductID(),
@@ -64,6 +66,7 @@ public class Database extends SQLiteAssetHelper {
     }
 
     public void cleanCart() {
+        Log.d(TAG, "cleanCart: cleaning cart");
         SQLiteDatabase db = getReadableDatabase();
         String query = "DELETE FROM OrderDetail";
         db.execSQL(query);
@@ -73,6 +76,8 @@ public class Database extends SQLiteAssetHelper {
     }
 
     public boolean hasObject(String id) {
+        Log.d(TAG, "hasObject: checking whether an product is in Database or not");
+        Log.d(TAG, "hasObject: checking whether " + id +" exists in database or not");
         SQLiteDatabase db = getWritableDatabase();
         String selectString = "SELECT * FROM OrderDetail" + " WHERE ProductID" + " =?";
 
@@ -101,6 +106,8 @@ public class Database extends SQLiteAssetHelper {
     }
 
     public void deleteFromDatabase(String id) {
+        Log.d(TAG, "deleteFromDatabase: delete the product from database");
+        Log.d(TAG, "deleteFromDatabase: deleting " + id + " from database");
         SQLiteDatabase db = getWritableDatabase();
         db.delete("OrderDetail", "ProductID=?", new String[]{id});
         db.close();
@@ -117,6 +124,7 @@ public class Database extends SQLiteAssetHelper {
     }
 
     public int getQuantity(String id) {
+        Log.d(TAG, "getQuantity: getting quantity from database for product id " + id);
         String selectString = "SELECT Quantity FROM OrderDetail" + " WHERE ProductID" + " =?";
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = db.rawQuery(selectString, new String[]{id});
@@ -131,6 +139,7 @@ public class Database extends SQLiteAssetHelper {
     }
 
     public long count() {
+        Log.d(TAG, "count: counting the no of items in database");
         String selectString = "SELECT * FROM OrderDetail";
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = db.rawQuery(selectString, null);
@@ -144,6 +153,7 @@ public class Database extends SQLiteAssetHelper {
         return count;
     }
     public boolean tableContainsAnything() {
+        Log.d(TAG, "tableContainsAnything: checking whether database contains anything or not");
         boolean empty = true;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cur = db.rawQuery("SELECT COUNT(*) FROM OrderDetail", null);
