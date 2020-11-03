@@ -3,7 +3,7 @@ package com.example.hercules.Models;
 
 public class UploadPDF {
 
-    public String name;
+    public String companyName;
     public String url;
     public String date;
 
@@ -12,8 +12,8 @@ public class UploadPDF {
     public UploadPDF() {
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
     }
 
     public void setUrl(String url) {
@@ -28,14 +28,14 @@ public class UploadPDF {
         this.date = date;
     }
 
-    public UploadPDF(String name, String url, String date) {
-        this.name = name;
+    public UploadPDF(String companyName, String url, String date) {
+        this.companyName = companyName;
         this.url = url;
         this.date = date;
     }
 
-    public String getName() {
-        return name;
+    public String getCompanyName() {
+        return companyName;
     }
 
     public String getUrl() {

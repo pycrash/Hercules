@@ -8,6 +8,7 @@
 
     <!-- ****************************** Do not edit ****************************** -->
     <!-- ****************************** User credentials strings ****************************** -->
+    <string name="users">Users</string>
     <string name="email">email</string>
     <string name="companyName">companyName</string>
     <string name="phone">phone</string>
@@ -19,6 +20,7 @@
     <string name="contactNumber">contactNumber</string>
     <string name="gstin">gstin</string>
     <string name="discount">discount</string>
+    <string name="password">password</string>
 
     <!-- ****************************** Do not edit ****************************** -->
     <!-- ****************************** Request Strings ****************************** -->
@@ -94,6 +96,7 @@
     <!--  ****************************** Login Final Strings  ****************************** -->
     <string name="continue_with_email">Continue With Email</string>
     <string name="enter_email">Enter Email Address</string>
+    <string name="enter_password">Enter your Password</string>
     <string name="ui_email_address">Email address</string>
     <string name="ui_password">Password</string>
     <string name="account_info">Account Info</string>

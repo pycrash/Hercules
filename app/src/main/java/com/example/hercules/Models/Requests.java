@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.List;
 
 public class Requests implements Serializable {
-    private String orderID, date, name, phone, email, contactName, mailingName, contactNumber, gstin, discount, address, pincode, state, status;
+    private String orderID, date, companyName, phone, email, contactName, id, contactNumber, gstin, discount, address, pincode, state, status;
     private String newTotal, total, notes;
     private List<Order> cart;
     boolean cancelled;
@@ -22,16 +22,16 @@ public class Requests implements Serializable {
         this.notes = notes;
     }
 
-    public Requests(String orderID, String date, String name, String phone, String email, String contactName, String mailingName,
+    public Requests(String orderID, String date, String companyName, String phone, String email, String contactName, String id,
                     String contactNumber, String gstin, String discount, String address, String pincode, String state,
                     String status, String newTotal, String total, List<Order> cart, String notes, boolean cancelled) {
         this.orderID = orderID;
         this.date = date;
-        this.name = name;
+        this.companyName = companyName;
         this.phone = phone;
         this.email = email;
         this.contactName = contactName;
-        this.mailingName = mailingName;
+        this.id = id;
         this.contactNumber = contactNumber;
         this.gstin = gstin;
         this.discount = discount;
@@ -70,12 +70,12 @@ public class Requests implements Serializable {
         this.date = date;
     }
 
-    public String getName() {
-        return name;
+    public String getCompanyName() {
+        return companyName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
     }
 
     public String getPhone() {
@@ -102,12 +102,12 @@ public class Requests implements Serializable {
         this.contactName = contactName;
     }
 
-    public String getMailingName() {
-        return mailingName;
+    public String getID() {
+        return id;
     }
 
-    public void setMailingName(String mailingName) {
-        this.mailingName = mailingName;
+    public void setID(String id) {
+        this.id = id;
     }
 
     public String getContactNumber() {

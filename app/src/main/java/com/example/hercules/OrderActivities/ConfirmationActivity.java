@@ -82,7 +82,6 @@ public class ConfirmationActivity extends AppCompatActivity {
 
         Log.d(TAG, "onCreate: setting the user credentials");
         Log.d(TAG, "onCreate: ID : " + Hawk.get(getString(R.string.id)));
-
         Log.d(TAG, "onCreate: Company Name : " + Hawk.get(getString(R.string.companyName)));
         Log.d(TAG, "onCreate: ID : " + Hawk.get(getString(R.string.id)));
         Log.d(TAG, "onCreate: Phone:  " + Hawk.get(getString(R.string.phone)));
