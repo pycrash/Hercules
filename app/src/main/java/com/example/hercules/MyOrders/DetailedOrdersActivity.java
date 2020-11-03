@@ -1,13 +1,10 @@
 package com.example.hercules.MyOrders;
 
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,11 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.hercules.Adapters.MyOrderProductsAdapter;
-import com.example.hercules.Models.Common;
-import com.example.hercules.Models.DataMessage;
-import com.example.hercules.Models.MyResponse;
 import com.example.hercules.Models.Requests;
-import com.example.hercules.Models.Token;
 import com.example.hercules.R;
 import com.example.hercules.Remote.APIService;
 import com.example.hercules.utils.InternetUtils.CheckInternetConnection;
@@ -33,18 +26,11 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.orhanobut.hawk.Hawk;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class DetailedOrdersActivity extends AppCompatActivity {
     public TextView orderid, date, name, contact_name, mailing_name, phone, contact_phone, address, state,
@@ -196,7 +182,7 @@ public class DetailedOrdersActivity extends AppCompatActivity {
                     dialog.show();
                 } else {
                     Log.d(TAG, "onCreate: sending this order for cancellation");
-                    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference(Hawk.get(getString(R.string.mailingName))
+                    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference(Hawk.get(getString(R.string.id))
                             .toString().replaceAll(" ", "")).child(getString(R.string.firebase_orders))
                             .child(pendingOrderModel.getOrderID()).child(getString(R.string.status));
                     databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {

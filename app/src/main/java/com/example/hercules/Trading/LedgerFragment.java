@@ -109,9 +109,9 @@ public class LedgerFragment extends Fragment {
         Log.d(TAG, "loadLedger: building Hawk");
         Hawk.init(Objects.requireNonNull(getContext())).build();
 
-        Log.d(TAG, "loadLedger: referencing child Ledger for " + Hawk.get(getString(R.string.mailingName)));
+        Log.d(TAG, "loadLedger: referencing child Ledger for " + Hawk.get(getString(R.string.id)));
 
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference(Hawk.get(getString(R.string.mailingName)).toString().replaceAll(" ", "")).child(getString(R.string.ledger));
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference(Hawk.get(getString(R.string.id)).toString().replaceAll(" ", "")).child(getString(R.string.ledger));
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

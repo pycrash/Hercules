@@ -113,8 +113,8 @@ public class SOLFragment extends Fragment {
         Log.d(TAG, "loadSOL: building Hawk");
         Hawk.init(Objects.requireNonNull(getContext())).build();
 
-        Log.d(TAG, "loadSOL: referencing child SOL for " + Hawk.get(getString(R.string.mailingName)));
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference(Hawk.get(getString(R.string.mailingName)).toString().replaceAll(" ", "")).child(getString(R.string.SOL));
+        Log.d(TAG, "loadSOL: referencing child SOL for " + Hawk.get(getString(R.string.id)));
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference(Hawk.get(getString(R.string.id)).toString().replaceAll(" ", "")).child(getString(R.string.SOL));
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

@@ -20,8 +20,6 @@ import android.widget.Toast;
 import com.example.hercules.R;
 import com.example.hercules.utils.InternetUtils.CheckInternetConnection;
 import com.example.hercules.utils.Notifications.NotificationUtil;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -158,10 +156,10 @@ public class Trading extends AppCompatActivity {
                 Log.d(TAG, "onSuccess: starting user request to upload in Firestore");
 
                 final Map<String, Object> User = new HashMap<>();
-                User.put(getString(R.string.name), Hawk.get(getString(R.string.name)));
+                User.put(getString(R.string.companyName), Hawk.get(getString(R.string.companyName)));
                 User.put(getString(R.string.email), Hawk.get(getString(R.string.email)));
                 User.put(getString(R.string.phone), Hawk.get(getString(R.string.phone)));
-                User.put(getString(R.string.mailingName), Hawk.get(getString(R.string.mailingName)));
+                User.put(getString(R.string.id), Hawk.get(getString(R.string.id)));
                 User.put(getString(R.string.address), Hawk.get(getString(R.string.address)));
                 User.put(getString(R.string.pincode), Hawk.get(getString(R.string.pincode)));
                 User.put(getString(R.string.state), Hawk.get(getString(R.string.state)));
@@ -171,10 +169,10 @@ public class Trading extends AppCompatActivity {
                 User.put(getString(R.string.discount), Hawk.get(getString(R.string.discount)));
 
                 Log.d(TAG, "onSuccess: uploading the following documents in Firestore in collection Ledger");
-                Log.d(TAG, "UserCredentials: " + getString(R.string.name) + " : " + Hawk.get(getString(R.string.name)));
+                Log.d(TAG, "UserCredentials: " + getString(R.string.companyName) + " : " + Hawk.get(getString(R.string.companyName)));
                 Log.d(TAG, "UserCredentials: " + getString(R.string.email) + " : " + Hawk.get(getString(R.string.email)));
                 Log.d(TAG, "UserCredentials: " + getString(R.string.phone) + " : " + Hawk.get(getString(R.string.phone)));
-                Log.d(TAG, "UserCredentials: " + getString(R.string.mailingName) + " : " + Hawk.get(getString(R.string.mailingName)));
+                Log.d(TAG, "UserCredentials: " + getString(R.string.id) + " : " + Hawk.get(getString(R.string.id)));
                 Log.d(TAG, "UserCredentials: " + getString(R.string.address) + " : " + Hawk.get(getString(R.string.address)));
                 Log.d(TAG, "UserCredentials: " + getString(R.string.pincode) + " : " + Hawk.get(getString(R.string.pincode)));
                 Log.d(TAG, "UserCredentials: " + getString(R.string.state) + " : " + Hawk.get(getString(R.string.state)));
@@ -191,7 +189,7 @@ public class Trading extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Requested Ledger", Toast.LENGTH_SHORT).show();
                     Log.d(TAG, "onSuccess: sending the notification");
                     String title = getString(R.string.ledger) + " Requests";
-                    String message = Hawk.get(getString(R.string.name)) + " has requested for " + getString(R.string.ledger);
+                    String message = Hawk.get(getString(R.string.companyName)) + " has requested for " + getString(R.string.ledger);
                     Log.d(TAG, "onSuccess: sending the following notification credentials");
                     Log.d(TAG, "onSuccess: title: " + title);
                     Log.d(TAG, "onSuccess: message: " + message);
@@ -205,7 +203,7 @@ public class Trading extends AppCompatActivity {
             Log.d(TAG, "onSuccess: hiding the progress bar");
             progressDialog.hide();
         }).addOnFailureListener(e -> {
-            Log.d(TAG, "onFailure: couldn't check whether Ledger request for " + Hawk.get(getString(R.string.name)) + "exists or not");
+            Log.d(TAG, "onFailure: couldn't check whether Ledger request for " + Hawk.get(getString(R.string.companyName)) + "exists or not");
             Log.d(TAG, "onFailure: got the following exception " + e);
             Toast.makeText(getApplicationContext(), "Can't connect to server, Retry again", Toast.LENGTH_SHORT).show();
         });
@@ -237,10 +235,10 @@ public class Trading extends AppCompatActivity {
                 Log.d(TAG, "onSuccess: starting user request to upload in Firestore");
 
                 final Map<String, Object> User = new HashMap<>();
-                User.put(getString(R.string.name), Hawk.get(getString(R.string.name)));
+                User.put(getString(R.string.companyName), Hawk.get(getString(R.string.companyName)));
                 User.put(getString(R.string.email), Hawk.get(getString(R.string.email)));
                 User.put(getString(R.string.phone), Hawk.get(getString(R.string.phone)));
-                User.put(getString(R.string.mailingName), Hawk.get(getString(R.string.mailingName)));
+                User.put(getString(R.string.id), Hawk.get(getString(R.string.id)));
                 User.put(getString(R.string.address), Hawk.get(getString(R.string.address)));
                 User.put(getString(R.string.pincode), Hawk.get(getString(R.string.pincode)));
                 User.put(getString(R.string.state), Hawk.get(getString(R.string.state)));
@@ -250,10 +248,10 @@ public class Trading extends AppCompatActivity {
                 User.put(getString(R.string.discount), Hawk.get(getString(R.string.discount)));
 
                 Log.d(TAG, "onSuccess: uploading the following documents in Firestore in collection Ledger");
-                Log.d(TAG, "UserCredentials: " + getString(R.string.name) + " : " + Hawk.get(getString(R.string.name)));
+                Log.d(TAG, "UserCredentials: " + getString(R.string.companyName) + " : " + Hawk.get(getString(R.string.companyName)));
                 Log.d(TAG, "UserCredentials: " + getString(R.string.email) + " : " + Hawk.get(getString(R.string.email)));
                 Log.d(TAG, "UserCredentials: " + getString(R.string.phone) + " : " + Hawk.get(getString(R.string.phone)));
-                Log.d(TAG, "UserCredentials: " + getString(R.string.mailingName) + " : " + Hawk.get(getString(R.string.mailingName)));
+                Log.d(TAG, "UserCredentials: " + getString(R.string.id) + " : " + Hawk.get(getString(R.string.id)));
                 Log.d(TAG, "UserCredentials: " + getString(R.string.address) + " : " + Hawk.get(getString(R.string.address)));
                 Log.d(TAG, "UserCredentials: " + getString(R.string.pincode) + " : " + Hawk.get(getString(R.string.pincode)));
                 Log.d(TAG, "UserCredentials: " + getString(R.string.state) + " : " + Hawk.get(getString(R.string.state)));
@@ -269,7 +267,7 @@ public class Trading extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Requested SOL", Toast.LENGTH_SHORT).show();
                     Log.d(TAG, "onSuccess: sending the notification");
                     String title = getString(R.string.SOL) + " Requests";
-                    String message = Hawk.get(getString(R.string.name)) + " has requested for " + getString(R.string.SOL);
+                    String message = Hawk.get(getString(R.string.companyName)) + " has requested for " + getString(R.string.SOL);
                     Log.d(TAG, "onSuccess: sending the following notification credentials");
                     Log.d(TAG, "onSuccess: title: " + title);
                     Log.d(TAG, "onSuccess: message: " + message);
@@ -282,7 +280,7 @@ public class Trading extends AppCompatActivity {
                 });
             }
         }).addOnFailureListener(e -> {
-            Log.d(TAG, "onFailure: couldn't check whether SOL request for " + Hawk.get(getString(R.string.name)) + "exists or not");
+            Log.d(TAG, "onFailure: couldn't check whether SOL request for " + Hawk.get(getString(R.string.companyName)) + "exists or not");
             Log.d(TAG, "onFailure: got the following exception " + e);
             Toast.makeText(getApplicationContext(), "Can't connect to server, Retry again", Toast.LENGTH_SHORT).show();
         });

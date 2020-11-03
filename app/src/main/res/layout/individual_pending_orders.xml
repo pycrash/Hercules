@@ -110,7 +110,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="8dp"
                             android:fontFamily="monospace"
-                            android:text="@string/ui_name"
+                            android:text="@string/ui_company_name"
                             android:textColor="@color/text_color"
                             android:textSize="@dimen/secondary_text"
                             android:textStyle="bold" />
@@ -122,7 +122,7 @@
                             android:layout_gravity="end"
                             android:layout_marginBottom="8dp"
                             android:fontFamily="monospace"
-                            android:text="@string/name"
+                            android:text="@string/companyName"
                             android:textAlignment="viewEnd"
                             android:textColor="@color/text_color"
                             android:textSize="@dimen/secondary_text" />
@@ -200,7 +200,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="8dp"
                             android:fontFamily="monospace"
-                            android:text="@string/ui_mailing_name"
+                            android:text="@string/ui_id"
                             android:textColor="@color/text_color"
                             android:textSize="@dimen/secondary_text"
                             android:textStyle="bold" />
@@ -212,7 +212,7 @@
                             android:layout_gravity="end"
                             android:layout_marginBottom="8dp"
                             android:fontFamily="monospace"
-                            android:text="@string/mailingName"
+                            android:text="@string/id"
                             android:textAlignment="viewEnd"
                             android:textColor="@color/text_color"
                             android:textSize="@dimen/secondary_text" />

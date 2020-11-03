@@ -9,9 +9,9 @@
     <!-- ****************************** Do not edit ****************************** -->
     <!-- ****************************** User credentials strings ****************************** -->
     <string name="email">email</string>
-    <string name="name">name</string>
+    <string name="companyName">companyName</string>
     <string name="phone">phone</string>
-    <string name="mailingName">mailingName</string>
+    <string name="id">id</string>
     <string name="address">address</string>
     <string name="pincode">pincode</string>
     <string name="state">state</string>
@@ -114,19 +114,19 @@
     <string name="ui_order_id">Order ID: </string>
     <string name="ui_order_date">Order Date: </string>
     <string name="ui_order_status">Order Status : </string>
-    <string name="ui_name">Name : </string>
+    <string name="ui_company_name">Company Name : </string>
     <string name="ui_email">Email : </string>
     <string name="ui_contact_name">Contact Name : </string>
     <string name="ui_contact_number">Contact Phone number : </string>
-    <string name="ui_mailing_name">Mailing Name : </string>
+    <string name="ui_id">ID : </string>
     <string name="ui_phone_number">Phone number : </string>
     <string name="ui_address">Address</string>
     <string name="ui_pincode">Pincode : </string>
     <string name="ui_state">State : </string>
     <string name="ui_discount">Discount : </string>
     <string name="ui_gstin">GSTIN : </string>
-    <string name="ui_items_ordered">Items Ordered: </string>
-    <string name="ui_notes">Notes: </string>
+    <string name="ui_items_ordered">Items Ordered : </string>
+    <string name="ui_notes">Notes : </string>
     <string name="ui_total">Total : </string>
     <string name="ui_new_total">New Total : </string>
     <string name="view_full_order_details">View full order details</string>

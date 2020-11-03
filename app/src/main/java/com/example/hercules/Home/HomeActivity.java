@@ -14,7 +14,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 
 import com.andremion.counterfab.CounterFab;
@@ -42,7 +41,6 @@ import com.orhanobut.hawk.Hawk;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -360,12 +358,12 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         View hView = navigationView.getHeaderView(0);
 
         Log.d(TAG, "setupHeaderView: Header View credentials");
-        Log.d(TAG, "setupHeaderView: name: " + Hawk.get(getString(R.string.name)));
+        Log.d(TAG, "setupHeaderView: name: " + Hawk.get(getString(R.string.companyName)));
         Log.d(TAG, "setupHeaderView: email : " + Hawk.get(getString(R.string.email)));
         Log.d(TAG, "setupHeaderView: phone : " + Hawk.get(getString(R.string.phone)));
 
         TextView header_name = hView.findViewById(R.id.textview_header_name);
-        String name = Hawk.get(getString(R.string.name));
+        String name = Hawk.get(getString(R.string.companyName));
         header_name.setText(name);
 
         TextView header_email = hView.findViewById(R.id.textView_header_email_address);

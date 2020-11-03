@@ -1,38 +1,25 @@
 package com.example.hercules.OrderActivities;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.hercules.Database.Database;
 import com.example.hercules.Database.Order;
-import com.example.hercules.Models.Common;
-import com.example.hercules.Models.DataMessage;
-import com.example.hercules.Models.MyResponse;
 import com.example.hercules.Models.Requests;
-import com.example.hercules.Models.Token;
 import com.example.hercules.R;
-import com.example.hercules.Remote.APIService;
 import com.example.hercules.utils.InternetUtils.CheckInternetConnection;
 import com.example.hercules.utils.Notifications.NotificationUtil;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 import com.orhanobut.hawk.Hawk;
 
 import java.text.DateFormat;
@@ -40,13 +27,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class ConfirmationActivity extends AppCompatActivity {
 
@@ -99,10 +80,11 @@ public class ConfirmationActivity extends AppCompatActivity {
             handler.removeCallbacksAndMessages(null);
         });
 
-        Log.d(TAG, "onCreate: setting the user credentials");        Log.d(TAG, "onCreate: ID : " + Hawk.get(getString(R.string.mailingName)));
+        Log.d(TAG, "onCreate: setting the user credentials");
+        Log.d(TAG, "onCreate: ID : " + Hawk.get(getString(R.string.id)));
 
-        Log.d(TAG, "onCreate: Company Name : " + Hawk.get(getString(R.string.name)));
-        Log.d(TAG, "onCreate: ID : " + Hawk.get(getString(R.string.mailingName)));
+        Log.d(TAG, "onCreate: Company Name : " + Hawk.get(getString(R.string.companyName)));
+        Log.d(TAG, "onCreate: ID : " + Hawk.get(getString(R.string.id)));
         Log.d(TAG, "onCreate: Phone:  " + Hawk.get(getString(R.string.phone)));
         Log.d(TAG, "onCreate: Email : " + Hawk.get(getString(R.string.email)));
         Log.d(TAG, "onCreate: Address : " + Hawk.get(getString(R.string.address)));
@@ -113,8 +95,8 @@ public class ConfirmationActivity extends AppCompatActivity {
         Log.d(TAG, "onCreate: GSTIN : " + Hawk.get(getString(R.string.gstin)));
 
 
-        address.setText(getString(R.string.ui_order_confirmation_info, Hawk.get(getString(R.string.name)),
-                Hawk.get(getString(R.string.mailingName)), Hawk.get(getString(R.string.phone)),
+        address.setText(getString(R.string.ui_order_confirmation_info, Hawk.get(getString(R.string.companyName)),
+                Hawk.get(getString(R.string.id)), Hawk.get(getString(R.string.phone)),
                 Hawk.get(getString(R.string.email)), Hawk.get(getString(R.string.address)),
                 Hawk.get(getString(R.string.pincode)), Hawk.get(getString(R.string.state)),
                 Hawk.get(getString(R.string.contactName)), Hawk.get(getString(R.string.contactNumber)),
@@ -136,17 +118,17 @@ public class ConfirmationActivity extends AppCompatActivity {
 
 
             String currentDate = DateFormat.getDateInstance(DateFormat.FULL).format(calendar.getTime());
-            String orderID = "OD" + date + Hawk.get(getString(R.string.mailingName)).toString().trim().replaceAll(" ", "");
+            String orderID = "OD" + date + Hawk.get(getString(R.string.id)).toString().trim().replaceAll(" ", "");
 
             Log.d(TAG, "onCreate: uploading the customer request to Firebase");
             Requests requests = new Requests(
                     orderID,
                     currentDate,
-                    Hawk.get(getString(R.string.name)),
+                    Hawk.get(getString(R.string.companyName)),
                     Hawk.get(getString(R.string.phone)),
                     Hawk.get(getString(R.string.email)),
                     Hawk.get(getString(R.string.contactName)),
-                    Hawk.get(getString(R.string.mailingName)),
+                    Hawk.get(getString(R.string.id)),
                     Hawk.get(getString(R.string.contactNumber)),
                     Hawk.get(getString(R.string.gstin)),
                     discount.getText().toString(),
@@ -163,10 +145,10 @@ public class ConfirmationActivity extends AppCompatActivity {
             request = database.getReference(getString(R.string.firebase_request)).child(getString(R.string.firebase_new_orders));
             request.child(orderID).setValue(requests);
 
-            request = database.getReference(Hawk.get(getString(R.string.mailingName)).toString().replaceAll(" ", "")).child("Orders");
+            request = database.getReference(Hawk.get(getString(R.string.id)).toString().replaceAll(" ", "")).child("Orders");
             request.child(orderID).setValue(requests);
 
-            request = database.getReference(Hawk.get(getString(R.string.mailingName)).toString().replaceAll(" ", ""))
+            request = database.getReference(Hawk.get(getString(R.string.id)).toString().replaceAll(" ", ""))
                     .child(getString(R.string.firebase_new_orders));
             request.child(orderID).setValue(requests);
 
