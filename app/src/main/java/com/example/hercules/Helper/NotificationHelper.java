@@ -9,30 +9,34 @@ import android.content.Context;
 import android.content.ContextWrapper;
 import android.net.Uri;
 import android.os.Build;
-
+import android.util.Log;
 import com.example.hercules.Constants.Constants;
 import com.example.hercules.R;
 
 public class NotificationHelper extends ContextWrapper {
 
     private NotificationManager manager;
+    public static final String TAG = "Notification Helper";
 
     public NotificationHelper(Context base) {
         super(base);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            Log.d(TAG, "NotificationHelper: device android version is greater than Oreo");
+            Log.d(TAG, "NotificationHelper: need to create a channel for notification");
             createChannel();
         }
     }
 
     @TargetApi(Build.VERSION_CODES.O)
     private void createChannel() {
+        Log.d(TAG, "createChannel: creating notification channel");
         NotificationChannel channel = new  NotificationChannel(Constants.CHANNEL_ID, Constants.CHANNEL_NAME,
                 NotificationManager.IMPORTANCE_DEFAULT);
         channel.enableLights(false);
         channel.enableVibration(true);
-        channel.setLockscreenVisibility(Notification.VISIBILITY_PRIVATE);
-
+        channel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
+        channel.setImportance(NotificationManager.IMPORTANCE_HIGH);
         getManager().createNotificationChannel(channel);
     }
 
@@ -44,7 +48,8 @@ public class NotificationHelper extends ContextWrapper {
 
     @TargetApi(Build.VERSION_CODES.O)
     public Notification.Builder getHerculesChannelNotification(String title, String body, PendingIntent contentIntent, Uri soundUri) {
-            return new Notification.Builder(getApplicationContext(), Constants.CHANNEL_ID)
+        Log.d(TAG, "getHerculesChannelNotification: building notification");
+        return new Notification.Builder(getApplicationContext(), Constants.CHANNEL_ID)
                     .setContentIntent(contentIntent)
                     .setContentText(body)
                     .setSmallIcon(R.drawable.ic_stat_name)

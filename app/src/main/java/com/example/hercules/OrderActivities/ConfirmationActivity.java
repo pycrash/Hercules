@@ -39,7 +39,6 @@ public class ConfirmationActivity extends AppCompatActivity {
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference request;
     TextView discount, newTotal;
-    AlertDialog dialog;
     Handler handler;
     private static final String TAG = "ConfirmationActivity";
 
@@ -81,7 +80,6 @@ public class ConfirmationActivity extends AppCompatActivity {
         });
 
         Log.d(TAG, "onCreate: setting the user credentials");
-        Log.d(TAG, "onCreate: ID : " + Hawk.get(getString(R.string.id)));
         Log.d(TAG, "onCreate: Company Name : " + Hawk.get(getString(R.string.companyName)));
         Log.d(TAG, "onCreate: ID : " + Hawk.get(getString(R.string.id)));
         Log.d(TAG, "onCreate: Phone:  " + Hawk.get(getString(R.string.phone)));
@@ -102,7 +100,7 @@ public class ConfirmationActivity extends AppCompatActivity {
                 Hawk.get(getString(R.string.gstin))));
 
         total.setText(old_total);
-        discount.setText(getString(R.string.discount_display, String.valueOf(d)));
+        discount.setText(getString(R.string.discount_display, d));
         newTotal.setText(new_Total);
 
         btnContinue.setOnClickListener(view -> {

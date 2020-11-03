@@ -58,19 +58,16 @@ public class TradingAdapter extends RecyclerView.Adapter<TradingAdapter.SOLViewH
         }
 
         void bindProduct(UploadPDF uploadPDF) {
-            name.setText(uploadPDF.getName());
+            name.setText(uploadPDF.getCompanyName());
             date.setText(uploadPDF.getDate());
 
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    //Opening the upload file in browser using the upload url
-                    UploadPDF upload = uploadPDFList.get(getAdapterPosition());
+            view.setOnClickListener(view -> {
+                //Opening the upload file in browser using the upload url
+                UploadPDF upload = uploadPDFList.get(getAdapterPosition());
 
-                    Intent intent = new Intent(Intent.ACTION_VIEW);
-                    intent.setData(Uri.parse(upload.getUrl()));
-                    mContext.startActivity(intent);
-                }
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(upload.getUrl()));
+                mContext.startActivity(intent);
             });
         }
 

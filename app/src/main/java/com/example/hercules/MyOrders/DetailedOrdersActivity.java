@@ -88,9 +88,9 @@ public class DetailedOrdersActivity extends AppCompatActivity {
         Log.d(TAG, "onCreate: got the following info from previous activity");
         Log.d(TAG, "onCreate: Order ID : " + pendingOrderModel.getOrderID());
         Log.d(TAG, "onCreate: Order Date : " + pendingOrderModel.getDate());
-        Log.d(TAG, "onCreate: ID : " + pendingOrderModel.getName());
+        Log.d(TAG, "onCreate: ID : " + pendingOrderModel.getCompanyName());
         Log.d(TAG, "onCreate: Contact Name : " + pendingOrderModel.getContactName());
-        Log.d(TAG, "onCreate: Company Name : " + pendingOrderModel.getMailingName());
+        Log.d(TAG, "onCreate: Company Name : " + pendingOrderModel.getID());
         Log.d(TAG, "onCreate: Phone : " + pendingOrderModel.getPhone());
         Log.d(TAG, "onCreate: Email : " + pendingOrderModel.getEmail());
         Log.d(TAG, "onCreate: Contact Number : " + pendingOrderModel.getContactNumber());
@@ -105,9 +105,9 @@ public class DetailedOrdersActivity extends AppCompatActivity {
 
         orderid.setText(pendingOrderModel.getOrderID());
         date.setText(pendingOrderModel.getDate());
-        name.setText(pendingOrderModel.getName());
+        name.setText(pendingOrderModel.getCompanyName());
         contact_name.setText(pendingOrderModel.getContactName());
-        mailing_name.setText(pendingOrderModel.getMailingName());
+        mailing_name.setText(pendingOrderModel.getID());
         phone.setText(pendingOrderModel.getPhone());
         email.setText(pendingOrderModel.getEmail());
         contact_phone.setText(pendingOrderModel.getContactNumber());
@@ -207,7 +207,7 @@ public class DetailedOrdersActivity extends AppCompatActivity {
 
                                 Log.d(TAG, "onDataChange: sending notification to admin");
                                 String title = "Cancel Order " + pendingOrderModel.getOrderID();
-                                String message = pendingOrderModel.getName() + "has requested to cancel the order";
+                                String message = pendingOrderModel.getCompanyName() + "has requested to cancel the order";
                                 NotificationUtil.sendNotification(TAG, title, message, DetailedOrdersActivity.this);
 
                                 Log.d(TAG, "onDataChange: showing success toast to user");
@@ -228,7 +228,7 @@ public class DetailedOrdersActivity extends AppCompatActivity {
 
                                 Log.d(TAG, "onDataChange: sending notification to admin");
                                 String title = "Cancel Order " + pendingOrderModel.getOrderID();
-                                String message = pendingOrderModel.getName() + "has requested to cancel the order";
+                                String message = pendingOrderModel.getCompanyName() + "has requested to cancel the order";
                                 NotificationUtil.sendNotification(TAG, title, message, DetailedOrdersActivity.this);
 
                                 Log.d(TAG, "onDataChange: showing success toast to user");

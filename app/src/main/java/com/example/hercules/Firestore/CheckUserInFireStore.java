@@ -1,24 +1,18 @@
 package com.example.hercules.Firestore;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import android.content.Context;
-import android.content.DialogInterface;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
+
 import com.example.hercules.Home.HomeActivity;
 import com.example.hercules.LoginAndRegister.LoginSlider;
 import com.example.hercules.R;
 import com.example.hercules.utils.InternetUtils.CheckInternetConnection;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.orhanobut.hawk.Hawk;
 
@@ -34,44 +28,73 @@ public class CheckUserInFireStore extends AppCompatActivity {
         Log.d(TAG, "onCreate: started");
 
         Log.d(TAG, "onCreate: calling different methods");
-        Log.d(TAG, "onCreate: checking ");
-        CheckInternetConnection.showNoInternetDialog( CheckUserInFireStore.this, handler);
+        Log.d(TAG, "onCreate: checking internet connection");
+        CheckInternetConnection.showNoInternetDialog(CheckUserInFireStore.this, handler);
+
+        Log.d(TAG, "onCreate: calling checkUser method");
         checkUser();
 
     }
+
     public void checkUser() {
+        Log.d(TAG, "checkUser: started");
+
+        Log.d(TAG, "checkUser: connecting to FireStore5");
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         Hawk.init(CheckUserInFireStore.this).build();
-        DocumentReference doc = db.collection("Users").document(Hawk.get("email"));
+        DocumentReference doc = db.collection(getString(R.string.users)).document(Hawk.get(getString(R.string.email)));
         doc.get().addOnSuccessListener(documentSnapshot -> {
+            Intent intent;
             if (documentSnapshot.exists()) {
-                Intent intent = new Intent(CheckUserInFireStore.this, HomeActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                Hawk.init(CheckUserInFireStore.this).build();
-                Hawk.put("name", documentSnapshot.get("name"));
-                Hawk.put("email", documentSnapshot.get("email"));
-                Hawk.put("phone", documentSnapshot.get("phone"));
-                Hawk.put("mailingName", documentSnapshot.get("mailingName"));
-                Hawk.put("address", documentSnapshot.get("address"));
-                Hawk.put("pincode", documentSnapshot.get("pincode"));
-                Hawk.put("state", documentSnapshot.get("state"));
-                Hawk.put("contactName", documentSnapshot.get("contactName"));
-                Hawk.put("contactNumber", documentSnapshot.get("contactNumber"));
-                Hawk.put("gstin", documentSnapshot.get("gstin"));
-                Hawk.put("discount", documentSnapshot.get("discount"));
+                Log.d(TAG, "checkUser: document snapshot exists");
 
-                startActivity(intent);
-                overridePendingTransition(R.anim.fadein, R.anim.fadeout);
-                finish();
-            } else {
-                Intent intent = new Intent(CheckUserInFireStore.this, LoginSlider.class);
+                intent = new Intent(CheckUserInFireStore.this, HomeActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
+
+                Log.d(TAG, "checkUser: building Hawk");
+                Hawk.init(CheckUserInFireStore.this).build();
+
+                Log.d(TAG, "checkUser: saving user credentials");
+                Hawk.put(getString(R.string.companyName), documentSnapshot.get(getString(R.string.companyName)));
+                Hawk.put(getString(R.string.email), documentSnapshot.get(getString(R.string.email)));
+                Hawk.put(getString(R.string.phone), documentSnapshot.get(getString(R.string.phone)));
+                Hawk.put(getString(R.string.id), documentSnapshot.get(getString(R.string.id)));
+                Hawk.put(getString(R.string.address), documentSnapshot.get(getString(R.string.address)));
+                Hawk.put(getString(R.string.pincode), documentSnapshot.get(getString(R.string.pincode)));
+                Hawk.put(getString(R.string.state), documentSnapshot.get(getString(R.string.state)));
+                Hawk.put(getString(R.string.contactName), documentSnapshot.get(getString(R.string.contactName)));
+                Hawk.put(getString(R.string.contactNumber), documentSnapshot.get(getString(R.string.contactNumber)));
+                Hawk.put(getString(R.string.gstin), documentSnapshot.get(getString(R.string.gstin)));
+                Hawk.put(getString(R.string.discount), documentSnapshot.get(getString(R.string.discount)));
+
+                Log.d(TAG, "checkUser: saved the following info");
+                Log.d(TAG, "onCreate: Company Name : " + Hawk.get(getString(R.string.companyName)));
+                Log.d(TAG, "onCreate: ID : " + Hawk.get(getString(R.string.id)));
+                Log.d(TAG, "onCreate: Phone:  " + Hawk.get(getString(R.string.phone)));
+                Log.d(TAG, "onCreate: Email : " + Hawk.get(getString(R.string.email)));
+                Log.d(TAG, "onCreate: Address : " + Hawk.get(getString(R.string.address)));
+                Log.d(TAG, "onCreate: Pincode : " + Hawk.get(getString(R.string.pincode)));
+                Log.d(TAG, "onCreate: State : " + Hawk.get(getString(R.string.state)));
+                Log.d(TAG, "onCreate: Contact Name : " + Hawk.get(getString(R.string.contactName)));
+                Log.d(TAG, "onCreate: Contact Number : " + Hawk.get(getString(R.string.contactNumber)));
+                Log.d(TAG, "onCreate: GSTIN : " + Hawk.get(getString(R.string.gstin)));
+
+            } else {
+                Log.d(TAG, "checkUser: user doesn't exists in Firestore");
+                Log.d(TAG, "checkUser: going to loginslider activity");
+                intent = new Intent(CheckUserInFireStore.this, LoginSlider.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 Hawk.deleteAll();
-                overridePendingTransition(R.anim.fadein, R.anim.fadeout);
-                finish();
             }
+            Log.d(TAG, "checkUser: starting activity");
+            startActivity(intent);
+            Log.d(TAG, "checkUser: overriding the pending transitions and finishing");
+            overridePendingTransition(R.anim.fadein, R.anim.fadeout);
+            finish();
         }).addOnFailureListener(e -> {
+            Log.d(TAG, "checkUser: could not connect to server");
+            Log.d(TAG, "checkUser: got the following error " + e);
+            Log.d(TAG, "checkUser: showing the alert dialog to user");
             AlertDialog.Builder builder = new AlertDialog.Builder(CheckUserInFireStore.this, R.style.MyAlertDialogStyle);
             builder.setMessage("Error connecting to server").setPositiveButton("Retry", (dialogInterface, i) -> checkUser());
             builder.setCancelable(false);

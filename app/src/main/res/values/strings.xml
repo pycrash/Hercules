@@ -198,7 +198,7 @@
     <string name="gram">%1$s g</string>
     <string name="kcal">%1$s Kcal</string>
     <string name="nutritional_facts">Nutritional Facts	Per %1$s g</string>
-    <string name="discount_display">%1$s &#37;</string>
+    <string name="discount_display">%1$f &#37;</string>
 
     <string name="terms">By proceeding, you agree to our Terms of service &amp; Privacy policy.</string>
 

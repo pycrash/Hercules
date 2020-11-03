@@ -287,6 +287,7 @@ public class LoginActivity extends AppCompatActivity {
                         contactName = documentSnapshot.getString(getString(R.string.contactName));
                         contactNumber = documentSnapshot.getString(getString(R.string.contactNumber));
                         gstin = documentSnapshot.getString(getString(R.string.gstin));
+
                         if (documentSnapshot.getDouble(getString(R.string.discount)) != null) {
                             discount = documentSnapshot.getDouble(getString(R.string.discount));
                         } else {

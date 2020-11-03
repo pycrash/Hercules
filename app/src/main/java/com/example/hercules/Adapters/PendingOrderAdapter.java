@@ -93,9 +93,9 @@ public class PendingOrderAdapter extends RecyclerView.Adapter<PendingOrderAdapte
 
         holder.orderid.setText(listData.get(position).getOrderID());
         holder.date.setText(listData.get(position).getDate());
-        holder.name.setText(listData.get(position).getName());
+        holder.name.setText(listData.get(position).getCompanyName());
         holder.contact_name.setText(listData.get(position).getContactName());
-        holder.mailing_name.setText(listData.get(position).getMailingName());
+        holder.mailing_name.setText(listData.get(position).getID());
         holder.phone.setText(listData.get(position).getPhone());
         holder.email.setText(listData.get(position).getEmail());
         holder.contact_phone.setText(listData.get(position).getContactNumber());
@@ -115,14 +115,11 @@ public class PendingOrderAdapter extends RecyclerView.Adapter<PendingOrderAdapte
 
         MyOrderProductsAdapter cartAdapter  = new MyOrderProductsAdapter(listData.get(position).getCart(), context);
         holder.recyclerView.setAdapter(cartAdapter);
-        holder.done_order.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(context, MyOrders.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                context.startActivity(intent);
+        holder.done_order.setOnClickListener(view -> {
+            Intent intent = new Intent(context, MyOrders.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(intent);
 
-            }
         });
     }
 
