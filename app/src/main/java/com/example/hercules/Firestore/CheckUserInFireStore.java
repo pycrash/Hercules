@@ -29,6 +29,7 @@ public class CheckUserInFireStore extends AppCompatActivity {
 
         Log.d(TAG, "onCreate: calling different methods");
         Log.d(TAG, "onCreate: checking internet connection");
+        handler = new Handler();
         CheckInternetConnection.showNoInternetDialog(CheckUserInFireStore.this, handler);
 
         Log.d(TAG, "onCreate: calling checkUser method");

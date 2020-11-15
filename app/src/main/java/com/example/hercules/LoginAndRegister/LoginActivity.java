@@ -62,6 +62,10 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.login);
 
 
+        Log.d(TAG, "onCreate: calling check internet method");
+        handler = new Handler();
+        CheckInternetConnection.showNoInternetDialog(LoginActivity.this, handler);
+
         back = findViewById(R.id.back_login);
         back.setOnClickListener(view -> {
             Log.d(TAG, "onCreate: back pressed");
@@ -90,6 +94,7 @@ public class LoginActivity extends AppCompatActivity {
         change_email.setVisibility(View.GONE);
 
         Log.d(TAG, "onCreate: checking internet connection");
+        handler = new Handler();
         CheckInternetConnection.showNoInternetDialog(LoginActivity.this, handler);
 
         passwordVisibility.setOnClickListener(view -> {

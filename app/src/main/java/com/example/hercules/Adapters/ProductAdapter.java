@@ -17,8 +17,8 @@ import com.example.hercules.R;
 import java.util.List;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ExampleViewHolder> {
-    private List<ProductModel> mList;
-    private Context mContext;
+    private final List<ProductModel> mList;
+    private final Context mContext;
     private ItemClickListener clickListener;
 
 

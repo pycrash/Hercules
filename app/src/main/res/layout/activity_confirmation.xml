@@ -47,7 +47,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/activity_vertical_margin"
-                android:background="@drawable/rectangle_dark"
+                android:background="@drawable/rectangle"
                 android:padding="@dimen/activity_vertical_margin"
                 android:text="@string/address"
                 android:textColor="@color/text_color"
@@ -62,7 +62,7 @@
                 android:layout_marginStart="@dimen/activity_horizontal_margin"
                 android:layout_marginEnd="@dimen/activity_horizontal_margin"
                 android:layout_marginBottom="@dimen/activity_vertical_margin"
-                android:background="@drawable/rectangle_dark"
+                android:background="@drawable/rectangle"
                 android:orientation="horizontal">
 
                 <TextView
@@ -99,7 +99,7 @@
                 android:layout_marginStart="@dimen/activity_horizontal_margin"
                 android:layout_marginEnd="@dimen/activity_horizontal_margin"
                 android:layout_marginBottom="@dimen/activity_vertical_margin"
-                android:background="@drawable/rectangle_dark"
+                android:background="@drawable/rectangle"
                 android:orientation="horizontal">
 
                 <TextView
@@ -135,7 +135,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/activity_horizontal_margin"
                 android:layout_marginEnd="@dimen/activity_horizontal_margin"
-                android:background="@drawable/rectangle_dark"
+                android:background="@drawable/rectangle"
                 android:orientation="horizontal">
 
                 <TextView

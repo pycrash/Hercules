@@ -43,7 +43,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/rectangle_dark"
+            android:background="@drawable/rectangle"
             android:orientation="horizontal">
 
             <TextView
@@ -98,7 +98,7 @@
             android:id="@+id/password_linear_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/rectangle_dark"
+            android:background="@drawable/rectangle"
             android:orientation="horizontal">
 
 

@@ -47,6 +47,7 @@ public class MyOrders extends AppCompatActivity {
         noOrders = findViewById(R.id.new_orders_no_orders);
 
         Log.d(TAG, "onCreate: calling check Internet method");
+        handler = new Handler();
         CheckInternetConnection.showNoInternetDialog(MyOrders.this, handler);
         ImageView back;
         back = findViewById(R.id.back_login);

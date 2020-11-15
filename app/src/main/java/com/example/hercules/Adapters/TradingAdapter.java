@@ -20,7 +20,7 @@ import java.util.List;
 
 public class TradingAdapter extends RecyclerView.Adapter<TradingAdapter.SOLViewHolder> {
     public List<UploadPDF> uploadPDFList;
-    private Context mContext;
+    private final Context mContext;
 
     public TradingAdapter(List<UploadPDF> uploadPDFList, Context context) {
         this.uploadPDFList = uploadPDFList;
@@ -45,7 +45,7 @@ public class TradingAdapter extends RecyclerView.Adapter<TradingAdapter.SOLViewH
         return uploadPDFList.size();
     }
 
-    public class SOLViewHolder extends RecyclerView.ViewHolder{
+    public class SOLViewHolder extends RecyclerView.ViewHolder {
         TextView name, date;
         CardView view;
 
@@ -64,7 +64,6 @@ public class TradingAdapter extends RecyclerView.Adapter<TradingAdapter.SOLViewH
             view.setOnClickListener(view -> {
                 //Opening the upload file in browser using the upload url
                 UploadPDF upload = uploadPDFList.get(getAdapterPosition());
-
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setData(Uri.parse(upload.getUrl()));
                 mContext.startActivity(intent);

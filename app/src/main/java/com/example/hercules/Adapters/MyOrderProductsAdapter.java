@@ -1,42 +1,34 @@
 package com.example.hercules.Adapters;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
-import com.example.hercules.Database.Database;
 import com.example.hercules.Database.Order;
-import com.example.hercules.Interfaces.ItemClickListener;
 import com.example.hercules.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MyOrderProductsAdapter extends RecyclerView.Adapter<MyOrderProductsAdapter.CartViewHolder> {
 
-    private List<Order> listData;
-    private Context context;
+    private final List<Order> listData;
+    private final Context context;
 
-    class CartViewHolder extends RecyclerView.ViewHolder {
+    static class CartViewHolder extends RecyclerView.ViewHolder {
         public TextView price, name, id, quantity;
         public ImageView img;
-
 
 
         public void setName(TextView name) {
             this.name = name;
         }
+
         public CartViewHolder(@NonNull View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.my_order_product_name);

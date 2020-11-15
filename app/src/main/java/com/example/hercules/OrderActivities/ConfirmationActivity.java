@@ -49,6 +49,7 @@ public class ConfirmationActivity extends AppCompatActivity {
 
         Log.d(TAG, "onCreate: here");
         Log.d(TAG, "onCreate: calling no Internet util");
+        handler = new Handler();
         CheckInternetConnection.showNoInternetDialog(ConfirmationActivity.this, handler);
 
         discount = findViewById(R.id.discount);

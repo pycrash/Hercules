@@ -45,6 +45,7 @@ public class Trading extends AppCompatActivity {
         setContentView(R.layout.activity_trading);
 
         Log.d(TAG, "onCreate: calling no internet method");
+        handler = new Handler();
         CheckInternetConnection.showNoInternetDialog( Trading.this, handler);
 
         back = findViewById(R.id.back);

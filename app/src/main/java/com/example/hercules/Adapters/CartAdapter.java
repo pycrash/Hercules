@@ -25,13 +25,14 @@ import java.util.List;
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder> {
 
-    private List<Order> listData = new ArrayList<>();
+    private List<Order> listData;
     private Context context;
     double totalPrice = 0;
     private ItemClickListener clickListener;
     boolean removeAnything = false;
     int p;
     String TAG = "Cart";
+
     class CartViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView price, name, id;
         public ImageView img;
@@ -41,6 +42,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         public void setName(TextView name) {
             this.name = name;
         }
+
         public CartViewHolder(@NonNull View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.cart_product_name);
@@ -56,7 +58,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         public void onClick(View view) {
             if (clickListener != null) {
                 clickListener.onClick(view, getAdapterPosition());
-        };
+            }
 
         }
     }
@@ -85,68 +87,59 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         holder.price.setText(context.getString(R.string.price, String.valueOf(listData.get(position).getPrice() * listData.get(position).getQuantity())));
 
 
-            holder.quantity.setOnValueChangeListener(new ElegantNumberButton.OnValueChangeListener() {
-                @Override
-                public void onValueChange(ElegantNumberButton view, int oldValue, int newValue) {
-                    if (newValue > oldValue) {
+        holder.quantity.setOnValueChangeListener((view, oldValue, newValue) -> {
+            if (newValue > oldValue) {
 
-                        ij[0] = ij[0] + 1;
-                        Log.d(TAG, "onValueChange: "+ij[0]);
-                        Log.d(TAG, "onValueChange: "+ij[0]*multiplier);
-                        holder.quantity.setNumber(String.valueOf(ij[0] * multiplier));
-                        new Database(context).updateQuantity(listData.get(position).getProductID(), ij[0] * multiplier);
+                ij[0] = ij[0] + 1;
+                Log.d(TAG, "onValueChange: " + ij[0]);
+                Log.d(TAG, "onValueChange: " + ij[0] * multiplier);
+                holder.quantity.setNumber(String.valueOf(ij[0] * multiplier));
+                new Database(context).updateQuantity(listData.get(position).getProductID(), ij[0] * multiplier);
+                totalPrice = totalPrice + listData.get(position).getPrice() * multiplier;
+                String price = context.getString(R.string.price, String.valueOf(listData.get(position).getPrice() * ij[0] * multiplier));
+                holder.price.setText(price);
+            } else {
+
+                ij[0] = ij[0] - 1;
+                Log.d(TAG, "onValueChange: ");
+                Log.d(TAG, "onValueChange: " + ij[0]);
+                Log.d(TAG, "onValueChange: " + ij[0] * multiplier);
+                Log.d(TAG, "onValueChange:string " + (ij[0] * multiplier));
+                holder.quantity.setNumber(String.valueOf(ij[0] * multiplier));
+                totalPrice = totalPrice - listData.get(position).getPrice() * multiplier;
+                String price = context.getString(R.string.price, String.valueOf(listData.get(position).getPrice() * ij[0] * multiplier));
+                holder.price.setText(price);
+                if (ij[0] == 0) {
+                    holder.quantity.setNumber("0");
+                    AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.MyAlertDialogStyle);
+                    builder.setMessage("Are you sure you want to remove this product ?");
+                    builder.setCancelable(false);
+                    builder.setPositiveButton("OK", (dialogInterface, i) -> {
+                        new Database(context).deleteFromDatabase(listData.get(position).getProductID());
+                        String price1 = context.getString(R.string.price, String.valueOf(listData.get(position).getPrice() * multiplier));
+                        holder.price.setText(price1);
+                        removeAnything = true;
+                        p = position;
+                        removeAnything();
+                        dialogInterface.dismiss();
+
+                    });
+                    builder.setNegativeButton("Cancel", (dialogInterface, i) -> {
+                        holder.quantity.setNumber(String.valueOf(multiplier));
+                        dialogInterface.cancel();
                         totalPrice = totalPrice + listData.get(position).getPrice() * multiplier;
-                        String price = context.getString(R.string.price, String.valueOf(listData.get(position).getPrice() * ij[0] * multiplier));
-                        holder.price.setText(price);
-                    } else {
+                        String price12 = context.getString(R.string.price, String.valueOf(listData.get(position).getPrice() * multiplier));
+                        holder.price.setText(price12);
+                        ij[0] = 1;
+                    });
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
 
-                        ij[0] = ij[0] - 1;
-                        Log.d(TAG, "onValueChange: ");
-                        Log.d(TAG, "onValueChange: "+ij[0]);
-                        Log.d(TAG, "onValueChange: "+ij[0]*multiplier);
-                        Log.d(TAG, "onValueChange:string "+( ij[0] * multiplier));
-                        holder.quantity.setNumber(String.valueOf(ij[0] * multiplier));
-                        totalPrice = totalPrice - listData.get(position).getPrice() * multiplier;
-                        String price = context.getString(R.string.price, String.valueOf(listData.get(position).getPrice() * ij[0] * multiplier));
-                        holder.price.setText(price);
-                        if (ij[0] == 0) {
-                            holder.quantity.setNumber("0");
-                            AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.MyAlertDialogStyle);
-                            builder.setMessage("Are you sure you want to remove this product ?");
-                            builder.setCancelable(false);
-                            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    new Database(context).deleteFromDatabase(listData.get(position).getProductID());
-                                    String price = context.getString(R.string.price, String.valueOf(listData.get(position).getPrice() * multiplier));
-                                    holder.price.setText(price);
-                                    removeAnything = true;
-                                    p = position;
-                                    removeAnything();
-                                    dialogInterface.dismiss();
-
-                                }
-                            });
-                            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    holder.quantity.setNumber(String.valueOf(multiplier));
-                                    dialogInterface.cancel();
-                                    totalPrice = totalPrice + listData.get(position).getPrice() * multiplier;
-                                    String price = context.getString(R.string.price, String.valueOf(listData.get(position).getPrice() * multiplier));
-                                    holder.price.setText(price);
-                                    ij[0] = 1;
-                                }
-                            });
-                            AlertDialog dialog = builder.create();
-                            dialog.show();
-
-                        }
-                    }
                 }
-            });
+            }
+        });
 
-        }
+    }
 
 
     @Override
@@ -155,18 +148,21 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     }
 
     public double grandTotal() {
-        for(int i=0; i < listData.size(); i++) {
+        for (int i = 0; i < listData.size(); i++) {
             totalPrice += listData.get(i).getPrice() * listData.get(i).getQuantity();
         }
         return totalPrice;
     }
+
     public double totalChange() {
         return totalPrice;
     }
+
     public void setClickListener(ItemClickListener itemClickListener) {
         this.clickListener = itemClickListener;
 
     }
+
     public void removeAnything() {
         if (removeAnything) {
             listData.remove(p);

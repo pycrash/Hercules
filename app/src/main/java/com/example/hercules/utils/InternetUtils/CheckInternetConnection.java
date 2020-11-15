@@ -1,14 +1,12 @@
 package com.example.hercules.utils.InternetUtils;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-
-import androidx.appcompat.app.AlertDialog;
 
 import com.example.hercules.R;
 
@@ -42,20 +40,18 @@ public class CheckInternetConnection {
     }
 
     public static void showNoInternetDialog(Context context, Handler handler) {
-        AlertDialog dialog;
-        AlertDialog.Builder mBuilder = new AlertDialog.Builder(context);
+        android.app.AlertDialog dialog;
+        android.app.AlertDialog.Builder mBuilder = new AlertDialog.Builder(context);
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View mView = inflater.inflate(R.layout.dialog_no_internet, null);
         mBuilder.setView(mView);
         mBuilder.setCancelable(false);
         dialog = mBuilder.create();
 
-        handler = new Handler();
-        Handler finalHandler = handler;
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                finalHandler.postDelayed(this, 10);
+                handler.postDelayed(this, 10);
                 boolean isInternet = CheckInternetConnection.checkInternet(context);
                 if (!isInternet) {
                     dialog.show();

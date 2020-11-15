@@ -1,6 +1,5 @@
 package com.example.hercules.Adapters;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
@@ -9,39 +8,30 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.hercules.Models.Requests;
 import com.example.hercules.MyOrders.MyOrders;
 import com.example.hercules.R;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class PendingOrderAdapter extends RecyclerView.Adapter<PendingOrderAdapter.MyOrderHolder> {
 
     List<Requests> listData;
     Context context;
-    String TAG = "My Orders";
 
     public PendingOrderAdapter(Context context, List<Requests> listData) {
         this.listData = listData;
         this.context = context;
     }
 
-    class MyOrderHolder extends RecyclerView.ViewHolder {
-        public TextView orderid, date,name, contact_name,mailing_name, phone, contact_phone, address,state,
-                pincode,discount, amount, new_amount, gstin, email;
+    static class MyOrderHolder extends RecyclerView.ViewHolder {
+        public TextView orderid, date, name, contact_name, mailing_name, phone, contact_phone, address, state,
+                pincode, discount, amount, new_amount, gstin, email;
         public CardView done_order;
         RecyclerView recyclerView;
         TextView addNotes;
@@ -68,14 +58,13 @@ public class PendingOrderAdapter extends RecyclerView.Adapter<PendingOrderAdapte
             done_order = itemView.findViewById(R.id.pending_order_done);
             addNotes = itemView.findViewById(R.id.pending_order_add_notes);
             recyclerView = itemView.findViewById(R.id.new_order_items_recycler_view);
-            email =  itemView.findViewById(R.id.new_order_email);
+            email = itemView.findViewById(R.id.new_order_email);
             status = itemView.findViewById(R.id.pending_order_status);
 
 
         }
 
     }
-
 
 
     @NonNull
@@ -104,7 +93,7 @@ public class PendingOrderAdapter extends RecyclerView.Adapter<PendingOrderAdapte
         holder.pincode.setText(listData.get(position).getPincode());
         holder.discount.setText(listData.get(position).getDiscount());
         holder.amount.setText(listData.get(position).getTotal());
-        holder.amount.setPaintFlags(holder.amount.getPaintFlags()| Paint.STRIKE_THRU_TEXT_FLAG);
+        holder.amount.setPaintFlags(holder.amount.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         holder.new_amount.setText(listData.get(position).getNewTotal());
         holder.gstin.setText(listData.get(position).getGstin());
         holder.addNotes.setText(listData.get(position).getNotes());
@@ -113,7 +102,7 @@ public class PendingOrderAdapter extends RecyclerView.Adapter<PendingOrderAdapte
         holder.recyclerView.setHasFixedSize(true);
         holder.recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
 
-        MyOrderProductsAdapter cartAdapter  = new MyOrderProductsAdapter(listData.get(position).getCart(), context);
+        MyOrderProductsAdapter cartAdapter = new MyOrderProductsAdapter(listData.get(position).getCart(), context);
         holder.recyclerView.setAdapter(cartAdapter);
         holder.done_order.setOnClickListener(view -> {
             Intent intent = new Intent(context, MyOrders.class);
