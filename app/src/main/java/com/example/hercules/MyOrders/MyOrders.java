@@ -5,10 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.BroadcastReceiver;
+
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -17,7 +19,7 @@ import android.widget.Toast;
 import com.example.hercules.Adapters.MyOrderAdapter;
 import com.example.hercules.Models.Requests;
 import com.example.hercules.R;
-import com.example.hercules.utils.InternetUtils.CheckInternetConnection;
+import com.example.hercules.utils.InternetUtils.MyReciever;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -25,18 +27,27 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.orhanobut.hawk.Hawk;
 
+import org.imaginativeworld.oopsnointernet.ConnectionCallback;
+import org.imaginativeworld.oopsnointernet.NoInternetDialog;
+import org.imaginativeworld.oopsnointernet.NoInternetSnackbar;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyOrders extends AppCompatActivity {
+
+public class MyOrders extends AppCompatActivity{
     RecyclerView recyclerView;
     List<Requests> list;
     MyOrderAdapter adapter;
     ProgressBar progressBar;
     LinearLayout noOrders;
-    Handler handler;
+    // No Internet Dialog
+    NoInternetDialog noInternetDialog;
 
+    // No Internet Snackbar
+    NoInternetSnackbar noInternetSnackbar;
     public static final String TAG = "MyOrdersActivity";
+    private BroadcastReceiver MyReceiver = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,10 +56,11 @@ public class MyOrders extends AppCompatActivity {
 
         Log.d(TAG, "onCreate: Here");
         noOrders = findViewById(R.id.new_orders_no_orders);
+        noInternetDialog = new NoInternetDialog.Builder(MyOrders.this).build();
 
         Log.d(TAG, "onCreate: calling check Internet method");
-        handler = new Handler();
-        CheckInternetConnection.showNoInternetDialog(MyOrders.this, handler);
+        MyReceiver = new MyReciever();
+
         ImageView back;
         back = findViewById(R.id.back_login);
         back.setOnClickListener(view -> {
@@ -57,7 +69,6 @@ public class MyOrders extends AppCompatActivity {
             Log.d(TAG, "onClick: finishing this activity");
             finish();
             Log.d(TAG, "onClick: removing handler callbacks and messages");
-            handler.removeCallbacksAndMessages(null);
         });
         Log.d(TAG, "onCreate: making progress bar visible");
         progressBar = findViewById(R.id.my_orders_progress_bar);
@@ -77,6 +88,8 @@ public class MyOrders extends AppCompatActivity {
 
 
     }
+
+
 
     private void loadOrders() {
         Hawk.init(MyOrders.this).build();
@@ -128,7 +141,69 @@ public class MyOrders extends AppCompatActivity {
         Log.d(TAG, "onBackPressed: finishing the activity");
         finish();
         Log.d(TAG, "onBackPressed: removing callbacks and messages from handler");
-        handler.removeCallbacksAndMessages(null);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // No Internet Dialog
+        NoInternetDialog.Builder builder1 = new NoInternetDialog.Builder(this);
+
+        builder1.setConnectionCallback(new ConnectionCallback() { // Optional
+            @Override
+            public void hasActiveConnection(boolean hasActiveConnection) {
+                // ...
+            }
+        });
+        builder1.setCancelable(false); // Optional
+        builder1.setNoInternetConnectionTitle("No Internet"); // Optional
+        builder1.setNoInternetConnectionMessage("Check your Internet connection and try again"); // Optional
+        builder1.setShowInternetOnButtons(true); // Optional
+        builder1.setPleaseTurnOnText("Please turn on"); // Optional
+        builder1.setWifiOnButtonText("Wifi"); // Optional
+        builder1.setMobileDataOnButtonText("Mobile data"); // Optional
+
+        builder1.setOnAirplaneModeTitle("No Internet"); // Optional
+        builder1.setOnAirplaneModeMessage("You have turned on the airplane mode."); // Optional
+        builder1.setPleaseTurnOffText("Please turn off"); // Optional
+        builder1.setAirplaneModeOffButtonText("Airplane mode"); // Optional
+        builder1.setShowAirplaneModeOffButtons(true); // Optional
+
+        noInternetDialog = builder1.build();
+
+
+        // No Internet Snackbar
+        NoInternetSnackbar.Builder builder2 = new NoInternetSnackbar.Builder(this, (ViewGroup) findViewById(android.R.id.content));
+
+        builder2.setConnectionCallback(new ConnectionCallback() { // Optional
+            @Override
+            public void hasActiveConnection(boolean hasActiveConnection) {
+                // ...
+            }
+        });
+        builder2.setIndefinite(true); // Optional
+        builder2.setNoInternetConnectionMessage("No active Internet connection!"); // Optional
+        builder2.setOnAirplaneModeMessage("You have turned on the airplane mode!"); // Optional
+        builder2.setSnackbarActionText("Settings");
+        builder2.setShowActionToDismiss(false);
+        builder2.setSnackbarDismissActionText("OK");
+
+        noInternetSnackbar = builder2.build();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        // No Internet Dialog
+        if (noInternetDialog != null) {
+            noInternetDialog.destroy();
+        }
+
+        // No Internet Snackbar
+        if (noInternetSnackbar != null) {
+            noInternetSnackbar.destroy();
+        }
+    }
 }

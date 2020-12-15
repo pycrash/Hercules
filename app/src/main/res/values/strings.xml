@@ -60,7 +60,6 @@
     <string name="firebase_orders">Orders</string>
 
 
-
     <!-- ****************************** Do not edit ****************************** -->
     <!--  ****************************** Order related strings  ****************************** -->
     <string name="total">total</string>
@@ -191,7 +190,6 @@
     <string name="slider1_info">Give an energy boost for your workout sessions</string>
     <string name="slider2_info">Search across a large variety of products</string>
     <string name="slider3_info">100% safe and authentic products</string>
-
 
 
     <string name="product_id">Product ID: %1$s</string>
