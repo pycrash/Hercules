@@ -18,7 +18,7 @@
         app:tint="@color/text_color" />
 
 
-    <TextView
+    <ImageView
         android:id="@+id/info_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
